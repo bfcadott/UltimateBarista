@@ -5,12 +5,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="edu.oakland.ultimatebarista.Game"
-    android:background="@android:color/holo_orange_light">
+    android:background="@drawable/bg">
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageButton32"
+        android:id="@+id/menuButton"
         android:src="@android:drawable/ic_dialog_dialer"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
@@ -19,7 +19,7 @@
     <ImageButton
         android:layout_width="40dp"
         android:layout_height="50dp"
-        android:id="@+id/imageButton14"
+        android:id="@+id/smallButton"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -30,159 +30,159 @@
     <ImageButton
         android:layout_width="40dp"
         android:layout_height="50dp"
-        android:id="@+id/imageButton15"
+        android:id="@+id/medButton"
         android:background="#ff000000"
-        android:layout_below="@+id/imageButton14"
-        android:layout_alignLeft="@+id/imageButton14"
-        android:layout_alignStart="@+id/imageButton14"
+        android:layout_below="@+id/smallButton"
+        android:layout_alignLeft="@+id/smallButton"
+        android:layout_alignStart="@+id/smallButton"
         android:layout_marginTop="10dp" />
 
     <ImageButton
         android:layout_width="40dp"
         android:layout_height="50dp"
-        android:id="@+id/imageButton16"
+        android:id="@+id/largeButton"
         android:background="#ff000000"
-        android:layout_below="@+id/imageButton15"
-        android:layout_alignLeft="@+id/imageButton15"
-        android:layout_alignStart="@+id/imageButton15"
+        android:layout_below="@+id/medButton"
+        android:layout_alignLeft="@+id/medButton"
+        android:layout_alignStart="@+id/medButton"
         android:layout_marginTop="10dp" />
 
     <ImageButton
         android:layout_width="40dp"
         android:layout_height="50dp"
-        android:id="@+id/imageButton17"
+        android:id="@+id/wholeButton"
         android:background="#ff000000"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/imageButton14"
-        android:layout_toEndOf="@+id/imageButton14"
+        android:layout_toRightOf="@+id/smallButton"
+        android:layout_toEndOf="@+id/smallButton"
         android:layout_marginLeft="50dp" />
 
     <ImageButton
         android:layout_width="40dp"
         android:layout_height="50dp"
-        android:id="@+id/imageButton18"
+        android:id="@+id/nonfatButton"
         android:background="#ff000000"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/imageButton17"
-        android:layout_toEndOf="@+id/imageButton17"
+        android:layout_toRightOf="@+id/wholeButton"
+        android:layout_toEndOf="@+id/wholeButton"
         android:layout_marginLeft="15dp" />
 
     <ImageButton
         android:layout_width="40dp"
         android:layout_height="50dp"
-        android:id="@+id/imageButton19"
+        android:id="@+id/whipButton"
         android:background="#ff000000"
-        android:layout_above="@+id/imageButton16"
-        android:layout_alignLeft="@+id/imageButton18"
-        android:layout_alignStart="@+id/imageButton18" />
+        android:layout_above="@+id/largeButton"
+        android:layout_alignLeft="@+id/nonfatButton"
+        android:layout_alignStart="@+id/nonfatButton" />
 
     <ImageButton
         android:layout_width="40dp"
         android:layout_height="50dp"
-        android:id="@+id/imageButton20"
+        android:id="@+id/soyButton"
         android:background="#ff000000"
-        android:layout_alignTop="@+id/imageButton15"
-        android:layout_toLeftOf="@+id/imageButton18"
-        android:layout_toStartOf="@+id/imageButton18" />
+        android:layout_alignTop="@+id/medButton"
+        android:layout_toLeftOf="@+id/nonfatButton"
+        android:layout_toStartOf="@+id/nonfatButton" />
 
     <ImageButton
         android:layout_width="40dp"
         android:layout_height="50dp"
-        android:id="@+id/imageButton21"
+        android:id="@+id/decafButton"
         android:background="#ff000000"
-        android:layout_above="@+id/imageButton18"
-        android:layout_toRightOf="@+id/imageButton23"
-        android:layout_toEndOf="@+id/imageButton23"
+        android:layout_above="@+id/nonfatButton"
+        android:layout_toRightOf="@+id/steamButton"
+        android:layout_toEndOf="@+id/steamButton"
         android:layout_marginLeft="15dp" />
 
     <ImageButton
         android:layout_width="40dp"
         android:layout_height="50dp"
-        android:id="@+id/imageButton23"
+        android:id="@+id/steamButton"
         android:background="#ff000000"
-        android:layout_above="@+id/imageButton18"
-        android:layout_toRightOf="@+id/imageButton18"
-        android:layout_toEndOf="@+id/imageButton18"
+        android:layout_above="@+id/nonfatButton"
+        android:layout_toRightOf="@+id/nonfatButton"
+        android:layout_toEndOf="@+id/nonfatButton"
         android:layout_marginLeft="50dp" />
 
     <ImageButton
         android:layout_width="40dp"
         android:layout_height="50dp"
-        android:id="@+id/imageButton22"
+        android:id="@+id/regularButton"
         android:background="#ff000000"
-        android:layout_alignTop="@+id/imageButton21"
-        android:layout_toRightOf="@+id/imageButton21"
-        android:layout_toEndOf="@+id/imageButton21"
+        android:layout_alignTop="@+id/decafButton"
+        android:layout_toRightOf="@+id/decafButton"
+        android:layout_toEndOf="@+id/decafButton"
         android:layout_marginLeft="15dp" />
 
     <ImageButton
         android:layout_width="40dp"
         android:layout_height="50dp"
-        android:id="@+id/imageButton24"
+        android:id="@+id/vanillaButton"
         android:background="#ff000000"
-        android:layout_below="@+id/imageButton18"
-        android:layout_alignLeft="@+id/imageButton23"
-        android:layout_alignStart="@+id/imageButton23" />
+        android:layout_below="@+id/nonfatButton"
+        android:layout_alignLeft="@+id/steamButton"
+        android:layout_alignStart="@+id/steamButton" />
 
     <ImageButton
         android:layout_width="40dp"
         android:layout_height="50dp"
-        android:id="@+id/imageButton25"
+        android:id="@+id/caramelButton"
         android:background="#ff000000"
-        android:layout_alignTop="@+id/imageButton24"
-        android:layout_alignLeft="@+id/imageButton21"
-        android:layout_alignStart="@+id/imageButton21" />
+        android:layout_alignTop="@+id/vanillaButton"
+        android:layout_alignLeft="@+id/decafButton"
+        android:layout_alignStart="@+id/decafButton" />
 
     <ImageButton
         android:layout_width="40dp"
         android:layout_height="50dp"
-        android:id="@+id/imageButton26"
+        android:id="@+id/hazelnutButton"
         android:background="#ff000000"
-        android:layout_alignTop="@+id/imageButton25"
-        android:layout_toRightOf="@+id/imageButton25"
-        android:layout_toEndOf="@+id/imageButton25"
+        android:layout_alignTop="@+id/caramelButton"
+        android:layout_toRightOf="@+id/caramelButton"
+        android:layout_toEndOf="@+id/caramelButton"
         android:layout_marginLeft="15dp" />
 
     <ImageButton
         android:layout_width="40dp"
         android:layout_height="50dp"
-        android:id="@+id/imageButton27"
+        android:id="@+id/chocolateButton"
         android:background="#ff000000"
-        android:layout_alignTop="@+id/imageButton16"
-        android:layout_alignLeft="@+id/imageButton24"
-        android:layout_alignStart="@+id/imageButton24" />
+        android:layout_alignTop="@+id/largeButton"
+        android:layout_alignLeft="@+id/vanillaButton"
+        android:layout_alignStart="@+id/vanillaButton" />
 
     <ImageButton
         android:layout_width="40dp"
         android:layout_height="50dp"
-        android:id="@+id/imageButton28"
+        android:id="@+id/whitechocolateButton"
         android:background="#ff000000"
-        android:layout_alignTop="@+id/imageButton29"
-        android:layout_alignLeft="@+id/imageButton25"
-        android:layout_alignStart="@+id/imageButton25" />
+        android:layout_alignTop="@+id/peppermintButton"
+        android:layout_alignLeft="@+id/caramelButton"
+        android:layout_alignStart="@+id/caramelButton" />
 
     <ImageButton
         android:layout_width="40dp"
         android:layout_height="50dp"
-        android:id="@+id/imageButton29"
+        android:id="@+id/peppermintButton"
         android:background="#ff000000"
-        android:layout_alignTop="@+id/imageButton27"
-        android:layout_alignLeft="@+id/imageButton26"
-        android:layout_alignStart="@+id/imageButton26" />
+        android:layout_alignTop="@+id/chocolateButton"
+        android:layout_alignLeft="@+id/hazelnutButton"
+        android:layout_alignStart="@+id/hazelnutButton" />
 
     <ImageButton
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:id="@+id/imageButton30"
+        android:id="@+id/handButton"
         android:background="#ff000000"
-        android:layout_alignTop="@+id/imageButton18"
+        android:layout_alignTop="@+id/nonfatButton"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
     <ImageButton
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:id="@+id/imageButton31"
+        android:id="@+id/trashButton"
         android:background="#ff000000"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
@@ -194,14 +194,14 @@
         android:background="#ff9000ff"
         android:padding="10dp"
         android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/imageButton14"
-        android:layout_alignStart="@+id/imageButton14"
-        android:layout_above="@+id/imageButton14">
+        android:layout_alignLeft="@+id/smallButton"
+        android:layout_alignStart="@+id/smallButton"
+        android:layout_above="@+id/smallButton">
 
         <ListView
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:id="@+id/listView"
+            android:id="@+id/ordersList"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
@@ -212,26 +212,26 @@
         android:layout_height="wrap_content"
         android:id="@+id/chronometer"
         android:textSize="20dp"
-        android:layout_alignBottom="@+id/textView10"
-        android:layout_alignRight="@+id/imageButton22"
-        android:layout_alignEnd="@+id/imageButton22" />
+        android:layout_alignBottom="@+id/levelTitle"
+        android:layout_alignRight="@+id/regularButton"
+        android:layout_alignEnd="@+id/regularButton" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Morning Rush"
-        android:id="@+id/textView10"
+        android:id="@+id/levelTitle"
         android:layout_centerHorizontal="true" />
 
     <ProgressBar
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/progressBar"
-        android:layout_below="@+id/textView10"
-        android:layout_alignLeft="@+id/textView10"
-        android:layout_alignStart="@+id/textView10"
+        android:id="@+id/levelProgressBar"
+        android:layout_below="@+id/levelTitle"
+        android:layout_alignLeft="@+id/levelTitle"
+        android:layout_alignStart="@+id/levelTitle"
         android:max="100"
         android:progress="50"
         android:indeterminate="false"
@@ -244,14 +244,13 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="1/3 orders"
-        android:id="@+id/textView11"
-        android:layout_alignTop="@+id/imageButton32"
+        android:id="@+id/levelProgressText"
         android:textColor="#ffffffff"
-        android:layout_marginTop="20dp"
-        android:layout_alignRight="@+id/progressBar"
-        android:layout_alignEnd="@+id/progressBar"
-        android:layout_alignLeft="@+id/progressBar"
-        android:layout_alignStart="@+id/progressBar"
-        android:gravity="center" />
+        android:gravity="center"
+        android:layout_below="@+id/levelProgressBar"
+        android:layout_alignLeft="@+id/levelProgressBar"
+        android:layout_alignStart="@+id/levelProgressBar"
+        android:layout_alignRight="@+id/levelProgressBar"
+        android:layout_alignEnd="@+id/levelProgressBar" />
 
 </RelativeLayout>

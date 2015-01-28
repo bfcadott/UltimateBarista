@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Welcome to Ultimate Barista!"
-        android:id="@+id/textView"
+        android:id="@+id/titleText"
         android:textColor="#ffffffff"
         android:textSize="28sp"
         android:layout_alignParentTop="true"
@@ -23,36 +23,38 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Unlock all the levels to become the ultimate barista!"
-        android:id="@+id/textView2"
-        android:layout_below="@+id/textView"
+        android:id="@+id/subtitleText"
+        android:layout_below="@+id/titleText"
         android:layout_centerHorizontal="true" />
 
     <TableLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
+        android:layout_below="@+id/subtitleText"
         android:layout_centerHorizontal="true"
         android:id="@+id/tableLayout">
 
         <TableRow
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:id="@+id/row1">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Level 1"
-                android:id="@+id/textView3"
+                android:id="@+id/level1text"
                 android:layout_column="0"
                 android:layout_margin="20dp" />
+
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Level 2"
-                android:id="@+id/textView4"
+                android:id="@+id/level2text"
                 android:layout_column="1"
                 android:layout_margin="20dp" />
 
@@ -61,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Level 3"
-                android:id="@+id/textView5"
+                android:id="@+id/level3text"
                 android:layout_column="2"
                 android:layout_margin="20dp" />
 
@@ -70,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Level 4"
-                android:id="@+id/textView6"
+                android:id="@+id/level4text"
                 android:layout_column="3"
                 android:layout_margin="20dp" />
 
@@ -79,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Level 5"
-                android:id="@+id/textView7"
+                android:id="@+id/level5text"
                 android:layout_column="4"
                 android:layout_margin="20dp" />
 
@@ -88,110 +90,123 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Level 6"
-                android:id="@+id/textView8"
+                android:id="@+id/level6text"
                 android:layout_column="5"
                 android:layout_margin="20dp" />
         </TableRow>
 
         <TableRow
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:id="@+id/row2">
 
             <ImageButton
                 android:layout_width="50dp"
                 android:layout_height="80dp"
-                android:id="@+id/imageButton"
+                android:id="@+id/level1button"
                 android:layout_column="0"
-                android:src="@android:drawable/star_big_off" />
+                android:src="@android:drawable/star_big_off"
+                android:enabled = "false"/>
 
             <ImageButton
                 android:layout_width="50dp"
                 android:layout_height="80dp"
-                android:id="@+id/imageButton3"
+                android:id="@+id/level2button"
                 android:layout_column="1"
-                android:src="@android:drawable/star_big_off" />
+                android:src="@android:drawable/star_big_off"
+                android:enabled = "false"/>
 
             <ImageButton
                 android:layout_width="50dp"
                 android:layout_height="80dp"
-                android:id="@+id/imageButton5"
+                android:id="@+id/level3button"
                 android:layout_column="2"
-                android:src="@android:drawable/star_big_off" />
+                android:src="@android:drawable/star_big_off"
+                android:enabled = "false"/>
 
             <ImageButton
                 android:layout_width="50dp"
                 android:layout_height="80dp"
-                android:id="@+id/imageButton7"
+                android:id="@+id/level4button"
                 android:layout_column="3"
-                android:src="@android:drawable/star_big_off" />
+                android:src="@android:drawable/star_big_off"
+                android:enabled = "false"/>
 
             <ImageButton
                 android:layout_width="50dp"
                 android:layout_height="80dp"
-                android:id="@+id/imageButton9"
+                android:id="@+id/level5button"
                 android:layout_column="4"
-                android:src="@android:drawable/star_big_off" />
+                android:src="@android:drawable/star_big_off"
+                android:enabled = "false"/>
 
             <ImageButton
                 android:layout_width="50dp"
                 android:layout_height="80dp"
-                android:id="@+id/imageButton11"
+                android:id="@+id/level6button"
                 android:layout_column="5"
-                android:src="@android:drawable/star_big_off" />
+                android:src="@android:drawable/star_big_off"
+                android:enabled = "false"/>
         </TableRow>
 
         <TableRow
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:id="@+id/row3">
 
             <ImageButton
                 android:layout_width="50dp"
                 android:layout_height="80dp"
-                android:id="@+id/imageButton2"
+                android:id="@+id/level7button"
                 android:layout_column="0"
-                android:src="@android:drawable/star_big_on" />
+                android:src="@android:drawable/star_big_on"
+                android:enabled = "false"/>
 
             <ImageButton
                 android:layout_width="50dp"
                 android:layout_height="80dp"
-                android:id="@+id/imageButton4"
+                android:id="@+id/level8button"
                 android:layout_column="1"
-                android:src="@android:drawable/star_big_off" />
+                android:src="@android:drawable/star_big_off"
+                android:enabled = "false"/>
 
             <ImageButton
                 android:layout_width="50dp"
                 android:layout_height="80dp"
-                android:id="@+id/imageButton6"
+                android:id="@+id/level9button"
                 android:layout_column="2"
-                android:src="@android:drawable/star_big_off" />
+                android:src="@android:drawable/star_big_off"
+                android:enabled = "false"/>
 
             <ImageButton
                 android:layout_width="50dp"
                 android:layout_height="80dp"
-                android:id="@+id/imageButton8"
+                android:id="@+id/level10button"
                 android:layout_column="3"
-                android:src="@android:drawable/star_big_off" />
+                android:src="@android:drawable/star_big_off"
+                android:enabled = "false"/>
 
             <ImageButton
                 android:layout_width="50dp"
                 android:layout_height="80dp"
-                android:id="@+id/imageButton10"
+                android:id="@+id/level11button"
                 android:layout_column="4"
                 android:src="@android:drawable/star_big_off" />
 
             <ImageButton
                 android:layout_width="50dp"
                 android:layout_height="80dp"
-                android:id="@+id/imageButton12"
+                android:id="@+id/level12button"
                 android:layout_column="5"
-                android:src="@android:drawable/star_big_off" />
+                android:src="@android:drawable/star_big_off"
+                android:enabled = "false"/>
         </TableRow>
     </TableLayout>
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageButton13"
+        android:id="@+id/menubutton"
         android:src="@android:drawable/ic_dialog_dialer"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
