@@ -1,5 +1,6 @@
 package edu.oakland.ultimatebarista;
 
+//import list, brings in needed functionality
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,9 +19,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-
 public class Levels extends Activity implements View.OnClickListener {
+    //Filename for our level progress save file
     String fileName = "ultimatebarista.txt";
+    
+    //Creates all imageButtons
     ImageButton level1 = null;
     ImageButton level2 = null;
     ImageButton level3 = null;
@@ -35,6 +38,7 @@ public class Levels extends Activity implements View.OnClickListener {
     ImageButton level12 = null;
     TextView titleText = null;
 
+    //Stringbuffer for reading in save file
     final StringBuffer storedString = new StringBuffer();
 
     @Override
@@ -42,10 +46,13 @@ public class Levels extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_levels);
 
+        //Creates title text TextBox
         titleText = (TextView) findViewById(R.id.titleText);
 
+        //Creates file holder to retrieve save file
         File file = new File(this.getFilesDir(), fileName);
         try {
+            //Reads save file
             BufferedReader buf = new BufferedReader(new FileReader(file));
             String strLine = null;
             if((strLine = buf.readLine()) != null) {
@@ -61,7 +68,7 @@ public class Levels extends Activity implements View.OnClickListener {
         titleText.setText(storedString);
 
 
-
+        //Defines all ImageButtons based on assets in the GUI
         level1 = (ImageButton) findViewById(R.id.level1button);
         level2 = (ImageButton) findViewById(R.id.level2button);
         level3 = (ImageButton) findViewById(R.id.level3button);
@@ -75,6 +82,7 @@ public class Levels extends Activity implements View.OnClickListener {
         level11 = (ImageButton) findViewById(R.id.level11button);
         level12 = (ImageButton) findViewById(R.id.level12button);
 
+        //Links all buttons to appropriate listeners
         level1.setOnClickListener(this);
         level2.setOnClickListener(this);
         level3.setOnClickListener(this);
@@ -88,7 +96,8 @@ public class Levels extends Activity implements View.OnClickListener {
         level11.setOnClickListener(this);
         level12.setOnClickListener(this);
 
-
+        //Set all levels to FALSE enabled, this prevents players
+        //from playing a level they have yet to unlock
         level12.setEnabled(false);
         level11.setEnabled(false);
         level10.setEnabled(false);
@@ -101,6 +110,9 @@ public class Levels extends Activity implements View.OnClickListener {
         level3.setEnabled(false);
         level2.setEnabled(false);
         level1.setEnabled(false);
+        
+        //Reads the integer from the save file and unlocks levels
+        //based on user progress
         switch (Integer.valueOf(storedString.toString())) {
             case 12:
                 level12.setEnabled(true);
@@ -136,6 +148,7 @@ public class Levels extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        //Listener decides what level to load based on which button throws the onClick event
         Intent i = new Intent(this, Game.class);
         switch (v.getId()) {
             case R.id.level1button:
