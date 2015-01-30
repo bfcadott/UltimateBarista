@@ -192,40 +192,40 @@ public class Levels extends Activity implements View.OnClickListener {
         Intent i = new Intent(this, Game.class);
         switch (v.getId()) {
             case R.id.level1button:
-                i.putExtra("level",1);
+                i.putExtra("level","1");
                 break;
             case R.id.level2button:
-                i.putExtra("level",2);
+                i.putExtra("level","2");
                 break;
             case R.id.level3button:
-                i.putExtra("level",3);
+                i.putExtra("level","3");
                 break;
             case R.id.level4button:
-                i.putExtra("level",4);
+                i.putExtra("level","4");
                 break;
             case R.id.level5button:
-                i.putExtra("level",5);
+                i.putExtra("level","5");
                 break;
             case R.id.level6button:
-                i.putExtra("level",6);
+                i.putExtra("level","6");
                 break;
             case R.id.level7button:
-                i.putExtra("level",7);
+                i.putExtra("level","7");
                 break;
             case R.id.level8button:
-                i.putExtra("level",8);
+                i.putExtra("level","8");
                 break;
             case R.id.level9button:
-                i.putExtra("level",9);
+                i.putExtra("level","9");
                 break;
             case R.id.level10button:
-                i.putExtra("level",10);
+                i.putExtra("level","10");
                 break;
             case R.id.level11button:
-                i.putExtra("level",11);
+                i.putExtra("level","11");
                 break;
             case R.id.level12button:
-                i.putExtra("level",12);
+                i.putExtra("level","12");
                 break;
         }
 

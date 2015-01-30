@@ -5,14 +5,27 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 
 public class Game extends Activity {
+    TextView levelTitle = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+
+        levelTitle = (TextView) findViewById(R.id.levelTitle);
+
+        Intent i = getIntent();
+        String level = i.getStringExtra("level");
+
+        levelTitle.setText(level);
+
 
     }
 
