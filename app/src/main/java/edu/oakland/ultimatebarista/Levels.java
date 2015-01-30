@@ -75,8 +75,6 @@ public class Levels extends Activity implements View.OnClickListener {
         level11 = (ImageButton) findViewById(R.id.level11button);
         level12 = (ImageButton) findViewById(R.id.level12button);
 
-
-
         level1.setOnClickListener(this);
         level2.setOnClickListener(this);
         level3.setOnClickListener(this);
