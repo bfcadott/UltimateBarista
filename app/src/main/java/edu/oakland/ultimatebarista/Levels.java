@@ -65,10 +65,10 @@ public class Levels extends Activity implements View.OnClickListener {
             e.printStackTrace();
         }
 
-        titleText.setText(storedString);
 
 
         //Defines all ImageButtons based on assets in the GUI
+
         level1 = (ImageButton) findViewById(R.id.level1button);
         level2 = (ImageButton) findViewById(R.id.level2button);
         level3 = (ImageButton) findViewById(R.id.level3button);
@@ -113,32 +113,72 @@ public class Levels extends Activity implements View.OnClickListener {
         
         //Reads the integer from the save file and unlocks levels
         //based on user progress
-        switch (Integer.valueOf(storedString.toString())) {
+
+        int level = Integer.valueOf(storedString.toString());
+
+        switch (level) {
+            case 13:
+                level12.setImageResource(R.drawable.coffeecupgreen);
             case 12:
                 level12.setEnabled(true);
+                if(level == 12)
+                    level12.setImageResource(R.drawable.coffeecupdkgray);
+                level11.setImageResource(R.drawable.coffeecupgreen);
             case 11:
                 level11.setEnabled(true);
+                if(level == 11)
+                    level11.setImageResource(R.drawable.coffeecupdkgray);
+                level10.setImageResource(R.drawable.coffeecupgreen);
             case 10:
                 level10.setEnabled(true);
+                if(level == 10)
+                    level10.setImageResource(R.drawable.coffeecupdkgray);
+                level9.setImageResource(R.drawable.coffeecupgreen);
             case 9:
                 level9.setEnabled(true);
+                if(level == 9)
+                    level9.setImageResource(R.drawable.coffeecupdkgray);
+                level8.setImageResource(R.drawable.coffeecupgreen);
             case 8:
                 level8.setEnabled(true);
+                if(level == 8)
+                    level8.setImageResource(R.drawable.coffeecupdkgray);
+                level7.setImageResource(R.drawable.coffeecupgreen);
             case 7:
                 level7.setEnabled(true);
+                if(level == 7)
+                    level7.setImageResource(R.drawable.coffeecupdkgray);
+                level6.setImageResource(R.drawable.coffeecupgreen);
             case 6:
                 level6.setEnabled(true);
+                if(level == 6)
+                    level6.setImageResource(R.drawable.coffeecupdkgray);
+                level5.setImageResource(R.drawable.coffeecupgreen);
             case 5:
                 level5.setEnabled(true);
+                if(level == 5)
+                    level5.setImageResource(R.drawable.coffeecupdkgray);
+                level4.setImageResource(R.drawable.coffeecupgreen);
             case 4:
                 level4.setEnabled(true);
+                if(level == 4)
+                    level4.setImageResource(R.drawable.coffeecupdkgray);
+                level3.setImageResource(R.drawable.coffeecupgreen);
             case 3:
                 level3.setEnabled(true);
+                if(level == 3)
+                    level3.setImageResource(R.drawable.coffeecupdkgray);
+                level2.setImageResource(R.drawable.coffeecupgreen);
             case 2:
                 level2.setEnabled(true);
+                if(level == 2)
+                    level2.setImageResource(R.drawable.coffeecupdkgray);
+
+                level1.setImageResource(R.drawable.coffeecupgreen);
             case 1:
                 level1.setEnabled(true);
-
+                if(level == 1)
+                    level1.setImageResource(R.drawable.coffeecupdkgray);
         }
 
 
