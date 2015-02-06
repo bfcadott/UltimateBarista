@@ -1,5 +1,6 @@
 package edu.oakland.ultimatebarista;
 
+//Imports allow usage of built-in functionality
 import android.app.Activity;
 import android.content.Intent;
 import android.media.Image;
@@ -15,8 +16,10 @@ import org.w3c.dom.Text;
 
 import java.util.Random;
 
-
+//Class which controls Game-Screen functionality
 public class Game extends Activity implements View.OnClickListener{
+    
+    //Initalizing Buttons and Text boxes
     TextView levelTitle = null;
     TextView drinkDisplay = null;
     ImageButton handButton = null;
@@ -31,6 +34,7 @@ public class Game extends Activity implements View.OnClickListener{
 
     Button steamButton = null;
 
+    //Placeholder Integers to make array referencing quick and easy
     int CUP_SIZE = 0;
     int STEAM = 1;
     int MILK_TYPE = 2;
@@ -44,6 +48,7 @@ public class Game extends Activity implements View.OnClickListener{
     int REG_ESP = 10;
     int WHP_CRM = 11;
 
+    //Three arrays to hold: Customer Drink, User Drink, and the empty array to help reinitalize user drink
     int[] customerOrder = new int[12];
     int[] userBeverage = {-1,0,-1,0,0,0,0,0,0,0,0,0};
     int[] emptyArray = {-1,0,-1,0,0,0,0,0,0,0,0,0};
@@ -53,7 +58,7 @@ public class Game extends Activity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-
+        //Creation of buttons and text boxes and linkage to their GUI asset
         levelTitle = (TextView) findViewById(R.id.levelTitle);
         handButton = (ImageButton) findViewById(R.id.handButton);
         trashButton = (ImageButton) findViewById(R.id.trashButton);
@@ -68,6 +73,8 @@ public class Game extends Activity implements View.OnClickListener{
 
         steamButton = (Button) findViewById(R.id.steamButton);
 
+        //Adding all buttons to the Class Listener
+        
         handButton.setOnClickListener(this);
         trashButton.setOnClickListener(this);
 
@@ -81,6 +88,7 @@ public class Game extends Activity implements View.OnClickListener{
 
         steamButton.setOnClickListener(this);
 
+        //Retrieve the Level number from the Intent
         Intent i = getIntent();
         String level = i.getStringExtra("level");
 
@@ -106,6 +114,7 @@ public class Game extends Activity implements View.OnClickListener{
         displayDrinkOrder();
 
     }
+    //Generates a random drink based on the argument of whichever level user is playing
     public void randomDrinkGen(int level) {
         int[] drink = new int[12];
         Random rand = new Random();
@@ -125,7 +134,8 @@ public class Game extends Activity implements View.OnClickListener{
         }
         customerOrder = drink;
     }
-
+    
+    //Reads the drink the customer wants and displays it to the text box on screen
     public void displayDrinkOrder() {
         drinkDisplay = (TextView) findViewById(R.id.drinkDisplay);
         StringBuffer drinkOrder = new StringBuffer();
@@ -167,6 +177,14 @@ public class Game extends Activity implements View.OnClickListener{
     }
 
     @Override
+    
+    /*
+    Class Listener, takes all button input and switches cases based on which button threw the event
+    HandButton: Checks if player drink is equal to customer drink; if yes, succeed, if no, fail
+    TrashButton: Sets the player drink equal to the empty array, allowing them to start over
+    Small/Med/Large Button: Allows user to grab a cup of that size
+    All other buttons add something to the drink
+    */
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.handButton:
@@ -234,6 +252,7 @@ public class Game extends Activity implements View.OnClickListener{
 
     }
 
+    //Loops through both arrays and decides if the two are equal
     public boolean compareDrinks() {
         int i = 0;
 
