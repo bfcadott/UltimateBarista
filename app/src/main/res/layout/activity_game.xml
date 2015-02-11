@@ -106,7 +106,8 @@
         android:layout_toRightOf="@+id/hazelnutButton"
         android:layout_toEndOf="@+id/hazelnutButton"
         android:layout_alignBottom="@+id/caramelButton"
-        android:layout_marginLeft="10dp" />
+        android:layout_marginLeft="10dp"
+        android:elevation="5dp" />
 
     <ImageButton
         android:layout_width="70dp"
@@ -118,7 +119,8 @@
         android:layout_above="@+id/whitechocolateButton"
         android:layout_marginLeft="85dp"
         android:layout_toRightOf="@+id/nonfatButton"
-        android:layout_marginBottom="-5dp" />
+        android:layout_marginBottom="-5dp"
+        android:elevation="5dp" />
 
     <ImageButton
         android:layout_width="70dp"
@@ -130,7 +132,8 @@
         android:layout_alignBottom="@+id/caramelButton"
         android:layout_toRightOf="@+id/caramelButton"
         android:layout_toEndOf="@+id/caramelButton"
-        android:layout_marginLeft="20dp" />
+        android:layout_marginLeft="20dp"
+        android:elevation="5dp" />
 
     <ImageButton
         android:layout_width="70dp"
@@ -152,7 +155,7 @@
         android:id="@+id/whitechocolateButton"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
-        android:src="@drawable/whitechoc"
+        android:src="@drawable/whitchoc"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="5dp"
         android:layout_toRightOf="@+id/whipButton"
@@ -169,7 +172,8 @@
         android:scaleType="fitCenter"
         android:layout_alignBottom="@+id/whitechocolateButton"
         android:layout_marginLeft="20dp"
-        android:layout_marginBottom="0dp" />
+        android:layout_marginBottom="0dp"
+        android:cropToPadding="false" />
 
     <ImageButton
         android:layout_width="80dp"
@@ -247,9 +251,8 @@
         android:id="@+id/espressoMachine"
         android:src="@drawable/espresso"
         android:scaleType="fitXY"
-        android:layout_below="@+id/chronometer"
-        android:layout_alignLeft="@+id/chronometer"
-        android:layout_alignStart="@+id/chronometer" />
+        android:layout_marginLeft="275dp"
+        android:layout_marginTop="75dp" />
 
     <Button
         android:layout_width="33dp"
@@ -258,7 +261,8 @@
         android:background="@drawable/steam"
         android:layout_alignLeft="@+id/espressoMachine"
         android:layout_marginLeft="24dp"
-        android:layout_alignTop="@+id/espButton" />
+        android:layout_alignTop="@+id/espButton"
+        android:layout_marginTop="0dp" />
 
     <Button
         android:layout_width="33dp"
@@ -279,7 +283,7 @@
         android:layout_alignTop="@+id/espressoMachine"
         android:layout_toRightOf="@+id/dcfButton"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="24dp" />
 
     <TextView
         android:layout_width="180dp"

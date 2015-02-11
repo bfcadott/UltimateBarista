@@ -27,7 +27,7 @@ public class Main extends Activity {
         login = (Button) findViewById(R.id.loginButton);
         File file = new File(this.getFilesDir(), fileName);
 
-        String string = "10";
+        String string = "1";
         FileOutputStream outputStream;
         FileInputStream inputStream;
 

@@ -32,6 +32,9 @@ public class Game extends Activity implements View.OnClickListener{
     ImageButton nonfatButton = null;
     ImageButton soyButton = null;
 
+    Button espButton = null;
+    Button dcfButton = null;
+
     Button steamButton = null;
 
     //Placeholder Integers to make array referencing quick and easy
@@ -73,6 +76,9 @@ public class Game extends Activity implements View.OnClickListener{
 
         steamButton = (Button) findViewById(R.id.steamButton);
 
+        espButton = (Button) findViewById(R.id.espButton);
+        dcfButton = (Button) findViewById(R.id.dcfButton);
+
         //Adding all buttons to the Class Listener
         
         handButton.setOnClickListener(this);
@@ -88,6 +94,11 @@ public class Game extends Activity implements View.OnClickListener{
 
         steamButton.setOnClickListener(this);
 
+        espButton.setOnClickListener(this);
+        dcfButton.setOnClickListener(this);
+
+
+
         //Retrieve the Level number from the Intent
         Intent i = getIntent();
         String level = i.getStringExtra("level");
@@ -100,7 +111,7 @@ public class Game extends Activity implements View.OnClickListener{
 
         Int[] Drink = {CUP_SIZE, STEAM, MILK_TYPE, WHT_CHOC_SHOT, CHOC_SHOT, PEP_SHOT, HAZEL_SHOT, CARA_SHOT, VAN_SHOT, DEC_ESP, REG_ESP, WHP_CRM}
         Where   CUP_SIZE is 0: small, 1: medium, 2: large
-                MILK_TYPE is 0: Whole, 1: Nonfat, 2: Soy
+                MILK_TYPE is 0: whole, 1: Nonfat, 2: Soy
                 STEAM is 0: none, 1: steamed
                 WHT_CHOC_SHOT is 0: none, 1: added
                 ---same for evey syrup shot---
@@ -110,7 +121,7 @@ public class Game extends Activity implements View.OnClickListener{
                 WHP_CRM is 0: none, 1: added
          */
 
-        randomDrinkGen(1);
+        randomDrinkGen(Integer.valueOf(level));
         displayDrinkOrder();
 
     }
@@ -121,6 +132,9 @@ public class Game extends Activity implements View.OnClickListener{
         drink[CUP_SIZE] = rand.nextInt(3);
         drink[STEAM] = rand.nextInt(2);
         drink[MILK_TYPE] = rand.nextInt(3);
+        drink[DEC_ESP] = rand.nextInt(5);
+        drink[REG_ESP] = rand.nextInt(5);
+
         if(level > 1) {
             drink[WHT_CHOC_SHOT] = rand.nextInt(2);
             drink[CHOC_SHOT] = rand.nextInt(2);
@@ -128,8 +142,6 @@ public class Game extends Activity implements View.OnClickListener{
             drink[HAZEL_SHOT] = rand.nextInt(2);
             drink[CARA_SHOT] = rand.nextInt(2);
             drink[VAN_SHOT] = rand.nextInt(2);
-            drink[DEC_ESP] = rand.nextInt(5);
-            drink[REG_ESP] = rand.nextInt(5);
             drink[WHP_CRM] = rand.nextInt(2);
         }
         customerOrder = drink;
@@ -168,8 +180,8 @@ public class Game extends Activity implements View.OnClickListener{
         if(customerOrder[HAZEL_SHOT] == 1) drinkOrder.append("Hazelnut\n");
         if(customerOrder[CARA_SHOT] == 1) drinkOrder.append("Caramel\n");
         if(customerOrder[VAN_SHOT] == 1) drinkOrder.append("Vanilla\n");
-        if(customerOrder[DEC_ESP] > 0) drinkOrder.append(Integer.toString(customerOrder[9]) + " Regular\n");
-        if(customerOrder[REG_ESP] > 0) drinkOrder.append(Integer.toString(customerOrder[10]) + " Decaf\n");
+        if(customerOrder[DEC_ESP] > 0) drinkOrder.append(Integer.toString(customerOrder[9]) + " Decaf\n");
+        if(customerOrder[REG_ESP] > 0) drinkOrder.append(Integer.toString(customerOrder[10]) + " Regular\n");
         if(customerOrder[WHP_CRM] == 1) drinkOrder.append("Whip Cream\n");
 
         drinkDisplay.setText(drinkOrder.toString());
@@ -247,6 +259,14 @@ public class Game extends Activity implements View.OnClickListener{
 
             case R.id.steamButton:
                 userBeverage[STEAM] = 1;
+                break;
+
+            case R.id.espButton:
+                userBeverage[REG_ESP] = userBeverage[REG_ESP] + 1;
+                break;
+
+            case R.id.dcfButton:
+                userBeverage[DEC_ESP] = userBeverage[DEC_ESP] + 1;
                 break;
         }
 
