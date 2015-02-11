@@ -8,7 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/menuButton"
-        android:src="@android:drawable/ic_dialog_dialer"
+        android:src="@android:drawable/ic_menu_help"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
@@ -106,8 +106,7 @@
         android:layout_toRightOf="@+id/hazelnutButton"
         android:layout_toEndOf="@+id/hazelnutButton"
         android:layout_alignBottom="@+id/caramelButton"
-        android:layout_marginLeft="10dp"
-        android:elevation="5dp" />
+        android:layout_marginLeft="10dp" />
 
     <ImageButton
         android:layout_width="70dp"
@@ -119,8 +118,7 @@
         android:layout_above="@+id/whitechocolateButton"
         android:layout_marginLeft="85dp"
         android:layout_toRightOf="@+id/nonfatButton"
-        android:layout_marginBottom="-5dp"
-        android:elevation="5dp" />
+        android:layout_marginBottom="-5dp" />
 
     <ImageButton
         android:layout_width="70dp"
@@ -132,8 +130,7 @@
         android:layout_alignBottom="@+id/caramelButton"
         android:layout_toRightOf="@+id/caramelButton"
         android:layout_toEndOf="@+id/caramelButton"
-        android:layout_marginLeft="20dp"
-        android:elevation="5dp" />
+        android:layout_marginLeft="20dp" />
 
     <ImageButton
         android:layout_width="70dp"
@@ -209,7 +206,8 @@
         android:textSize="20dp"
         android:layout_below="@+id/levelProgressText"
         android:textColor="@android:color/black"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -232,7 +230,8 @@
         android:progress="0"
         android:indeterminate="false"
         android:layout_below="@+id/levelTitle"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -243,7 +242,8 @@
         android:textColor="@android:color/black"
         android:gravity="center"
         android:layout_below="@+id/levelProgressBar"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible" />
 
     <ImageView
         android:layout_width="190dp"
@@ -286,15 +286,63 @@
         android:layout_marginTop="24dp" />
 
     <TextView
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="155dp"
         android:id="@+id/drinkDisplay"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:maxLines="10"
-        android:textColor="@android:color/black"
-        android:paddingLeft="5dp"
-        android:paddingTop="5dp" />
+        android:textColor="#ffffffff"
+        android:paddingLeft="15dp"
+        android:paddingTop="40dp"
+        android:background="@drawable/order"
+        android:text="texttextext"
+        android:paddingRight="15dp" />
+
+    <MediaController
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/mediaController"
+        android:layout_above="@+id/levelProgressText"
+        android:layout_toLeftOf="@+id/wholeButton"
+        android:layout_toStartOf="@+id/wholeButton"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/playerGuideLayout"
+        android:visibility="invisible"
+        android:background="#fff0e5df">
+
+        <ImageView
+            android:layout_width="525dp"
+            android:layout_height="325dp"
+            android:id="@+id/blankBG"
+            android:background="#ff784e34"
+            android:layout_centerInParent="true" />
+
+        <ImageView
+            android:layout_width="500dp"
+            android:layout_height="300dp"
+            android:id="@+id/playerGuideImage"
+            android:src="@drawable/playerguide"
+            android:layout_alignParentRight="false"
+            android:layout_alignParentEnd="false"
+            android:focusable="false"
+            android:layout_centerInParent="true"
+            android:background="#fff0e5dd"
+            android:padding="5dp" />
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:text="Continue"
+            android:id="@+id/continueButton"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

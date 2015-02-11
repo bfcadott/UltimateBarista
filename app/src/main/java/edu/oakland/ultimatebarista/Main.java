@@ -2,6 +2,7 @@ package edu.oakland.ultimatebarista;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Menu;
@@ -17,15 +18,19 @@ import java.io.FileOutputStream;
 public class Main extends Activity {
     Button login = null;
     String fileName = "ultimatebarista.txt";
-
+    private MediaPlayer mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         login = (Button) findViewById(R.id.loginButton);
         File file = new File(this.getFilesDir(), fileName);
+
+
 
         String string = "1";
         FileOutputStream outputStream;
@@ -48,6 +53,10 @@ public class Main extends Activity {
                 view.getContext().startActivity(i);
             }
         });
+
+        mp = MediaPlayer.create(this, R.raw.mainscreen);
+        mp.setLooping(true);
+        mp.start();
 
     }
 
@@ -72,5 +81,20 @@ public class Main extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    protected void onPause() {
+        //stop mediaplayer:
+        if (mp != null && mp.isPlaying()) {
+            mp.stop();
+        }
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+        mp.start();
+        // re-sync the clock with player...
     }
 }

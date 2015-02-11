@@ -3,6 +3,7 @@ package edu.oakland.ultimatebarista;
 //import list, brings in needed functionality
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,7 +23,10 @@ import java.io.IOException;
 public class Levels extends Activity implements View.OnClickListener {
     //Filename for our level progress save file
     String fileName = "ultimatebarista.txt";
-    
+
+
+    private MediaPlayer mp;
+
     //Creates all imageButtons
     ImageButton level1 = null;
     ImageButton level2 = null;
@@ -36,7 +40,6 @@ public class Levels extends Activity implements View.OnClickListener {
     ImageButton level10 = null;
     ImageButton level11 = null;
     ImageButton level12 = null;
-    TextView titleText = null;
 
     //Stringbuffer for reading in save file
     final StringBuffer storedString = new StringBuffer();
@@ -47,7 +50,6 @@ public class Levels extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_levels);
 
         //Creates title text TextBox
-        titleText = (TextView) findViewById(R.id.titleText);
 
         //Creates file holder to retrieve save file
         File file = new File(this.getFilesDir(), fileName);
@@ -64,6 +66,7 @@ public class Levels extends Activity implements View.OnClickListener {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
 
 
 
@@ -181,6 +184,9 @@ public class Levels extends Activity implements View.OnClickListener {
                     level1.setImageResource(R.drawable.coffeecupdkgray);
         }
 
+        mp = MediaPlayer.create(this, R.raw.levelselection);
+        mp.setLooping(true);
+        mp.start();
 
 
 
@@ -230,5 +236,20 @@ public class Levels extends Activity implements View.OnClickListener {
         }
 
         this.startActivity(i);
+    }
+
+    @Override
+    protected void onPause() {
+        //stop mediaplayer:
+        if (mp != null && mp.isPlaying()) {
+            mp.stop();
+        }
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+        mp.start();
     }
 }

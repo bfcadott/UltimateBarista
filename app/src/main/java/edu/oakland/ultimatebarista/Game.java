@@ -4,12 +4,18 @@ package edu.oakland.ultimatebarista;
 import android.app.Activity;
 import android.content.Intent;
 import android.media.Image;
+import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Vibrator;
+import android.view.HapticFeedbackConstants;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -20,6 +26,11 @@ import java.util.Random;
 public class Game extends Activity implements View.OnClickListener{
     
     //Initalizing Buttons and Text boxes
+
+    private MediaPlayer mp;
+
+    ImageButton menuButton = null;
+
     TextView levelTitle = null;
     TextView drinkDisplay = null;
     ImageButton handButton = null;
@@ -36,6 +47,18 @@ public class Game extends Activity implements View.OnClickListener{
     Button dcfButton = null;
 
     Button steamButton = null;
+
+    Vibrator vibrator = null;
+
+    ImageButton caramelButton = null;
+    ImageButton hazelnutButton = null;
+    ImageButton vanillaButton = null;
+    ImageButton whitechocolateButton = null;
+    ImageButton peppermintButton = null;
+    ImageButton chocolateButton = null;
+
+    Button continueButton = null;
+    RelativeLayout playerGuideLayout = null;
 
     //Placeholder Integers to make array referencing quick and easy
     int CUP_SIZE = 0;
@@ -56,10 +79,25 @@ public class Game extends Activity implements View.OnClickListener{
     int[] userBeverage = {-1,0,-1,0,0,0,0,0,0,0,0,0};
     int[] emptyArray = {-1,0,-1,0,0,0,0,0,0,0,0,0};
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        continueButton = (Button) findViewById(R.id.continueButton);
+        playerGuideLayout = (RelativeLayout) findViewById(R.id.playerGuideLayout);
+
+        menuButton = (ImageButton) findViewById(R.id.menuButton);
+        menuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playerGuideLayout.setVisibility(View.VISIBLE);
+            }
+        });
+
+
 
         //Creation of buttons and text boxes and linkage to their GUI asset
         levelTitle = (TextView) findViewById(R.id.levelTitle);
@@ -79,6 +117,15 @@ public class Game extends Activity implements View.OnClickListener{
         espButton = (Button) findViewById(R.id.espButton);
         dcfButton = (Button) findViewById(R.id.dcfButton);
 
+        vanillaButton = (ImageButton) findViewById(R.id.vanillaButton);
+        hazelnutButton = (ImageButton) findViewById(R.id.hazelnutButton);
+        chocolateButton = (ImageButton) findViewById(R.id.chocolateButton);
+        whitechocolateButton = (ImageButton) findViewById(R.id.whitechocolateButton);
+        peppermintButton = (ImageButton) findViewById(R.id.peppermintButton);
+        caramelButton = (ImageButton) findViewById(R.id.caramelButton);
+
+        vibrator = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
+
         //Adding all buttons to the Class Listener
         
         handButton.setOnClickListener(this);
@@ -97,13 +144,31 @@ public class Game extends Activity implements View.OnClickListener{
         espButton.setOnClickListener(this);
         dcfButton.setOnClickListener(this);
 
-
+        vanillaButton.setOnClickListener(this);
+        hazelnutButton.setOnClickListener(this);
+        chocolateButton.setOnClickListener(this);
+        whitechocolateButton.setOnClickListener(this);
+        peppermintButton.setOnClickListener(this);
+        caramelButton.setOnClickListener(this);
 
         //Retrieve the Level number from the Intent
         Intent i = getIntent();
         String level = i.getStringExtra("level");
 
+
+
         levelTitle.setText(level);
+        if(level.equals("1")) {
+            playerGuideLayout.setVisibility(View.VISIBLE);
+            continueButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    playerGuideLayout.setVisibility(View.INVISIBLE);
+                }
+            });
+        }
+
+
 
 
         /*
@@ -124,6 +189,12 @@ public class Game extends Activity implements View.OnClickListener{
         randomDrinkGen(Integer.valueOf(level));
         displayDrinkOrder();
 
+
+        mp = MediaPlayer.create(getApplicationContext(), R.raw.catwalk);
+        mp.setLooping(true);
+        mp.start();
+
+
     }
     //Generates a random drink based on the argument of whichever level user is playing
     public void randomDrinkGen(int level) {
@@ -132,10 +203,9 @@ public class Game extends Activity implements View.OnClickListener{
         drink[CUP_SIZE] = rand.nextInt(3);
         drink[STEAM] = rand.nextInt(2);
         drink[MILK_TYPE] = rand.nextInt(3);
-        drink[DEC_ESP] = rand.nextInt(5);
-        drink[REG_ESP] = rand.nextInt(5);
-
         if(level > 1) {
+            drink[DEC_ESP] = rand.nextInt(5);
+            drink[REG_ESP] = rand.nextInt(5);
             drink[WHT_CHOC_SHOT] = rand.nextInt(2);
             drink[CHOC_SHOT] = rand.nextInt(2);
             drink[PEP_SHOT] = rand.nextInt(2);
@@ -144,7 +214,8 @@ public class Game extends Activity implements View.OnClickListener{
             drink[VAN_SHOT] = rand.nextInt(2);
             drink[WHP_CRM] = rand.nextInt(2);
         }
-        customerOrder = drink;
+        customerOrder = drink.clone();
+
     }
     
     //Reads the drink the customer wants and displays it to the text box on screen
@@ -153,13 +224,13 @@ public class Game extends Activity implements View.OnClickListener{
         StringBuffer drinkOrder = new StringBuffer();
         switch(customerOrder[CUP_SIZE]) {
             case 0:
-                drinkOrder.append("Small Latte with: \n");
+                drinkOrder.append("Small\n");
                 break;
             case 1:
-                drinkOrder.append("Medium Latte with: \n");
+                drinkOrder.append("Medium\n");
                 break;
             case 2:
-                drinkOrder.append("Large Latte with:\n");
+                drinkOrder.append("Large\n");
                 break;
         }
         if(customerOrder[STEAM] == 1) drinkOrder.append("Steamed ");
@@ -198,6 +269,7 @@ public class Game extends Activity implements View.OnClickListener{
     All other buttons add something to the drink
     */
     public void onClick(View v) {
+        vibrator.vibrate(18);
         switch (v.getId()) {
             case R.id.handButton:
                 if(compareDrinks()) {
@@ -268,6 +340,25 @@ public class Game extends Activity implements View.OnClickListener{
             case R.id.dcfButton:
                 userBeverage[DEC_ESP] = userBeverage[DEC_ESP] + 1;
                 break;
+
+            case R.id.vanillaButton:
+                userBeverage[VAN_SHOT] = 1;
+                break;
+            case R.id.hazelnutButton:
+                userBeverage[HAZEL_SHOT] = 1;
+                break;
+            case R.id.chocolateButton:
+                userBeverage[CHOC_SHOT] = 1;
+                break;
+            case R.id.whitechocolateButton:
+                userBeverage[WHT_CHOC_SHOT] = 1;
+                break;
+            case R.id.peppermintButton:
+                userBeverage[PEP_SHOT] = 1;
+                break;
+            case R.id.caramelButton:
+                userBeverage[CARA_SHOT] = 1;
+                break;
         }
 
     }
@@ -278,6 +369,7 @@ public class Game extends Activity implements View.OnClickListener{
 
         while(i < customerOrder.length) {
             if(customerOrder[i] != userBeverage [i]) {
+                vibrator.vibrate(400);
                 levelTitle.setText("You are a failure!");
                 return false;
             }
@@ -306,5 +398,20 @@ public class Game extends Activity implements View.OnClickListener{
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    protected void onPause() {
+        //stop mediaplayer:
+        if (mp != null && mp.isPlaying()) {
+            mp.stop();
+        }
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+        mp.start();
+        // re-sync the clock with player...
     }
 }
