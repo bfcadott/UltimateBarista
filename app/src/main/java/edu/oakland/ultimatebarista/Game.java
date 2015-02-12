@@ -209,8 +209,8 @@ public class Game extends Activity implements View.OnClickListener{
             drink[WHT_CHOC_SHOT] = rand.nextInt(2);
             drink[CHOC_SHOT] = rand.nextInt(2);
             drink[PEP_SHOT] = rand.nextInt(2);
-            drink[HAZEL_SHOT] = rand.nextInt(2);
             drink[CARA_SHOT] = rand.nextInt(2);
+            drink[HAZEL_SHOT] = rand.nextInt(2);
             drink[VAN_SHOT] = rand.nextInt(2);
             drink[WHP_CRM] = rand.nextInt(2);
         }
@@ -245,12 +245,12 @@ public class Game extends Activity implements View.OnClickListener{
                 drinkOrder.append("Soy Milk\n");
                 break;
         }
-        if(customerOrder[WHT_CHOC_SHOT] == 1) drinkOrder.append("White Chocolate\n");
-        if(customerOrder[CHOC_SHOT] == 1) drinkOrder.append("Chocolate\n");
-        if(customerOrder[PEP_SHOT] == 1) drinkOrder.append("Peppermint\n");
-        if(customerOrder[HAZEL_SHOT] == 1) drinkOrder.append("Hazelnut\n");
         if(customerOrder[CARA_SHOT] == 1) drinkOrder.append("Caramel\n");
+        if(customerOrder[HAZEL_SHOT] == 1) drinkOrder.append("Hazelnut\n");
         if(customerOrder[VAN_SHOT] == 1) drinkOrder.append("Vanilla\n");
+        if(customerOrder[WHT_CHOC_SHOT] == 1) drinkOrder.append("White Chocolate\n");
+        if(customerOrder[PEP_SHOT] == 1) drinkOrder.append("Peppermint\n");
+        if(customerOrder[CHOC_SHOT] == 1) drinkOrder.append("Chocolate\n");
         if(customerOrder[DEC_ESP] > 0) drinkOrder.append(Integer.toString(customerOrder[9]) + " Decaf\n");
         if(customerOrder[REG_ESP] > 0) drinkOrder.append(Integer.toString(customerOrder[10]) + " Regular\n");
         if(customerOrder[WHP_CRM] == 1) drinkOrder.append("Whip Cream\n");
