@@ -33,7 +33,7 @@ public class Main extends Activity {
 
         login = (Button) findViewById(R.id.loginButton);
         File file = new File(this.getFilesDir(), fileName);
-        if(file.exists()) {
+        if(!file.exists()) {
             String string = "1";
             FileOutputStream outputStream;
 
