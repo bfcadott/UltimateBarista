@@ -41,6 +41,8 @@ public class Levels extends Activity implements View.OnClickListener {
     ImageButton level11 = null;
     ImageButton level12 = null;
 
+    int level = 1;
+
     //Stringbuffer for reading in save file
     final StringBuffer storedString = new StringBuffer();
 
@@ -117,7 +119,7 @@ public class Levels extends Activity implements View.OnClickListener {
         //Reads the integer from the save file and unlocks levels
         //based on user progress
 
-        int level = Integer.valueOf(storedString.toString());
+        level = Integer.valueOf(storedString.toString());
 
         switch (level) {
             case 13:
@@ -196,42 +198,74 @@ public class Levels extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         //Listener decides what level to load based on which button throws the onClick event
         Intent i = new Intent(this, Game.class);
+        i.putExtra("maxLevelCompleted",String.valueOf(level));
         switch (v.getId()) {
             case R.id.level1button:
                 i.putExtra("level","1");
+                i.putExtra("levelTitle","Barista Basics");
+                i.putExtra("numOfDrinks","3");
+
                 break;
             case R.id.level2button:
                 i.putExtra("level","2");
+                i.putExtra("numOfDrinks","5");
+                i.putExtra("levelTitle","Wonderful Whip");
                 break;
             case R.id.level3button:
                 i.putExtra("level","3");
+                i.putExtra("numOfDrinks","5");
+                i.putExtra("timeLimit","60");
+                i.putExtra("levelTitle","Enticing Espresso");
                 break;
             case R.id.level4button:
                 i.putExtra("level","4");
+                i.putExtra("numOfDrinks","6");
+                i.putExtra("timeLimit","60");
+                i.putExtra("levelTitle","Demure Decaf");
                 break;
             case R.id.level5button:
                 i.putExtra("level","5");
+                i.putExtra("numOfDrinks","5");
+                i.putExtra("timeLimit","60");
                 break;
             case R.id.level6button:
                 i.putExtra("level","6");
+                i.putExtra("numOfDrinks","7");
+                i.putExtra("timeLimit","50");
+
                 break;
             case R.id.level7button:
                 i.putExtra("level","7");
+                i.putExtra("numOfDrinks","4");
+                i.putExtra("levelTitle","Sweet Syrup Sensations");
+                i.putExtra("timeLimit","60");
                 break;
             case R.id.level8button:
                 i.putExtra("level","8");
+                i.putExtra("numOfDrinks","6");
+                i.putExtra("timeLimit","60");
                 break;
             case R.id.level9button:
                 i.putExtra("level","9");
+                i.putExtra("numOfDrinks","8");
+                i.putExtra("levelTitle","Sweet Syrup Sensations 2");
+                i.putExtra("levelSubtitle","The Sweetening");
+                i.putExtra("timeLimit","50");
                 break;
             case R.id.level10button:
                 i.putExtra("level","10");
+                i.putExtra("numOfDrinks","12");
+                i.putExtra("timeLimit","60");
                 break;
             case R.id.level11button:
                 i.putExtra("level","11");
+                i.putExtra("numOfDrinks","16");
+                i.putExtra("timeLimit","50");
                 break;
             case R.id.level12button:
                 i.putExtra("level","12");
+                i.putExtra("numOfDrinks","20");
+                i.putExtra("timeLimit","60");
                 break;
         }
 
@@ -250,6 +284,11 @@ public class Levels extends Activity implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();  // Always call the superclass method first
+        mp.start();
+    }
+    @Override
+    public void onRestart() {
+        super.onRestart();  // Always call the superclass method first
         mp.start();
     }
 }

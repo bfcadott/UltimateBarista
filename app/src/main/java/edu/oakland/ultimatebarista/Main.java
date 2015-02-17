@@ -10,9 +10,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 
 
 public class Main extends Activity {
@@ -29,21 +33,17 @@ public class Main extends Activity {
 
         login = (Button) findViewById(R.id.loginButton);
         File file = new File(this.getFilesDir(), fileName);
+        if(file.exists()) {
+            String string = "1";
+            FileOutputStream outputStream;
 
-
-
-        String string = "1";
-        FileOutputStream outputStream;
-        FileInputStream inputStream;
-
-
-
-        try {
-            outputStream = openFileOutput(fileName, this.MODE_PRIVATE);
-            outputStream.write(string.getBytes());
-            outputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+            try {
+                outputStream = openFileOutput(fileName, this.MODE_PRIVATE);
+                outputStream.write(string.getBytes());
+                outputStream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         login.setOnClickListener(new View.OnClickListener() {
@@ -96,5 +96,10 @@ public class Main extends Activity {
         super.onResume();  // Always call the superclass method first
         mp.start();
         // re-sync the clock with player...
+    }
+    @Override
+    public void onRestart() {
+        super.onRestart();  // Always call the superclass method first
+        mp.start();
     }
 }

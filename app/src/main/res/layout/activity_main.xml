@@ -14,8 +14,8 @@
         android:id="@+id/emailEdit"
         android:layout_above="@+id/loginButton"
         android:layout_centerHorizontal="true"
-        android:text="PASSWORD"
-        android:gravity="center" />
+        android:gravity="center"
+        android:hint="PASSWORD" />
 
     <EditText
         android:layout_width="240dp"
@@ -25,8 +25,8 @@
         android:id="@+id/passwordEdit"
         android:layout_above="@+id/emailEdit"
         android:layout_centerHorizontal="true"
-        android:text="EMAIL"
-        android:gravity="center" />
+        android:gravity="center"
+        android:hint="EMAIL" />
 
     <Button
         android:layout_width="120dp"
