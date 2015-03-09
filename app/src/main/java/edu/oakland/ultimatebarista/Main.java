@@ -1,38 +1,70 @@
 package edu.oakland.ultimatebarista;
 
+import com.google.android.gms.*;
+
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
-import java.io.BufferedReader;
+import com.google.android.gms.appstate.AppStateManager;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.drive.Drive;
+import com.google.android.gms.games.Games;
+import com.google.android.gms.games.snapshot.Snapshot;
+import com.google.android.gms.games.snapshot.SnapshotMetadata;
+import com.google.android.gms.games.snapshot.SnapshotMetadataChange;
+import com.google.android.gms.games.snapshot.Snapshots;
+import com.google.example.games.basegameutils.BaseGameUtils;
+
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 
 
-public class Main extends Activity {
-    Button login = null;
-    String fileName = "ultimatebarista.txt";
+public class Main extends GoogleAPI implements
+        View.OnClickListener {
+
+    Button continueButton = null;
     private MediaPlayer mp;
+
+    boolean firstOnResume = true;
+
+
+    String fileName = "ultimatebarista.txt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        createSaveFile();
 
+        // Set up button listeners
+        findViewById(R.id.sign_in_button).setOnClickListener(this);
+        findViewById(R.id.sign_out_button).setOnClickListener(this);
+        continueButton = (Button) findViewById(R.id.continueButton);
+        continueButton.setOnClickListener(this);
 
-        login = (Button) findViewById(R.id.loginButton);
+        startMediaPlayer();
+    }
+
+    private void createSaveFile() {
         File file = new File(this.getFilesDir(), fileName);
+        String fileName = "ultimatebarista.txt";
         if(!file.exists()) {
             String string = "1";
             FileOutputStream outputStream;
@@ -45,61 +77,88 @@ public class Main extends Activity {
                 e.printStackTrace();
             }
         }
+    }
 
-        login.setOnClickListener(new View.OnClickListener() {
+
+
+    private void startMediaPlayer() {
+        mp = MediaPlayer.create(this, R.raw.mainscreen);
+        mp.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
-            public void onClick(View view) {
-                Intent i = new Intent(view.getContext(), Levels.class);
-                view.getContext().startActivity(i);
+            public void onPrepared(MediaPlayer mp) {
+                mp.setLooping(true);
+                mp.start();
             }
         });
 
-        mp = MediaPlayer.create(this, R.raw.mainscreen);
-        mp.setLooping(true);
-        mp.start();
-
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.sign_in_button:
+                beginUserInitiatedSignIn();
+                break;
+            case R.id.sign_out_button:
+                if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
+                    Games.signOut(mGoogleApiClient);
+                    mGoogleApiClient.disconnect();
+                    updateUI();
+                }
+                break;
+            case R.id.continueButton:
+                Intent i = new Intent(this, Levels.class);
+                startActivity(i);
+                break;
         }
-
-        return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    protected void updateUI() {
+        // Show signed in or signed out view
+        if (isSignedIn()) {
+            findViewById(R.id.sign_out_button).setVisibility(View.VISIBLE);
+            findViewById(R.id.sign_in_button).setVisibility(View.GONE);
+
+            continueButton.setText("Continue");
+
+        } else {
+            findViewById(R.id.sign_out_button).setVisibility(View.GONE);
+            findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
+            continueButton.setText("Continue Without Sign In");
+        }
+    }
+
     @Override
     protected void onPause() {
         //stop mediaplayer:
         if (mp != null && mp.isPlaying()) {
-            mp.stop();
+            mp.release();
         }
         super.onPause();
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mGoogleApiClient.connect();
+        updateUI();
     }
 
     @Override
     public void onResume() {
         super.onResume();  // Always call the superclass method first
-        mp.start();
-        // re-sync the clock with player...
+        if(!firstOnResume) {
+            startMediaPlayer();
+        }
+        firstOnResume = false;
     }
+
     @Override
-    public void onRestart() {
-        super.onRestart();  // Always call the superclass method first
-        mp.start();
+    protected void onStop() {
+        super.onStop();
+        if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.disconnect();
+        }
     }
+
 }

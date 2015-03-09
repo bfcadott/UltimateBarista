@@ -7,6 +7,16 @@
     tools:context="edu.oakland.ultimatebarista.Levels"
     android:background="@drawable/schedule">
 
+    <Button
+        android:id="@+id/signOutButton"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Sign Out"
+        android:visibility="invisible"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp" />
+
     <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
