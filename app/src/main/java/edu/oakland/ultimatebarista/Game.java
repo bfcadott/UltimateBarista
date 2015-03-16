@@ -20,66 +20,61 @@ import android.widget.TextView;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Random;
+import java.util.Timer;
 
 //Class which controls Game-Screen functionality
 public class Game extends Activity implements View.OnClickListener{
-    boolean firstOnResume = true;
+    /*
+    * Lots of GUI elements to create references for
+     */
 
-    //Initalizing GUI elements
-    MediaPlayer mp;
+    //MediaPlayer for music PlayBack
+    MediaPlayer mp = null;
 
-    ImageButton infoButton = null;
+    //ImageButtons for the various game buttons
+    ImageButton infoButton,handButton,trashButton,smallButton,medButton,largeButton,wholeButton,
+            nonfatButton,soyButton,espButton,dcfButton,steamButton,caramelButton,
+            hazelnutButton,vanillaButton,toffeeButton,peppermintButton,chocolateButton,
+            whipCreamButton = null;
 
-    TextView levelTitle = null;
-    TextView drinkDisplay = null;
-    ImageButton handButton = null;
-    ImageButton trashButton = null;
-    ImageButton smallButton = null;
-    ImageButton medButton = null;
-    ImageButton largeButton = null;
-
-    ImageButton wholeButton = null;
-    ImageButton nonfatButton = null;
-    ImageButton soyButton = null;
-
-    ImageButton espButton = null;
-    ImageButton dcfButton = null;
-
-    ImageButton steamButton = null;
-
+    //Vibrator for button feedback
     Vibrator vibrator = null;
 
-    ImageButton caramelButton = null;
-    ImageButton hazelnutButton = null;
-    ImageButton vanillaButton = null;
-    ImageButton whitechocolateButton = null;
-    ImageButton peppermintButton = null;
-    ImageButton chocolateButton = null;
-    ImageButton whipCreamButton = null;
-
-    TextView levelProgressText = null;
+    //ProgressBar for showing User's level progress
     ProgressBar levelProgress = null;
-    TextView levelTimeRemaining = null;
-    TextView levelFinishedText = null;
-    TextView levelInfoTitle = null;
-    TextView levelInfoSubtitle = null;
-    TextView levelInfoObjective = null;
 
-    Button continueButton = null;
-    Button nextLevelButton = null;
-    Button levelInfoBegin = null;
-    RelativeLayout playerGuideLayout = null;
-    RelativeLayout levelCompletionLayout = null;
-    RelativeLayout levelInfoLayout = null;
+    //TextViews to display text elements throughout the game
+    TextView levelProgressText,levelTimeRemaining,levelFinishedText,levelInfoTitle,
+            levelInfoSubtitle,levelInfoObjective,numOfDecafText,numOfRegText,levelTitle,
+            drinkDisplay = null;
 
-    TextView numOfDecafText = null;
-    TextView numOfRegText = null;
+    //Regular buttons to control menu flow
+    Button continueButton,nextLevelButton,levelInfoBegin = null;
 
-    //Placeholder Integers to make array referencing quick and easy
+    //Layouts containing all of the buttons
+    RelativeLayout playerGuideLayout,levelCompletionLayout,levelInfoLayout,gameLayout = null;
+
+    //Number of drinks made by user
+    int drinksMade = 0;
+
+    //current level, highest level user has completed
+    int level = 0;
+    int maxLevelCompleted = 1;
+
+    //All of the level information, title, subtitle, drinks required, and time limit
+    String titleText = null;
+    String subtitleText = null;
+    long timeLimit = 0;
+    int drinksGoal = 0;
+
+    //CountDownTimer is used to track level time limits
+    CountDownTimer countDownTimer = null;
+
+    //Constant Integers to make array referencing clearer
     final int CUP_SIZE = 0;
     final int STEAM = 1;
     final int MILK_TYPE = 2;
-    final int WHT_CHOC_SHOT = 3;
+    final int TOFFEE_SHOT = 3;
     final int CHOC_SHOT = 4;
     final int PEP_SHOT = 5;
     final int HAZEL_SHOT = 6;
@@ -89,18 +84,15 @@ public class Game extends Activity implements View.OnClickListener{
     final int REG_ESP = 10;
     final int WHP_CRM = 11;
 
-
-
-
-    //Three arrays to hold: Customer Drink, User Drink, and the empty array to help reinitalize user drink
+    //Three arrays to hold: Customer Drink, User Drink, and the empty array to help reinitialize user drink
      /*
     *   Drink Example
     *
-    *   Int[] Drink = {CUP_SIZE, STEAM, MILK_TYPE, WHT_CHOC_SHOT, CHOC_SHOT, PEP_SHOT, HAZEL_SHOT, CARA_SHOT, VAN_SHOT, DEC_ESP, REG_ESP, WHP_CRM}
+    *   Int[] Drink = {CUP_SIZE, STEAM, MILK_TYPE, TOFFEE_SHOT, CHOC_SHOT, PEP_SHOT, HAZEL_SHOT, CARA_SHOT, VAN_SHOT, DEC_ESP, REG_ESP, WHP_CRM}
     *   Where   CUP_SIZE is 0: small, 1: medium, 2: large
     *       MILK_TYPE is 0: whole, 1: Nonfat, 2: Soy
     *       STEAM is 0: none, 1: steamed
-    *       WHT_CHOC_SHOT is 0: none, 1: added
+    *       TOFFEE_SHOT is 0: none, 1: added
     *       ---same for evey syrup shot---
     *       Chocolate, Peppermint, Hazelnut, Caramel, Vanilla
     *       DEC_ESP is x: where x is the amount of shots added
@@ -110,21 +102,7 @@ public class Game extends Activity implements View.OnClickListener{
     int[] customerOrder = new int[12];
     int[] userBeverage = {-1,0,-1,0,0,0,0,0,0,0,0,0};
     int[] emptyArray = {-1,0,-1,0,0,0,0,0,0,0,0,0};
-
-    //Number of drinks made by user
-    int drinksMade = 0;
-
-    //current level, highest level user has completed
-    int level = 1;
-    int maxLevelCompleted = 1;
-
-
-    //All of the level information, title, subtitle, drinks required, and time limit
-    String titleText = null;
-    String subtitleText = null;
-    long timeLimit = 0;
-    int drinksGoal = 0;
-    CountDownTimer countDownTimer = null;
+    int[] previousBeverage = new int[12];
 
 
 
@@ -133,34 +111,57 @@ public class Game extends Activity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-
         linkUIElements();
         setClickListeners();
-
         retrieveLevelInfo();
-        setUpLevel();
 
-        displayObjectives();
+        //Check User's level to see if it is the tutorial level
+        if(level > 0) {
+            setUpLevel();
+            displayObjectives();
+        } else {
+            runTutorial();
+        }
     }
 
+    /*
+    * The runTutorial method is used to set up the level for the tutorial
+     */
+    public void runTutorial() {
+        //Fills in the level's TextViews with appropriate tutorial level text
+        levelInfoTitle.setText(getString(R.string.tutorialLevelTitle));
+        levelInfoObjective.setText(getString(R.string.tutorialLevelObjective));
+        levelTitle.setText(getString(R.string.tutorialLevelTitle));
+
+        //Makes the information screen visible, and hides the progress bar/countdown for this tutorial
+        //level
+        levelInfoLayout.setVisibility(View.VISIBLE);
+        levelProgress.setVisibility(View.INVISIBLE);
+        levelTimeRemaining.setVisibility(View.INVISIBLE);
+    }
+
+    /*
+    * displayObjectives is used to display the level's objectives to the user before the game begins
+     */
     public void displayObjectives() {
         levelInfoTitle.setText(titleText);
-        if(subtitleText != null) {
+        if (subtitleText != null) {
             levelInfoSubtitle.setText(subtitleText);
         }
+        levelInfoBegin.setText("Begin Level");
         StringBuffer levelObjective = new StringBuffer();
-        levelObjective.append("You must make ");
+        levelObjective.append("Goal: Make ");
         levelObjective.append(drinksGoal);
-        if(timeLimit > 0) {
+        if (timeLimit > 0) {
             levelObjective.append(" drinks in ");
-            levelObjective.append(timeLimit/1000);
+            levelObjective.append(timeLimit / 1000);
             levelObjective.append(" seconds.");
         } else {
-            levelObjective.append(" drinks.");
+            levelObjective.append(" drinks!");
         }
         levelInfoObjective.setText(levelObjective.toString());
 
-        startMediaPlayer();
+        levelInfoLayout.setVisibility(View.VISIBLE);
     }
 
     /*
@@ -174,9 +175,7 @@ public class Game extends Activity implements View.OnClickListener{
         titleText = i.getStringExtra("levelTitle");
         subtitleText = i.getStringExtra("levelSubtitle");
         drinksGoal = Integer.valueOf(i.getStringExtra("numOfDrinks"));
-        if(level > 2) {
-            timeLimit = Long.valueOf(i.getStringExtra("timeLimit")) * 1000;
-        }
+        timeLimit = Long.valueOf(i.getStringExtra("timeLimit")) * 1000;
     }
 
     /*
@@ -186,26 +185,20 @@ public class Game extends Activity implements View.OnClickListener{
     public void setUpLevel() {
         levelTitle.setText(titleText);
         levelProgress.setMax(drinksGoal);
-        if(level == 1) {
-            playerGuideLayout.setVisibility(View.VISIBLE);
-        }
-        if(level > 2) {
-            countDownTimer = new CountDownTimer(timeLimit, 1000) {
-                @Override
-                public void onTick(long millisUntilFinished) {
-                    levelTimeRemaining.setText(String.valueOf(millisUntilFinished/1000));
-                }
+        levelProgress.setVisibility(View.VISIBLE);
+        levelProgressText.setVisibility(View.VISIBLE);
 
-                @Override
-                public void onFinish() {
-                    levelCompletionLayout.setVisibility(View.VISIBLE);
-                    levelFinishedText.setText("You ran out of time to complete " + titleText + "!");
+        countDownTimer = new CountDownTimer(timeLimit, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                levelTimeRemaining.setText(String.valueOf(millisUntilFinished / 1000));
+            }
 
-                }
-            };
-            levelTimeRemaining.setVisibility(View.VISIBLE);
-        }
-
+            @Override
+            public void onFinish() {
+                levelFinished(false);
+            }
+        };
     }
 
     /*
@@ -213,12 +206,21 @@ public class Game extends Activity implements View.OnClickListener{
     * music playback, and beginning the countdown timer if the level requires it.
      */
     public void beginLevel() {
-        randomDrinkGen();
+        gameLayout.setAlpha(1.0f);
+        levelInfoLayout.setVisibility(View.INVISIBLE);
+        if(level == 0) {
+            customerOrder = emptyArray.clone();
+            customerOrder[CUP_SIZE] = 2;
+            customerOrder[MILK_TYPE] = 0;
+            customerOrder[STEAM] = 1;
+            displayDrinkOrder();
+        } else {
+            randomDrinkGen();
+        }
         displayDrinkOrder();
 
-        if(level > 2) {
-            countDownTimer.start();
-        }
+        countDownTimer.start();
+
     }
 
     public void startMediaPlayer() {
@@ -243,7 +245,7 @@ public class Game extends Activity implements View.OnClickListener{
             case 11:
             case 10:
             case 9: //levels 9 and above add the possibility for the bottom row of syrups
-                drink[WHT_CHOC_SHOT] = rand.nextInt(2);
+                drink[TOFFEE_SHOT] = rand.nextInt(2);
                 drink[CHOC_SHOT] = rand.nextInt(2);
                 drink[PEP_SHOT] = rand.nextInt(2);
             case 8:
@@ -252,10 +254,11 @@ public class Game extends Activity implements View.OnClickListener{
                 drink[HAZEL_SHOT] = rand.nextInt(2);
                 drink[VAN_SHOT] = rand.nextInt(2);
             case 6:
-            case 5: //levels 5 and above add the possibility for 0-5 decaf shots of espresso
+            case 5: //levels 5 and above add the possibility for 0-4 decaf shots of espresso
+
                 drink[DEC_ESP] = rand.nextInt(5);
             case 4:
-            case 3: //levels 3 and above add the possibility for 0-5 regular shots of espresso
+            case 3: //levels 3 and above add the possibility for 0-4 regular shots of espresso
                 drink[REG_ESP] = rand.nextInt(5);
             case 2: //levels 2 and above add the possibility for whip cream
                 drink[WHP_CRM] = rand.nextInt(2);
@@ -279,40 +282,39 @@ public class Game extends Activity implements View.OnClickListener{
         StringBuffer drinkOrder = new StringBuffer();
         switch(customerOrder[CUP_SIZE]) {
             case 0:
-                drinkOrder.append("Small\n");
+                drinkOrder.append(getString(R.string.small) + "\n");
                 break;
             case 1:
-                drinkOrder.append("Medium\n");
+                drinkOrder.append(getString(R.string.medium) + "\n");
                 break;
             case 2:
-                drinkOrder.append("Large\n");
+                drinkOrder.append(getString(R.string.large) + "\n");
                 break;
         }
-        if(customerOrder[STEAM] == 1) drinkOrder.append("Steamed ");
+        if(customerOrder[STEAM] == 1) drinkOrder.append(getString(R.string.steamed) + " ");
         switch(customerOrder[MILK_TYPE]) {
             case 0:
-                drinkOrder.append("Whole Milk\n");
+                drinkOrder.append(getString(R.string.whole) + "\n");
                 break;
             case 1:
-                drinkOrder.append("Nonfat Milk\n");
+                drinkOrder.append(getString(R.string.nonfat) +"\n");
                 break;
             case 2:
-                drinkOrder.append("Soy Milk\n");
+                drinkOrder.append(getString(R.string.soy) + "\n");
                 break;
         }
-        if(customerOrder[CARA_SHOT] == 1) drinkOrder.append("Caramel     ");
-        if(customerOrder[HAZEL_SHOT] == 1) drinkOrder.append("Hazelnut     ");
-        if(customerOrder[VAN_SHOT] == 1) drinkOrder.append("Vanilla     ");
-        if(customerOrder[WHT_CHOC_SHOT] == 1) drinkOrder.append("White Chocolate      ");
-        if(customerOrder[PEP_SHOT] == 1) drinkOrder.append("Peppermint      ");
-        if(customerOrder[CHOC_SHOT] == 1) drinkOrder.append("Chocolate     ");
-        if(customerOrder[DEC_ESP] > 0) drinkOrder.append("\n" + Integer.toString(customerOrder[9]) + " Decaf");
-        if(customerOrder[REG_ESP] > 0) drinkOrder.append("\n" + Integer.toString(customerOrder[10]) + " Regular");
-        if(customerOrder[WHP_CRM] == 1) drinkOrder.append("\n Whip Cream");
+        if(customerOrder[WHP_CRM] == 1) drinkOrder.append(getString(R.string.whip) + "\n");
+        if(customerOrder[DEC_ESP] > 0) drinkOrder.append(Integer.toString(customerOrder[9]) + " " + getString(R.string.decaf) + "\n");
+        if(customerOrder[REG_ESP] > 0) drinkOrder.append(Integer.toString(customerOrder[10]) + " " + getString(R.string.regular) + "\n");
+        if(customerOrder[CARA_SHOT] == 1) drinkOrder.append(getString(R.string.caramel) + "     ");
+        if(customerOrder[HAZEL_SHOT] == 1) drinkOrder.append(getString(R.string.hazelnut) +"     ");
+        if(customerOrder[VAN_SHOT] == 1) drinkOrder.append(getString(R.string.vanilla) + "     ");
+        if(customerOrder[TOFFEE_SHOT] == 1) drinkOrder.append(getString(R.string.toffee) + "      ");
+        if(customerOrder[PEP_SHOT] == 1) drinkOrder.append(getString(R.string.peppermint) + "      ");
+        if(customerOrder[CHOC_SHOT] == 1) drinkOrder.append(getString(R.string.chocolate) + "     ");
 
         //updates the TextView to display the customer's order using the generated String
         drinkDisplay.setText(drinkOrder.toString());
-
     }
 
 
@@ -325,7 +327,6 @@ public class Game extends Activity implements View.OnClickListener{
 
         while(i < customerOrder.length) {
             if(customerOrder[i] != userBeverage [i]) {
-                vibrator.vibrate(400);
                 return false;
             }
             i++;
@@ -335,23 +336,40 @@ public class Game extends Activity implements View.OnClickListener{
 
     /*
     * updateLevelProgress Updates the progress bar for the level, if the level goals are satisfied
-    * the level completion is set to visible, and the save file is updated.
+    * the countDownTimer is stopped and levelFinished method is called
      */
     public void updateLevelProgress() {
-        if(drinksMade < drinksGoal) {
-            levelProgress.setProgress(drinksMade);
-        } else {
-            if(level > 2) {
-                countDownTimer.cancel();
-            }
-            levelProgress.setProgress(drinksMade);
-            levelCompletionLayout.setVisibility(View.VISIBLE);
-            levelFinishedText.setText("You have completed " + titleText + "!");
+        levelProgress.setProgress(drinksMade);
+        if(drinksMade == drinksGoal) {
+            countDownTimer.cancel();
+            levelFinished(true);
+        }
+    }
+
+    /*
+    * levelFinished is used to display a message to the user that lets them know they finished the
+    * level objectives, or ran out of time to complete the level. It also updates the save file
+    * if the user has increased their maximum completed level.
+     */
+    public void levelFinished(boolean metObjectives) {
+        levelCompletionLayout.setVisibility(View.VISIBLE);
+        gameLayout.setAlpha(0.3f);
+        drinkDisplay.setText("");
+        levelProgress.setVisibility(View.INVISIBLE);
+        levelProgressText.setVisibility(View.INVISIBLE);
+        levelTimeRemaining.setText("");
+        if(metObjectives) {
+            levelCompletionLayout.setBackgroundColor(Color.parseColor("#ff1daf13"));
+            levelFinishedText.setText(getString(R.string.levelPassedText) + " " + titleText + "!");
             level++;
             if(level > maxLevelCompleted) {
                 updateSaveFile();
             }
+        } else {
+            levelCompletionLayout.setBackgroundColor(Color.parseColor("#ffca1a24"));
+            levelFinishedText.setText(getString(R.string.levelFailedText) + " " + titleText + "!");
         }
+
     }
 
     /*
@@ -359,7 +377,6 @@ public class Game extends Activity implements View.OnClickListener{
      */
     public void updateSaveFile() {
         String fileName = "ultimatebarista.txt";
-
         String string = String.valueOf(level);
         FileOutputStream outputStream;
 
@@ -389,7 +406,7 @@ public class Game extends Activity implements View.OnClickListener{
         caramelButton.clearColorFilter();
         vanillaButton.clearColorFilter();
         hazelnutButton.clearColorFilter();
-        whitechocolateButton.clearColorFilter();
+        toffeeButton.clearColorFilter();
         chocolateButton.clearColorFilter();
         peppermintButton.clearColorFilter();
 
@@ -399,7 +416,6 @@ public class Game extends Activity implements View.OnClickListener{
 
         numOfDecafText.setText("");
         numOfRegText.setText("");
-
     }
 
     /*
@@ -438,7 +454,7 @@ public class Game extends Activity implements View.OnClickListener{
         vanillaButton = (ImageButton) findViewById(R.id.vanillaButton);
         hazelnutButton = (ImageButton) findViewById(R.id.hazelnutButton);
         chocolateButton = (ImageButton) findViewById(R.id.chocolateButton);
-        whitechocolateButton = (ImageButton) findViewById(R.id.whitechocolateButton);
+        toffeeButton = (ImageButton) findViewById(R.id.toffeeButton);
         peppermintButton = (ImageButton) findViewById(R.id.peppermintButton);
         caramelButton = (ImageButton) findViewById(R.id.caramelButton);
         whipCreamButton = (ImageButton) findViewById(R.id.whipButton);
@@ -456,34 +472,18 @@ public class Game extends Activity implements View.OnClickListener{
         levelInfoSubtitle = (TextView) findViewById(R.id.levelInfoSubtitle);
         levelInfoObjective = (TextView) findViewById(R.id.levelInfoObjective);
         levelInfoLayout = (RelativeLayout) findViewById(R.id.levelInfoLayout);
+        gameLayout = (RelativeLayout) findViewById(R.id.gameLayout);
     }
 
     /*
     * setClickListeners links all of the GUI's buttons with the click listeners
      */
     public void setClickListeners() {
-        continueButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                playerGuideLayout.setVisibility(View.INVISIBLE);
-            }
-        });
+        continueButton.setOnClickListener(this);
 
-        nextLevelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(view.getContext(), Levels.class);
-                view.getContext().startActivity(i);
-            }
-        });
+        nextLevelButton.setOnClickListener(this);
 
-
-        infoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                playerGuideLayout.setVisibility(View.VISIBLE);
-            }
-        });
+        infoButton.setOnClickListener(this);
 
         handButton.setOnClickListener(this);
         trashButton.setOnClickListener(this);
@@ -504,7 +504,7 @@ public class Game extends Activity implements View.OnClickListener{
         vanillaButton.setOnClickListener(this);
         hazelnutButton.setOnClickListener(this);
         chocolateButton.setOnClickListener(this);
-        whitechocolateButton.setOnClickListener(this);
+        toffeeButton.setOnClickListener(this);
         peppermintButton.setOnClickListener(this);
         caramelButton.setOnClickListener(this);
         whipCreamButton.setOnClickListener(this);
@@ -528,8 +528,18 @@ public class Game extends Activity implements View.OnClickListener{
         vibrator.vibrate(25);
         levelProgressText.setText("");
         switch (v.getId()) {
+            case R.id.infoButton:
+                playerGuideLayout.setVisibility(View.VISIBLE);
+                break;
+            case R.id.nextLevelButton:
+                Intent i = new Intent(this, Levels.class);
+                startActivity(i);
+                this.finish();
+                break;
+            case R.id.continueButton:
+                playerGuideLayout.setVisibility(View.INVISIBLE);
+                break;
             case R.id.levelInfoBegin:
-                levelInfoLayout.setVisibility(View.INVISIBLE);
                 beginLevel();
                 break;
             case R.id.handButton:
@@ -537,15 +547,29 @@ public class Game extends Activity implements View.OnClickListener{
                 //if drinks are the same, increase counter, update level progress, and generate new
                 //drink order
                 if(compareDrinks()) {
-                    levelProgressText.setText("Drink was correct!");
+                    levelProgressText.setText(getString(R.string.correctDrink));
                     drinksMade++;
-                    updateLevelProgress();
-                    randomDrinkGen();
-                    displayDrinkOrder();
-                } else { //drink is incorrect, inform user
-                    levelProgressText.setText("Drink is incorrect! Try again!");
-                }
 
+                    previousBeverage = customerOrder.clone();
+                    boolean sameDrink = false;
+                    // generates a new drink, and checks to make sure that it is not the same drink
+                    // that the user just made. If the drink is the same, generates a new drink again
+                    // otherwise, loop exists and the new drink order is displayed
+                    do {
+                        randomDrinkGen();
+                        for(int pos=0; pos < previousBeverage.length; pos++) {
+                            if(customerOrder[pos] == previousBeverage[pos]) {
+                                sameDrink = true;
+                            }
+                        }
+                    } while(!sameDrink);
+                    displayDrinkOrder();
+
+                    updateLevelProgress();
+                } else { //drink is incorrect, inform user
+                    levelProgressText.setText(getString(R.string.incorrectDrink));
+                    vibrator.vibrate(400);
+                }
                 //clear the user's created beverage
                 userBeverage = emptyArray.clone();
                 break;
@@ -554,7 +578,7 @@ public class Game extends Activity implements View.OnClickListener{
                 clearSelected();
                 //clear user's created beverage, and inform user
                 userBeverage = emptyArray.clone();
-                levelProgressText.setText("You threw the drink away!");
+                levelProgressText.setText(getString(R.string.drinkThrownOut));
                 break;
 
             /*
@@ -563,7 +587,7 @@ public class Game extends Activity implements View.OnClickListener{
              */
             case R.id.smallButton:
                 if(userBeverage[CUP_SIZE] >= 0) {
-                    levelProgressText.setText("Cup size already selected!");
+                    levelProgressText.setText(getString(R.string.cupAlreadySelected));
                 } else {
                     userBeverage[CUP_SIZE] = 0;
                     smallButton.setColorFilter(Color.argb(100, 0, 77,255));
@@ -571,7 +595,7 @@ public class Game extends Activity implements View.OnClickListener{
                 break;
             case R.id.medButton:
                 if(userBeverage[CUP_SIZE] >= 0) {
-                    levelProgressText.setText("Cup size already selected!");
+                    levelProgressText.setText(getString(R.string.cupAlreadySelected));
                 } else {
                     userBeverage[CUP_SIZE] = 1;
                     medButton.setColorFilter(Color.argb(100, 0, 77,255));
@@ -579,7 +603,7 @@ public class Game extends Activity implements View.OnClickListener{
                 break;
             case R.id.largeButton:
                 if(userBeverage[CUP_SIZE] >= 0) {
-                    levelProgressText.setText("Cup size already selected!");
+                    levelProgressText.setText(getString(R.string.cupAlreadySelected));
                 } else {
                     userBeverage[CUP_SIZE] = 2;
                     largeButton.setColorFilter(Color.argb(100, 0, 77,255));
@@ -592,7 +616,7 @@ public class Game extends Activity implements View.OnClickListener{
              */
             case R.id.wholeButton:
                 if(userBeverage[MILK_TYPE] >= 0) {
-                    levelProgressText.setText("Milk type already selected!");
+                    levelProgressText.setText(getString(R.string.milkAlreadySelected));
                 } else {
                     userBeverage[MILK_TYPE] = 0;
                     wholeButton.setColorFilter(Color.argb(100, 0, 77,255));
@@ -600,7 +624,7 @@ public class Game extends Activity implements View.OnClickListener{
                 break;
             case R.id.nonfatButton:
                 if(userBeverage[MILK_TYPE] >= 0) {
-                    levelProgressText.setText("Milk type already selected!");
+                    levelProgressText.setText(getString(R.string.milkAlreadySelected));
                 } else {
                     userBeverage[MILK_TYPE] = 1;
                     nonfatButton.setColorFilter(Color.argb(100, 0, 77,255));
@@ -608,7 +632,7 @@ public class Game extends Activity implements View.OnClickListener{
                 break;
             case R.id.soyButton:
                 if(userBeverage[MILK_TYPE] >= 0) {
-                    levelProgressText.setText("Milk type already selected!");
+                    levelProgressText.setText(getString(R.string.milkAlreadySelected));
                 } else {
                     userBeverage[MILK_TYPE] = 2;
                     soyButton.setColorFilter(Color.argb(100, 0, 77,255));
@@ -648,9 +672,9 @@ public class Game extends Activity implements View.OnClickListener{
                 userBeverage[CHOC_SHOT] = 1;
                 chocolateButton.setColorFilter(Color.argb(100, 0, 77,255));
                 break;
-            case R.id.whitechocolateButton:
-                userBeverage[WHT_CHOC_SHOT] = 1;
-                whitechocolateButton.setColorFilter(Color.argb(100, 0, 77,255));
+            case R.id.toffeeButton:
+                userBeverage[TOFFEE_SHOT] = 1;
+                toffeeButton.setColorFilter(Color.argb(100, 0, 77,255));
                 break;
             case R.id.peppermintButton:
                 userBeverage[PEP_SHOT] = 1;
@@ -691,20 +715,27 @@ public class Game extends Activity implements View.OnClickListener{
     }
     @Override
     protected void onPause() {
+        super.onPause();
         //stop mediaplayer:
-        if (mp != null && mp.isPlaying()) {
+        if (mp != null) {
             mp.release();
         }
-        super.onPause();
+
     }
 
     @Override
     public void onResume() {
         super.onResume();  // Always call the superclass method first
-        if(!firstOnResume) {
-            startMediaPlayer();
-        }
-        firstOnResume = false;
+        startMediaPlayer();
     }
+
+    @Override
+    public void onBackPressed()
+    {
+        Intent i = new Intent(this, Levels.class);
+        this.startActivity(i);
+        // super.onBackPressed(); // Comment this super call to avoid calling finish()
+    }
+
 
 }

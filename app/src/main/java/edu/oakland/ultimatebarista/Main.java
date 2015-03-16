@@ -35,8 +35,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 
-public class Main extends GoogleAPI implements
-        View.OnClickListener {
+public class Main extends GoogleAPI implements View.OnClickListener {
 
     Button continueButton = null;
     private MediaPlayer mp;
@@ -58,15 +57,13 @@ public class Main extends GoogleAPI implements
         findViewById(R.id.sign_out_button).setOnClickListener(this);
         continueButton = (Button) findViewById(R.id.continueButton);
         continueButton.setOnClickListener(this);
-
-        startMediaPlayer();
     }
 
     private void createSaveFile() {
         File file = new File(this.getFilesDir(), fileName);
         String fileName = "ultimatebarista.txt";
         if(!file.exists()) {
-            String string = "1";
+            String string = "0";
             FileOutputStream outputStream;
 
             try {
@@ -109,6 +106,7 @@ public class Main extends GoogleAPI implements
             case R.id.continueButton:
                 Intent i = new Intent(this, Levels.class);
                 startActivity(i);
+                this.finish();
                 break;
         }
     }
@@ -131,11 +129,11 @@ public class Main extends GoogleAPI implements
 
     @Override
     protected void onPause() {
+        super.onPause();
         //stop mediaplayer:
-        if (mp != null && mp.isPlaying()) {
+        if (mp != null) {
             mp.release();
         }
-        super.onPause();
     }
     @Override
     protected void onStart() {
@@ -147,10 +145,8 @@ public class Main extends GoogleAPI implements
     @Override
     public void onResume() {
         super.onResume();  // Always call the superclass method first
-        if(!firstOnResume) {
-            startMediaPlayer();
-        }
-        firstOnResume = false;
+
+        startMediaPlayer();
     }
 
     @Override

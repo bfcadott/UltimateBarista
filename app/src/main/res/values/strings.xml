@@ -8,4 +8,97 @@
     <string name="title_activity_game">Game</string>
     <string name="title_activity_base">BaseActivity</string>
 
+    <string name="tutorialLevelInfoTitle">Time to play!</string>
+    <string name="tutorialLevelObjective">Goal: Make the drink</string>
+    <string name="tutorialLevelTitle">Tutorial</string>
+    <string name="levelPassedText">You have completed </string>
+    <string name="levelFailedText">You ran out of time to complete</string>
+
+    <!-- cup sizes -->
+    <string name="small">Small</string>
+    <string name="medium">Medium</string>
+    <string name="large">Large</string>
+
+    <!-- steamed, espresso types -->
+    <string name="steamed">Steamed</string>
+    <string name="regular">Regular</string>
+    <string name="decaf">Decaf</string>
+
+    <!-- milk types -->
+    <string name="whole">Whole Milk</string>
+    <string name="nonfat">Nonfat Milk</string>
+    <string name="soy">Soy Milk</string>
+
+    <string name="whip">Whip Cream</string>
+
+    <!-- syrup types -->
+    <string name="caramel">Caramel</string>
+    <string name="hazelnut">Hazelnut</string>
+    <string name="vanilla">Vanilla</string>
+    <string name="toffee">Toffee</string>
+    <string name="peppermint">Peppermint</string>
+    <string name="chocolate">Chocolate</string>
+
+    <!-- feedback messages -->
+    <string name="correctDrink">Drink was correct!</string>
+    <string name="incorrectDrink">Drink is incorrect! Try again!</string>
+    <string name="drinkThrownOut">You threw the drink away!</string>
+    <string name="cupAlreadySelected">Cup size already selected!</string>
+    <string name="milkAlreadySelected">Milk type already selected!</string>
+
+
+    <!-- level information -->
+    <!-- level 1-->
+    <string name="level1title">Barista Basics</string>
+    <string name="level1drinks">3</string>
+    <string name="level1time">60</string>
+
+    <!-- level 2-->
+    <string name="level2title">Wonderful Whip</string>
+    <string name="level2drinks">5</string>
+    <string name="level2time">60</string>
+
+    <!-- level 3-->
+    <string name="level3title">Enticing Espresso</string>
+    <string name="level3drinks">5</string>
+    <string name="level3time">60</string>
+
+    <!-- level 4-->
+    <string name="level4title">Level 4 (PLACEHOLDER)</string>
+    <string name="level4drinks">6</string>
+    <string name="level4time">60</string>
+
+    <!-- level 5-->
+    <string name="level5title">Demure Decaf</string>
+    <string name="level5drinks">7</string>
+    <string name="level5time">60</string>
+    <!-- level 6-->
+    <string name="level6title">Level 6 (PLACEHOLDER)</string>
+    <string name="level6drinks">8</string>
+    <string name="level6time">50</string>
+    <!-- level 7-->
+    <string name="level7title">Sweet Syrup Sensations</string>
+    <string name="level7drinks">5</string>
+    <string name="level7time">60</string>
+    <!-- level 8-->
+    <string name="level8title">Level 8 (PLACEHOLDER)</string>
+    <string name="level8drinks">6</string>
+    <string name="level8time">60</string>
+    <!-- level 9-->
+    <string name="level9title">Sweet Syrup Sensations 2</string>
+    <string name="level9subtitle">The Sweetening</string>
+    <string name="level9drinks">8</string>
+    <string name="level9time">50</string>
+    <!-- level 10-->
+    <string name="level10title">Level 10 (PLACEHOLDER)</string>
+    <string name="level10drinks">12</string>
+    <string name="level10time">60</string>
+    <!-- level 11-->
+    <string name="level11title">Level 11 (PLACEHOLDER)</string>
+    <string name="level11drinks">16</string>
+    <string name="level11time">60</string>
+    <!-- level 12-->
+    <string name="level12title">Level 12 (PLACEHOLDER)</string>
+    <string name="level12drinks">20</string>
+    <string name="level12time">60</string>
 </resources>
