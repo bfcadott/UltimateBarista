@@ -17,72 +17,75 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.games.Games;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Random;
 import java.util.Timer;
 
 //Class which controls Game-Screen functionality
-public class Game extends Activity implements View.OnClickListener{
+public class Game extends GoogleAPI implements View.OnClickListener{
     /*
     * Lots of GUI elements to create references for
      */
 
     //MediaPlayer for music PlayBack
-    MediaPlayer mp = null;
+    private MediaPlayer mp = null;
 
     //ImageButtons for the various game buttons
-    ImageButton infoButton,handButton,trashButton,smallButton,medButton,largeButton,wholeButton,
+    private ImageButton infoButton,handButton,trashButton,smallButton,medButton,largeButton,wholeButton,
             nonfatButton,soyButton,espButton,dcfButton,steamButton,caramelButton,
             hazelnutButton,vanillaButton,toffeeButton,peppermintButton,chocolateButton,
             whipCreamButton = null;
 
     //Vibrator for button feedback
-    Vibrator vibrator = null;
+    private Vibrator vibrator = null;
 
     //ProgressBar for showing User's level progress
-    ProgressBar levelProgress = null;
+    private ProgressBar levelProgress = null;
 
     //TextViews to display text elements throughout the game
-    TextView levelProgressText,levelTimeRemaining,levelFinishedText,levelInfoTitle,
+    private TextView levelProgressText,levelTimeRemaining,levelFinishedText,levelInfoTitle,
             levelInfoSubtitle,levelInfoObjective,numOfDecafText,numOfRegText,levelTitle,
             drinkDisplay = null;
 
     //Regular buttons to control menu flow
-    Button continueButton,nextLevelButton,levelInfoBegin = null;
+    private Button continueButton,nextLevelButton,levelInfoBegin, levelSelectionButton = null;
 
     //Layouts containing all of the buttons
-    RelativeLayout playerGuideLayout,levelCompletionLayout,levelInfoLayout,gameLayout = null;
+    private RelativeLayout playerGuideLayout,levelCompletionLayout,levelInfoLayout,gameLayout = null;
 
     //Number of drinks made by user
-    int drinksMade = 0;
+    private int drinksMade = 0;
 
     //current level, highest level user has completed
-    int level = 0;
-    int maxLevelCompleted = 1;
+    private int level = 0;
+    private int maxLevelCompleted = 0;
 
     //All of the level information, title, subtitle, drinks required, and time limit
-    String titleText = null;
-    String subtitleText = null;
-    long timeLimit = 0;
-    int drinksGoal = 0;
+    private String titleText = null;
+    private String levelText = null;
+    private String subtitleText = null;
+    private long timeLimit = 0;
+    private int drinksGoal = 0;
 
     //CountDownTimer is used to track level time limits
     CountDownTimer countDownTimer = null;
 
     //Constant Integers to make array referencing clearer
-    final int CUP_SIZE = 0;
-    final int STEAM = 1;
-    final int MILK_TYPE = 2;
-    final int TOFFEE_SHOT = 3;
-    final int CHOC_SHOT = 4;
-    final int PEP_SHOT = 5;
-    final int HAZEL_SHOT = 6;
-    final int CARA_SHOT = 7;
-    final int VAN_SHOT = 8;
-    final int DEC_ESP = 9;
-    final int REG_ESP = 10;
-    final int WHP_CRM = 11;
+    private final int CUP_SIZE = 0;
+    private final int STEAM = 1;
+    private final int MILK_TYPE = 2;
+    private final int TOFFEE_SHOT = 3;
+    private  final int CHOC_SHOT = 4;
+    private final int PEP_SHOT = 5;
+    private final int HAZEL_SHOT = 6;
+    private final int CARA_SHOT = 7;
+    private final int VAN_SHOT = 8;
+    private final int DEC_ESP = 9;
+    private final int REG_ESP = 10;
+    private final int WHP_CRM = 11;
 
     //Three arrays to hold: Customer Drink, User Drink, and the empty array to help reinitialize user drink
      /*
@@ -99,11 +102,14 @@ public class Game extends Activity implements View.OnClickListener{
     *       REG_ESP is y: where y is the amount of shots added
     *       WHP_CRM is 0: none, 1: added
      */
-    int[] customerOrder = new int[12];
-    int[] userBeverage = {-1,0,-1,0,0,0,0,0,0,0,0,0};
-    int[] emptyArray = {-1,0,-1,0,0,0,0,0,0,0,0,0};
-    int[] previousBeverage = new int[12];
+    private int[] customerOrder = new int[12];
+    private int[] userBeverage = {-1,0,-1,0,0,0,0,0,0,0,0,0};
+    private final int[] emptyArray = {-1,0,-1,0,0,0,0,0,0,0,0,0};
+    private int[] previousBeverage = new int[12];
 
+    private String fileName = "ultimatebarista.txt";
+
+    private int mediaFile = 0;
 
 
     @Override
@@ -127,73 +133,262 @@ public class Game extends Activity implements View.OnClickListener{
     /*
     * The runTutorial method is used to set up the level for the tutorial
      */
-    public void runTutorial() {
+    private void runTutorial() {
         //Fills in the level's TextViews with appropriate tutorial level text
         levelInfoTitle.setText(getString(R.string.tutorialLevelTitle));
         levelInfoObjective.setText(getString(R.string.tutorialLevelObjective));
+        titleText = getString(R.string.tutorialLevelTitle);
         levelTitle.setText(getString(R.string.tutorialLevelTitle));
+        drinksGoal = Integer.valueOf(getString(R.string.tutorialdrinks));
 
         //Makes the information screen visible, and hides the progress bar/countdown for this tutorial
         //level
         levelInfoLayout.setVisibility(View.VISIBLE);
-        levelProgress.setVisibility(View.INVISIBLE);
         levelTimeRemaining.setVisibility(View.INVISIBLE);
+
+        //Sets up tutorial audio file, level progress bar, and sets background
+        mediaFile = R.raw.progressivehouse;
+        levelProgress.setMax(drinksGoal);
+        gameLayout.setBackgroundResource(R.drawable.bg);
+
+        //Generates and displays a random drink
+        randomDrinkGen();
+        displayDrinkOrder();
     }
 
     /*
     * displayObjectives is used to display the level's objectives to the user before the game begins
      */
-    public void displayObjectives() {
+    private void displayObjectives() {
         levelInfoTitle.setText(titleText);
         if (subtitleText != null) {
             levelInfoSubtitle.setText(subtitleText);
         }
-        levelInfoBegin.setText("Begin Level");
-        StringBuffer levelObjective = new StringBuffer();
-        levelObjective.append("Goal: Make ");
-        levelObjective.append(drinksGoal);
-        if (timeLimit > 0) {
-            levelObjective.append(" drinks in ");
-            levelObjective.append(timeLimit / 1000);
-            levelObjective.append(" seconds.");
-        } else {
-            levelObjective.append(" drinks!");
-        }
-        levelInfoObjective.setText(levelObjective.toString());
-
+        levelInfoBegin.setText("Continue");
+        levelInfoObjective.setText(levelText);
         levelInfoLayout.setVisibility(View.VISIBLE);
     }
 
     /*
-    * retrieveLevelInfo retrieves and stores all of the level information that was passed to the
-    * Game screen from the Level selection screen.
+    * retrieveLevelInfo retrieves and stores the game level, and max level completed by the player.
      */
-    public void retrieveLevelInfo() {
+    private void retrieveLevelInfo() {
         Intent i = getIntent();
         level = Integer.valueOf(i.getStringExtra("level"));
         maxLevelCompleted = Integer.valueOf(i.getStringExtra("maxLevelCompleted"));
-        titleText = i.getStringExtra("levelTitle");
-        subtitleText = i.getStringExtra("levelSubtitle");
-        drinksGoal = Integer.valueOf(i.getStringExtra("numOfDrinks"));
-        timeLimit = Long.valueOf(i.getStringExtra("timeLimit")) * 1000;
     }
 
     /*
     * setUpLevel sets up the level by updating the textviews, progress bar, and timer with the
-    * information for the current level.
+    * information for the current level. Also sets the audio file and level background.
+    * Level information can be viewed in strings.xml
      */
-    public void setUpLevel() {
-        levelTitle.setText(titleText);
+    private void setUpLevel() {
+        switch(level) {
+            case 20:
+                gameLayout.setBackgroundResource(R.drawable.bgfrance);
+                levelText = getString(R.string.level20text);
+                titleText = getString(R.string.level20title);
+                subtitleText = getString(R.string.level20subtitle);
+                drinksGoal = Integer.valueOf(getString(R.string.level20drinks));
+                timeLimit = Long.valueOf(getString(R.string.level20time)) * 1000;
+                mediaFile = R.raw.dogma;
+                break;
+            case 19:
+                gameLayout.setBackgroundResource(R.drawable.bgfrance);
+                levelText = getString(R.string.level19text);
+                titleText = getString(R.string.level19title);
+                subtitleText = getString(R.string.level19subtitle);
+                drinksGoal = Integer.valueOf(getString(R.string.level19drinks));
+                timeLimit = Long.valueOf(getString(R.string.level19time)) * 1000;
+                mediaFile = R.raw.travel;
+                break;
+            case 18:
+                gameLayout.setBackgroundResource(R.drawable.bgscotland);
+                levelText = getString(R.string.level18text);
+                titleText = getString(R.string.level18title);
+                subtitleText = getString(R.string.level18subtitle);
+                drinksGoal = Integer.valueOf(getString(R.string.level18drinks));
+                timeLimit = Long.valueOf(getString(R.string.level18time)) * 1000;
+                mediaFile = R.raw.shetland2;
+                break;
+            case 17:
+                gameLayout.setBackgroundResource(R.drawable.bgscotland);
+                levelText = getString(R.string.level17text);
+                titleText = getString(R.string.level17title);
+                subtitleText = getString(R.string.level17subtitle);
+                drinksGoal = Integer.valueOf(getString(R.string.level17drinks));
+                timeLimit = Long.valueOf(getString(R.string.level17time)) * 1000;
+                mediaFile = R.raw.shetland;
+                break;
+            case 16:
+                gameLayout.setBackgroundResource(R.drawable.bgitaly);
+                levelText = getString(R.string.level16text);
+                titleText = getString(R.string.level16title);
+                subtitleText = getString(R.string.level16subtitle);
+                drinksGoal = Integer.valueOf(getString(R.string.level16drinks));
+                timeLimit = Long.valueOf(getString(R.string.level16time)) * 1000;
+                mediaFile = R.raw.dolcevita;
+                break;
+            case 15:
+                gameLayout.setBackgroundResource(R.drawable.bgitaly);
+                levelText = getString(R.string.level15text);
+                titleText = getString(R.string.level15title);
+                subtitleText = getString(R.string.level15subtitle);
+                drinksGoal = Integer.valueOf(getString(R.string.level15drinks));
+                timeLimit = Long.valueOf(getString(R.string.level15time)) * 1000;
+                mediaFile = R.raw.vino;
+                break;
+            case 14:
+                gameLayout.setBackgroundResource(R.drawable.egyptbackground);
+                levelText = getString(R.string.level14text);
+                titleText = getString(R.string.level14title);
+                subtitleText = getString(R.string.level14subtitle);
+                drinksGoal = Integer.valueOf(getString(R.string.level14drinks));
+                timeLimit = Long.valueOf(getString(R.string.level14time)) * 1000;
+                mediaFile = R.raw.tigris;
+                break;
+            case 13:
+                gameLayout.setBackgroundResource(R.drawable.bg);
+                levelText = getString(R.string.level13text);
+                titleText = getString(R.string.level13title);
+                subtitleText = getString(R.string.level13subtitle);
+                drinksGoal = Integer.valueOf(getString(R.string.level13drinks));
+                timeLimit = Long.valueOf(getString(R.string.level13time)) * 1000;
+                mediaFile = R.raw.celestialbody;
+                break;
+            case 12:
+                gameLayout.setBackgroundResource(R.drawable.bgchina);
+                levelText = getString(R.string.level12text);
+                titleText = getString(R.string.level12title);
+                subtitleText = getString(R.string.level12subtitle);
+                drinksGoal = Integer.valueOf(getString(R.string.level12drinks));
+                timeLimit = Long.valueOf(getString(R.string.level12time)) * 1000;
+                mediaFile = R.raw.shogun;
+                break;
+            case 11:
+                gameLayout.setBackgroundResource(R.drawable.bg);
+                levelText = getString(R.string.level11text);
+                titleText = getString(R.string.level11title);
+                subtitleText = getString(R.string.level11subtitle);
+                drinksGoal = Integer.valueOf(getString(R.string.level11drinks));
+                timeLimit = Long.valueOf(getString(R.string.level11time)) * 1000;
+                mediaFile = R.raw.island;
+                break;
+            case 10:
+                gameLayout.setBackgroundResource(R.drawable.bgmexico);
+                levelText = getString(R.string.level10text);
+                titleText = getString(R.string.level10title);
+                subtitleText = getString(R.string.level10subtitle);
+                drinksGoal = Integer.valueOf(getString(R.string.level10drinks));
+                timeLimit = Long.valueOf(getString(R.string.level10time)) * 1000;
+                mediaFile = R.raw.havana;
+                break;
+            case 9:
+                gameLayout.setBackgroundResource(R.drawable.bg);
+                levelText = getString(R.string.level9text);
+                titleText = getString(R.string.level9title);
+                subtitleText = getString(R.string.trainingtitle);
+                drinksGoal = Integer.valueOf(getString(R.string.trainingdrinks));
+                timeLimit = Long.valueOf(getString(R.string.trainingtime)) * 1000;
+                mediaFile = R.raw.progressivehouse;
+                break;
+            case 8:
+                gameLayout.setBackgroundResource(R.drawable.bghollywood);
+                levelText = getString(R.string.level8text);
+                titleText = getString(R.string.level8title);
+                subtitleText = getString(R.string.level8subtitle);
+                drinksGoal = Integer.valueOf(getString(R.string.level8drinks));
+                timeLimit = Long.valueOf(getString(R.string.level8time)) * 1000;
+                mediaFile = R.raw.catwalk;
+                break;
+            case 7:
+                gameLayout.setBackgroundResource(R.drawable.bg);
+                levelText = getString(R.string.level7text);
+                titleText = getString(R.string.level7title);
+                subtitleText = getString(R.string.trainingtitle);
+                drinksGoal = Integer.valueOf(getString(R.string.trainingdrinks));
+                timeLimit = Long.valueOf(getString(R.string.trainingtime)) * 1000;
+                mediaFile = R.raw.progressivehouse;
+                break;
+            case 6:
+                gameLayout.setBackgroundResource(R.drawable.bg);
+                levelText = getString(R.string.level6text);
+                titleText = getString(R.string.level6title);
+                subtitleText = getString(R.string.level6subtitle);
+                drinksGoal = Integer.valueOf(getString(R.string.level6drinks));
+                timeLimit = Long.valueOf(getString(R.string.level6time)) * 1000;
+                mediaFile = R.raw.bossaloungerlong;
+                break;
+            case 5:
+                gameLayout.setBackgroundResource(R.drawable.bg);
+                levelText = getString(R.string.level5text);
+                titleText = getString(R.string.level5title);
+                subtitleText = getString(R.string.level5subtitle);
+                drinksGoal = Integer.valueOf(getString(R.string.level5drinks));
+                timeLimit = Long.valueOf(getString(R.string.level5time)) * 1000;
+                mediaFile = R.raw.parkbench;
+                break;
+            case 4:
+                gameLayout.setBackgroundResource(R.drawable.bg);
+                levelText = getString(R.string.level4text);
+                titleText = getString(R.string.level4title);
+                subtitleText = getString(R.string.trainingtitle);
+                drinksGoal = Integer.valueOf(getString(R.string.trainingdrinks));
+                timeLimit = Long.valueOf(getString(R.string.trainingtime)) * 1000;
+                mediaFile = R.raw.progressivehouse;
+                break;
+            case 3:
+                gameLayout.setBackgroundResource(R.drawable.bg);
+                levelText = getString(R.string.level3text);
+                titleText = getString(R.string.level3title);
+                subtitleText = getString(R.string.trainingtitle);
+                drinksGoal = Integer.valueOf(getString(R.string.trainingdrinks));
+                timeLimit = Long.valueOf(getString(R.string.trainingtime)) * 1000;
+                mediaFile = R.raw.progressivehouse;
+                break;
+            case 2:
+                gameLayout.setBackgroundResource(R.drawable.bg);
+                levelText = getString(R.string.level2text);
+                titleText = getString(R.string.level2title);
+                subtitleText = getString(R.string.trainingtitle);
+                drinksGoal = Integer.valueOf(getString(R.string.trainingdrinks));
+                timeLimit = Long.valueOf(getString(R.string.trainingtime)) * 1000;
+                mediaFile = R.raw.progressivehouse;
+                break;
+            case 1:
+                gameLayout.setBackgroundResource(R.drawable.bg);
+                levelText = getString(R.string.level1text);
+                titleText = getString(R.string.level1title);
+                subtitleText = getString(R.string.trainingtitle);
+                drinksGoal = Integer.valueOf(getString(R.string.trainingdrinks));
+                timeLimit = Long.valueOf(getString(R.string.trainingtime)) * 1000;
+                mediaFile = R.raw.progressivehouse;
+                break;
+        }
+
+        //All of the competition levels display the City Name as the level title, rather than the
+        //competition name
+        if(level > 3 && level != 7 && level != 9) {
+            levelTitle.setText(subtitleText);
+        } else {
+            levelTitle.setText(titleText);
+        }
+
+        //Sets up the level progress bar with the goals
         levelProgress.setMax(drinksGoal);
         levelProgress.setVisibility(View.VISIBLE);
         levelProgressText.setVisibility(View.VISIBLE);
+        levelProgressText.setText(drinksMade + "/" + drinksGoal);
 
+        //Begins the countdown timer
         countDownTimer = new CountDownTimer(timeLimit, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 levelTimeRemaining.setText(String.valueOf(millisUntilFinished / 1000));
             }
 
+            //If time runs out, level is failed.
             @Override
             public void onFinish() {
                 levelFinished(false);
@@ -202,29 +397,25 @@ public class Game extends Activity implements View.OnClickListener{
     }
 
     /*
-    * beginLevel begins the level by generating a drink order, displaying the drink order, starting
-    * music playback, and beginning the countdown timer if the level requires it.
+    * beginLevel begins the level by generating a drink order, displaying the drink order, and beginning the countdown timer if the level requires it.
      */
-    public void beginLevel() {
+    private void beginLevel() {
         gameLayout.setAlpha(1.0f);
         levelInfoLayout.setVisibility(View.INVISIBLE);
-        if(level == 0) {
-            customerOrder = emptyArray.clone();
-            customerOrder[CUP_SIZE] = 2;
-            customerOrder[MILK_TYPE] = 0;
-            customerOrder[STEAM] = 1;
-            displayDrinkOrder();
-        } else {
-            randomDrinkGen();
-        }
+        randomDrinkGen();
         displayDrinkOrder();
 
-        countDownTimer.start();
+        if(level > 0) {
+            countDownTimer.start();
+        }
 
     }
 
+    /*
+    * startMediaPlayer loads the audio file and begins playback
+     */
     public void startMediaPlayer() {
-        mp = MediaPlayer.create(this, R.raw.catwalk);
+        mp = MediaPlayer.create(this, mediaFile);
         mp.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
@@ -237,38 +428,84 @@ public class Game extends Activity implements View.OnClickListener{
     /*
     * randomDrinkGen Generates a random drink based on the current level
      */
-    public void randomDrinkGen() {
+    protected void randomDrinkGen() {
         int[] drink = new int[12];
         Random rand = new Random();
         switch(level) {
+            //Levels 10-20 do not have any added features
+            case 20:
+            case 19:
+            case 18:
+            case 17:
+            case 16:
+            case 15:
+            case 14:
+            case 13:
             case 12:
             case 11:
             case 10:
-            case 9: //levels 9 and above add the possibility for the bottom row of syrups
-                drink[TOFFEE_SHOT] = rand.nextInt(2);
-                drink[CHOC_SHOT] = rand.nextInt(2);
-                drink[PEP_SHOT] = rand.nextInt(2);
-            case 8:
-            case 7: //levels 7 and above add the possibility for the top row of syrups
-                drink[CARA_SHOT] = rand.nextInt(2);
-                drink[HAZEL_SHOT] = rand.nextInt(2);
-                drink[VAN_SHOT] = rand.nextInt(2);
-            case 6:
-            case 5: //levels 5 and above add the possibility for 0-4 decaf shots of espresso
-
-                drink[DEC_ESP] = rand.nextInt(5);
-            case 4:
+            case 9: //levels 9 and above add the bottom row of syrups
+                int syrup = rand.nextInt(4);
+                switch(syrup) {
+                    case 1:
+                        drink[PEP_SHOT] = 1;
+                        break;
+                    case 2:
+                        drink[TOFFEE_SHOT] = 1;
+                        drink[CHOC_SHOT] = 1;
+                        break;
+                    case 3:
+                        drink[TOFFEE_SHOT] = 1;
+                        drink[CHOC_SHOT] = 1;
+                        drink[PEP_SHOT] = 1;
+                        break;
+                }
+            case 8: //level 8 has no added features
+            case 7: //levels 7 and above add the top row of syrups
+                syrup = rand.nextInt(3);
+                switch(syrup){
+                    case 0:
+                        drink[HAZEL_SHOT] = 1;
+                        break;
+                    case 1:
+                        drink[CARA_SHOT] = 1;
+                        drink[VAN_SHOT] = 1;
+                        break;
+                    case 2:
+                        drink[CARA_SHOT] = 1;
+                        drink[HAZEL_SHOT] = 1;
+                        drink[VAN_SHOT] = 1;
+                        break;
+                }
+            case 6: //level 5 & 6 have no added features
+            case 5:
+            case 4://levels 4 and above add the possibility for 0-4 decaf shots of espresso
+                if(level == 4) {
+                    drink[DEC_ESP] = 1;
+                } else {
+                    drink[DEC_ESP] = rand.nextInt(5);
+                }
             case 3: //levels 3 and above add the possibility for 0-4 regular shots of espresso
-                drink[REG_ESP] = rand.nextInt(5);
+                if(level == 3) {
+                    drink[REG_ESP] = 1;
+                } else {
+                    drink[REG_ESP] = rand.nextInt(5);
+                }
             case 2: //levels 2 and above add the possibility for whip cream
-                drink[WHP_CRM] = rand.nextInt(2);
-            case 1: //levels 1 and above require a cup size, possibility for steaming, and require
+                if(level == 2) {
+                    drink[WHP_CRM] = 1;
+                } else {
+                    drink[WHP_CRM] = rand.nextInt(2);
+                }
+            case 1: //level 1 has no added feature
+            case 0: //levels 0 and above require a cup size, possibility for steaming, and require
                     //a milk type
                 drink[CUP_SIZE] = rand.nextInt(3);
                 drink[STEAM] = rand.nextInt(2);
                 drink[MILK_TYPE] = rand.nextInt(3);
-        }
+                break;
 
+        }
         //sets the customer order to the generated drink
         customerOrder = drink.clone();
 
@@ -340,43 +577,116 @@ public class Game extends Activity implements View.OnClickListener{
      */
     public void updateLevelProgress() {
         levelProgress.setProgress(drinksMade);
+        levelProgressText.setText(drinksMade + "/" + drinksGoal);
         if(drinksMade == drinksGoal) {
-            countDownTimer.cancel();
+            if(level > 0) {
+                countDownTimer.cancel();
+            }
             levelFinished(true);
         }
     }
 
     /*
     * levelFinished is used to display a message to the user that lets them know they finished the
-    * level objectives, or ran out of time to complete the level. It also updates the save file
-    * if the user has increased their maximum completed level.
+    * level objectives, or ran out of time to complete the level. It also calls the method that updates
+    * the save file if the user has increased their maximum completed level.
      */
     public void levelFinished(boolean metObjectives) {
+
+        //The level completion box is made visible, and the game play screen is dimmed
         levelCompletionLayout.setVisibility(View.VISIBLE);
         gameLayout.setAlpha(0.3f);
         drinkDisplay.setText("");
         levelProgress.setVisibility(View.INVISIBLE);
         levelProgressText.setVisibility(View.INVISIBLE);
         levelTimeRemaining.setText("");
+
+        //True if user completed all goals, false if user failed level
         if(metObjectives) {
             levelCompletionLayout.setBackgroundColor(Color.parseColor("#ff1daf13"));
-            levelFinishedText.setText(getString(R.string.levelPassedText) + " " + titleText + "!");
+            levelFinishedText.setText(getString(R.string.levelPassedText) + " " + levelTitle.getText() + "!");
+            //unlockAchievement();
             level++;
+
+            //Save file is only updated if the level is greater than the max completed level
             if(level > maxLevelCompleted) {
                 updateSaveFile();
             }
+
         } else {
             levelCompletionLayout.setBackgroundColor(Color.parseColor("#ffca1a24"));
-            levelFinishedText.setText(getString(R.string.levelFailedText) + " " + titleText + "!");
+            levelFinishedText.setText(getString(R.string.levelFailedText) + " " + levelTitle.getText() + "!");
+            nextLevelButton.setText("Retry Level");
         }
 
+    }
+
+
+    /*
+    * unlockAchievement is called to unlock Google Play Game Services achievements when the player
+    * has completed certain milestones in the game.
+     */
+    private void unlockAchievement() {
+        switch(level) {
+            case 1:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQAQ");
+                break;
+            case 2:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQAg");
+                break;
+            case 3:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQAw");
+                break;
+            case 4:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQBA");
+                break;
+            case 5:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQBQ");
+                break;
+            case 6:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQCA");
+                break;
+            case 7:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQCQ");
+                break;
+            case 8:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQCg");
+                break;
+            case 9:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQCw");
+                break;
+            case 10:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQDA");
+                break;
+            case 11:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQDQ");
+                break;
+            case 12:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQDg");
+                break;
+            case 13:
+                break;
+            case 14:
+                break;
+            case 15:
+                break;
+            case 16:
+                break;
+            case 17:
+                break;
+            case 18:
+                break;
+            case 19:
+                break;
+            case 20:
+                break;
+        }
     }
 
     /*
     * updateSaveFile updates the game's save file to store the user's current level.
      */
     public void updateSaveFile() {
-        String fileName = "ultimatebarista.txt";
         String string = String.valueOf(level);
         FileOutputStream outputStream;
 
@@ -473,6 +783,8 @@ public class Game extends Activity implements View.OnClickListener{
         levelInfoObjective = (TextView) findViewById(R.id.levelInfoObjective);
         levelInfoLayout = (RelativeLayout) findViewById(R.id.levelInfoLayout);
         gameLayout = (RelativeLayout) findViewById(R.id.gameLayout);
+
+        levelSelectionButton = (Button) findViewById(R.id.levelSelectionButton);
     }
 
     /*
@@ -510,6 +822,7 @@ public class Game extends Activity implements View.OnClickListener{
         whipCreamButton.setOnClickListener(this);
 
         levelInfoBegin.setOnClickListener(this);
+        levelSelectionButton.setOnClickListener(this);
 
 
     }
@@ -526,21 +839,47 @@ public class Game extends Activity implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         vibrator.vibrate(25);
-        levelProgressText.setText("");
+        levelProgressText.setText(drinksMade + "/" + drinksGoal);
         switch (v.getId()) {
+            case R.id.levelSelectionButton:
+                Intent i = new Intent(this, Levels.class);
+                startActivity(i);
+                this.finish();
             case R.id.infoButton:
                 playerGuideLayout.setVisibility(View.VISIBLE);
                 break;
             case R.id.nextLevelButton:
-                Intent i = new Intent(this, Levels.class);
-                startActivity(i);
-                this.finish();
+                if(nextLevelButton.getText() == "Retry Level") {
+                    setUpLevel();
+                    displayObjectives();
+                    levelCompletionLayout.setVisibility(View.GONE);
+                    drinksMade = 0;
+                } else {
+
+                }
                 break;
             case R.id.continueButton:
                 playerGuideLayout.setVisibility(View.INVISIBLE);
                 break;
             case R.id.levelInfoBegin:
-                beginLevel();
+                if(levelInfoBegin.getText() == "Begin Level") //Being level button is active
+                {
+                    beginLevel();
+                } else {
+                    StringBuffer levelObjective = new StringBuffer();
+                    levelObjective.append("Goal: Make ");
+                    levelObjective.append(drinksGoal);
+                    if (timeLimit > 0) {
+                        levelObjective.append(" drinks in ");
+                        levelObjective.append(timeLimit / 1000);
+                        levelObjective.append(" seconds.");
+                    } else {
+                        levelObjective.append(" drinks!");
+                    }
+                    levelInfoObjective.setText(levelObjective.toString());
+                    levelInfoBegin.setText("Begin Level");
+                }
+
                 break;
             case R.id.handButton:
                 clearSelected();
@@ -551,19 +890,19 @@ public class Game extends Activity implements View.OnClickListener{
                     drinksMade++;
 
                     previousBeverage = customerOrder.clone();
-                    boolean sameDrink = false;
-                    // generates a new drink, and checks to make sure that it is not the same drink
-                    // that the user just made. If the drink is the same, generates a new drink again
-                    // otherwise, loop exists and the new drink order is displayed
-                    do {
-                        randomDrinkGen();
-                        for(int pos=0; pos < previousBeverage.length; pos++) {
-                            if(customerOrder[pos] == previousBeverage[pos]) {
-                                sameDrink = true;
-                            }
+                    // generates a new drink
+                    //If the milk type is the same, changes to a different type. This prevents
+                    //the user from having the same drink twice.
+                    randomDrinkGen();
+                    if(customerOrder[MILK_TYPE] == previousBeverage[MILK_TYPE]) {
+                        if(previousBeverage[MILK_TYPE] < 2) {
+                            customerOrder[MILK_TYPE]++;
+                        } else {
+                            customerOrder[MILK_TYPE]--;
                         }
-                    } while(!sameDrink);
+                    }
                     displayDrinkOrder();
+
 
                     updateLevelProgress();
                 } else { //drink is incorrect, inform user
@@ -734,8 +1073,27 @@ public class Game extends Activity implements View.OnClickListener{
     {
         Intent i = new Intent(this, Levels.class);
         this.startActivity(i);
-        // super.onBackPressed(); // Comment this super call to avoid calling finish()
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mGoogleApiClient.connect();
+        updateUI();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.disconnect();
+        }
+    }
+
+    protected void updateUI() {
+
+    }
+
 
 
 }

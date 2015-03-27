@@ -14,22 +14,11 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:id="@+id/levelTimeRemaining"
-            android:layout_alignParentRight="false"
-            android:layout_alignParentEnd="false"
             android:textSize="19dp"
             android:textColor="@android:color/black"
             android:text="00"
-            android:layout_marginRight="10dp"
             android:visibility="visible"
             android:layout_below="@+id/levelTitle"
-            android:layout_toLeftOf="@+id/infoButton" />
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/infoButton"
-            android:src="@android:drawable/ic_menu_help"
-            android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
 
@@ -55,7 +44,7 @@
             android:layout_above="@+id/soyButton"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="33dp" />
+            android:layout_marginBottom="10dp" />
 
         <ImageButton
             android:layout_width="40dp"
@@ -76,7 +65,7 @@
             android:scaleType="fitXY"
             android:background="@android:color/transparent"
             android:layout_above="@+id/soyButton"
-            android:layout_marginBottom="18dp"
+            android:layout_marginBottom="25dp"
             android:layout_marginLeft="0dp"
             android:layout_alignLeft="@+id/soyButton"
             android:tintMode="src_atop" />
@@ -90,7 +79,7 @@
             android:src="@drawable/nonfat"
             android:layout_above="@+id/whipButton"
             android:layout_toRightOf="@+id/wholeButton"
-            android:layout_marginBottom="18dp"
+            android:layout_marginBottom="25dp"
             android:layout_marginLeft="20dp" />
 
         <ImageButton
@@ -100,8 +89,8 @@
             android:background="@android:color/transparent"
             android:src="@drawable/whip"
             android:scaleType="fitCenter"
-            android:layout_alignBottom="@+id/toffeeButton"
-            android:layout_marginBottom="5dp"
+            android:layout_alignBottom="@+id/soyButton"
+            android:layout_marginBottom="0dp"
             android:layout_marginLeft="20dp"
             android:layout_toRightOf="@+id/soyButton"
             android:tintMode="src_over" />
@@ -116,7 +105,7 @@
             android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/largeButton"
             android:layout_marginLeft="50dp"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginBottom="0dp" />
 
         <ImageButton
             android:layout_width="70dp"
@@ -138,7 +127,7 @@
             android:src="@drawable/caramel"
             android:scaleType="fitCenter"
             android:layout_above="@+id/toffeeButton"
-            android:layout_marginLeft="-25dp"
+            android:layout_marginLeft="-40dp"
             android:layout_toRightOf="@+id/toffeeButton"
             android:layout_marginBottom="-5dp" />
 
@@ -152,7 +141,7 @@
             android:layout_alignBottom="@+id/caramelButton"
             android:layout_toRightOf="@+id/caramelButton"
             android:layout_toEndOf="@+id/caramelButton"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="10dp" />
 
         <ImageButton
             android:layout_width="70dp"
@@ -178,7 +167,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="5dp"
             android:layout_toRightOf="@+id/whipButton"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginLeft="35dp" />
 
         <ImageButton
             android:layout_width="70dp"
@@ -190,16 +179,15 @@
             android:src="@drawable/peppermint"
             android:scaleType="fitCenter"
             android:layout_alignBottom="@+id/toffeeButton"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginBottom="0dp"
             android:cropToPadding="false" />
 
         <ImageButton
-            android:layout_width="80dp"
+            android:layout_width="100dp"
             android:layout_height="60dp"
             android:id="@+id/handButton"
             android:background="@android:color/transparent"
-            android:layout_alignTop="@+id/infoButton"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="130dp"
@@ -208,7 +196,7 @@
             android:scaleType="fitXY" />
 
         <ImageButton
-            android:layout_width="80dp"
+            android:layout_width="60dp"
             android:layout_height="90dp"
             android:id="@+id/trashButton"
             android:background="@android:color/transparent"
@@ -230,9 +218,9 @@
             android:textColor="#ff000000"
             android:layout_toRightOf="@+id/drinkDisplay"
             android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/infoButton"
-            android:layout_toStartOf="@+id/infoButton"
-            android:gravity="center_horizontal" />
+            android:gravity="center_horizontal"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
         <ProgressBar
             style="?android:attr/progressBarStyleHorizontal"
@@ -241,14 +229,13 @@
             android:id="@+id/levelProgressBar"
             android:max="3"
             android:indeterminate="false"
-            android:layout_below="@+id/levelTitle"
-            android:layout_centerHorizontal="true"
             android:visibility="visible"
             android:progress="0"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="15dp"
-            android:layout_toRightOf="@+id/drinkDisplay"
-            android:layout_toLeftOf="@+id/levelTimeRemaining" />
+            android:layout_below="@+id/levelTitle"
+            android:layout_toLeftOf="@+id/trashButton"
+            android:layout_alignBottom="@+id/levelTimeRemaining"
+            android:layout_toRightOf="@+id/nonfatButton"
+            android:layout_toEndOf="@+id/nonfatButton" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -260,24 +247,23 @@
             android:layout_below="@+id/levelProgressBar"
             android:layout_centerHorizontal="true"
             android:layout_toRightOf="@+id/drinkDisplay"
-            android:layout_toLeftOf="@+id/infoButton"
             android:visibility="visible" />
 
         <ImageView
-            android:layout_width="190dp"
-            android:layout_height="140dp"
+            android:layout_width="170dp"
+            android:layout_height="130dp"
             android:id="@+id/espressoMachine"
             android:src="@drawable/espresso"
             android:scaleType="fitXY"
-            android:layout_marginLeft="275dp"
-            android:layout_marginTop="75dp" />
+            android:layout_marginLeft="260dp"
+            android:layout_marginTop="88dp" />
 
         <ImageButton
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="30dp"
+            android:layout_height="25dp"
             android:id="@+id/steamButton"
             android:layout_alignLeft="@+id/espressoMachine"
-            android:layout_marginLeft="24dp"
+            android:layout_marginLeft="21dp"
             android:layout_alignTop="@+id/espButton"
             android:layout_marginTop="0dp"
             android:textColor="#ff0006ff"
@@ -310,10 +296,10 @@
             android:layout_above="@+id/dcfButton" />
 
         <ImageButton
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="30dp"
+            android:layout_height="25dp"
             android:id="@+id/dcfButton"
-            android:layout_marginLeft="55dp"
+            android:layout_marginLeft="51dp"
             android:layout_marginStart="41dp"
             android:layout_alignTop="@+id/steamButton"
             android:layout_alignLeft="@+id/steamButton"
@@ -324,13 +310,13 @@
             android:background="@android:color/transparent" />
 
         <ImageButton
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="30dp"
+            android:layout_height="25dp"
             android:id="@+id/espButton"
             android:layout_alignTop="@+id/espressoMachine"
             android:layout_toRightOf="@+id/dcfButton"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="25dp"
             android:textColor="#fff8ff00"
             android:textColorHighlight="#ff000000"
             android:src="@drawable/regular"
@@ -347,7 +333,7 @@
             android:maxLines="10"
             android:textColor="#ffffffff"
             android:paddingLeft="15dp"
-            android:paddingTop="15dp"
+            android:paddingTop="7dp"
             android:background="@drawable/blackboard"
             android:text="texttextext"
             android:paddingRight="15dp" />
@@ -380,7 +366,7 @@
             android:gravity="center"
             android:textSize="40dp"
             android:textStyle="bold"
-            android:layout_marginTop="30dp" />
+            android:layout_marginTop="20dp" />
 
         <TextView
             android:layout_width="fill_parent"
@@ -390,7 +376,9 @@
             android:gravity="center"
             android:textSize="30dp"
             android:layout_below="@+id/levelInfoTitle"
-            android:textStyle="italic" />
+            android:textStyle="italic"
+            android:visibility="visible"
+            android:layout_marginTop="-15dp" />
 
         <TextView
             android:layout_width="525dp"
@@ -449,10 +437,10 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="400dp"
-        android:layout_height="125dp"
+        android:layout_width="415dp"
+        android:layout_height="145dp"
         android:id="@+id/levelCompletionLayout"
-        android:visibility="invisible"
+        android:visibility="gone"
         android:background="#ffca1a24"
         android:layout_centerInParent="true">
 
@@ -479,10 +467,20 @@
         <Button
             android:layout_width="200dp"
             android:layout_height="40dp"
-            android:text="Continue"
-            android:id="@+id/nextLevelButton"
+            android:text="Level Selection"
+            android:id="@+id/levelSelectionButton"
             android:layout_alignParentBottom="true"
-            android:layout_centerInParent="true" />
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:text="Next Level"
+            android:id="@+id/nextLevelButton"
+            android:layout_alignTop="@+id/levelSelectionButton"
+            android:layout_toRightOf="@+id/levelSelectionButton"
+            android:layout_toEndOf="@+id/levelSelectionButton" />
     </RelativeLayout>
 
 </RelativeLayout>

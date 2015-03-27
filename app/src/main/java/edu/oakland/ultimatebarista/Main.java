@@ -23,6 +23,10 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.drive.Drive;
+import com.google.android.gms.drive.DriveApi;
+import com.google.android.gms.drive.DriveContents;
+import com.google.android.gms.drive.DriveFolder;
+import com.google.android.gms.drive.MetadataChangeSet;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.snapshot.Snapshot;
 import com.google.android.gms.games.snapshot.SnapshotMetadata;
@@ -33,6 +37,9 @@ import com.google.example.games.basegameutils.BaseGameUtils;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 
 
 public class Main extends GoogleAPI implements View.OnClickListener {
@@ -61,8 +68,7 @@ public class Main extends GoogleAPI implements View.OnClickListener {
 
     private void createSaveFile() {
         File file = new File(this.getFilesDir(), fileName);
-        String fileName = "ultimatebarista.txt";
-        if(!file.exists()) {
+        if (!file.exists()) {
             String string = "0";
             FileOutputStream outputStream;
 
@@ -74,6 +80,7 @@ public class Main extends GoogleAPI implements View.OnClickListener {
                 e.printStackTrace();
             }
         }
+
     }
 
 
@@ -156,5 +163,6 @@ public class Main extends GoogleAPI implements View.OnClickListener {
             mGoogleApiClient.disconnect();
         }
     }
+
 
 }

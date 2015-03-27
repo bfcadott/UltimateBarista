@@ -9,6 +9,16 @@
     android:id="@+id/levelsScreenLayout">
 
     <Button
+        android:id="@+id/switchPageButton"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Next Levels"
+        android:visibility="visible"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true" />
+
+    <Button
         android:id="@+id/signOutButton"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
@@ -17,6 +27,169 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp" />
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="false"
+        android:layout_centerInParent="true"
+        android:layout_alignParentRight="false"
+        android:id="@+id/page2levelGrid"
+        android:visibility="gone" >
+
+        <ImageButton
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/level13button"
+            android:layout_column="0"
+            android:enabled="false"
+            android:layout_margin="0dp"
+            android:layout_row="0"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY" />
+
+        <ImageButton
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/level14button"
+            android:layout_column="1"
+            android:enabled="false"
+            android:layout_margin="0dp"
+            android:layout_row="0"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY" />
+
+        <ImageButton
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/level15button"
+            android:layout_column="2"
+            android:enabled="false"
+            android:layout_margin="0dp"
+            android:layout_row="0"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY" />
+
+        <ImageButton
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/level16button"
+            android:layout_column="3"
+            android:enabled="false"
+            android:layout_margin="0dp"
+            android:layout_row="0"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY" />
+
+        <ImageButton
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/level17button"
+            android:layout_column="4"
+            android:enabled="false"
+            android:layout_margin="0dp"
+            android:layout_row="0"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY" />
+
+        <ImageButton
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/level18button"
+            android:layout_column="5"
+            android:enabled="false"
+            android:layout_margin="0dp"
+            android:layout_row="0"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY" />
+
+        <ImageButton
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/imageButton7"
+            android:layout_column="0"
+            android:enabled="false"
+            android:layout_margin="0dp"
+            android:layout_row="1"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY"
+            android:visibility="invisible" />
+
+        <ImageButton
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/imageButton8"
+            android:layout_column="1"
+            android:enabled="false"
+            android:layout_margin="0dp"
+            android:layout_row="1"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY"
+            android:visibility="invisible" />
+
+        <ImageButton
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/level19button"
+            android:layout_column="2"
+            android:enabled="false"
+            android:layout_margin="0dp"
+            android:layout_row="1"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY" />
+
+        <ImageButton
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/level20button"
+            android:layout_column="3"
+            android:enabled="false"
+            android:layout_margin="0dp"
+            android:layout_row="1"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY" />
+
+        <ImageButton
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/imageButton11"
+            android:layout_column="4"
+            android:layout_margin="0dp"
+            android:layout_row="1"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY"
+            android:visibility="invisible" />
+
+        <ImageButton
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/imageButton12"
+            android:layout_column="5"
+            android:enabled="false"
+            android:layout_margin="0dp"
+            android:layout_row="1"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY"
+            android:visibility="invisible" />
+    </GridLayout>
 
     <GridLayout
         android:layout_width="wrap_content"
@@ -202,7 +375,10 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:visibility="visible"
-            android:text="Become the Ultimate Barista by making drinks for customers before the time runs out" />
+            android:text="Become the Ultimate Barista by making drinks for customers before the time runs out"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <TextView
             android:layout_width="480dp"

@@ -48,12 +48,13 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
 
     private MediaPlayer mp;
 
-    GridLayout levelGrid = null;
+    GridLayout levelGrid, page2levelGrid = null;
 
-    ImageButton level1,level2,level3,level4,level5,level6,level7,level8,level9,level10,level11,level12 = null;
-    Button signOutButton,playTutorialButton = null;
+    ImageButton level1,level2,level3,level4,level5,level6,level7,level8,level9,level10,level11,
+    level12,level13, level14, level15,level16,level17,level18,level19,level20 = null;
+    Button signOutButton,playTutorialButton,switchPageButton = null;
 
-    boolean firstOnResume, startGame = true;
+    boolean startGame = true;
 
     TextView tutorialText,gameIntroText = null;
     RelativeLayout tutorialLayout,levelsScreenLayout = null;
@@ -64,8 +65,6 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
 
     //Stringbuffer for reading in save file
     final StringBuffer storedString = new StringBuffer();
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +80,9 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
         if(level == 0) {
             levelGrid.setVisibility(View.INVISIBLE);
             tutorialLayout.setVisibility(View.VISIBLE);
-
+        }
+        if(level < 13) {
+            switchPageButton.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -90,12 +91,24 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
         //Listener decides what level to load based on which button throws the onClick event
             Intent i = new Intent(this, Game.class);
             i.putExtra("maxLevelCompleted", String.valueOf(level));
+        startGame = true;
         switch (v.getId()) {
+            case R.id.switchPageButton:
+                startGame = false;
+                if(page2levelGrid.getVisibility() == View.VISIBLE) {
+                    page2levelGrid.setVisibility(View.GONE);
+                    levelGrid.setVisibility(View.VISIBLE);
+                    switchPageButton.setText("Next Levels");
+                } else {
+                    levelGrid.setVisibility(View.GONE);
+                    page2levelGrid.setVisibility(View.VISIBLE);
+                    switchPageButton.setText("Previous Levels");
+                }
+                break;
             case R.id.playTutorialButton:
-
+                startGame = false;
                 switch (tutorialPhase) {
                     case 0:
-                        startGame = false;
                         levelsScreenLayout.setBackgroundResource(R.drawable.tutorialbg);
                         gameIntroText.setText("To create the customer's beverage, press the buttons corresponding to their order in the blackboard. \n \n On the next screen we will show you information about all of the buttons.");
                         playTutorialButton.setText("Continue");
@@ -115,87 +128,71 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
                         tutorialPhase++;
                         break;
                     case 3:
+                        i.putExtra("level", "0");
                         i.putExtra("maxLevelCompleted",String.valueOf(level));
-                        i.putExtra("level","0");
-                        i.putExtra("levelTitle","Time to play!");
-                        i.putExtra("numOfDrinks","1");
                         startGame = true;
                         break;
                 }
                 break;
             case R.id.level1button:
                 i.putExtra("level","1");
-                i.putExtra("levelTitle",getString(R.string.level1title));
-                i.putExtra("numOfDrinks",getString(R.string.level1drinks));
-                i.putExtra("timeLimit",getString(R.string.level1time));
                 break;
             case R.id.level2button:
                 i.putExtra("level","2");
-                i.putExtra("levelTitle",getString(R.string.level2title));
-                i.putExtra("numOfDrinks",getString(R.string.level2drinks));
-                i.putExtra("timeLimit",getString(R.string.level2time));
                 break;
             case R.id.level3button:
                 i.putExtra("level","3");
-                i.putExtra("levelTitle",getString(R.string.level3title));
-                i.putExtra("numOfDrinks",getString(R.string.level3drinks));
-                i.putExtra("timeLimit",getString(R.string.level3time));
                 break;
             case R.id.level4button:
                 i.putExtra("level","4");
-                i.putExtra("levelTitle",getString(R.string.level4title));
-                i.putExtra("numOfDrinks",getString(R.string.level4drinks));
-                i.putExtra("timeLimit",getString(R.string.level4time));
                 break;
             case R.id.level5button:
                 i.putExtra("level","5");
-                i.putExtra("levelTitle",getString(R.string.level5title));
-                i.putExtra("numOfDrinks",getString(R.string.level5drinks));
-                i.putExtra("timeLimit",getString(R.string.level5time));
                 break;
             case R.id.level6button:
                 i.putExtra("level","6");
-                i.putExtra("levelTitle",getString(R.string.level6title));
-                i.putExtra("numOfDrinks",getString(R.string.level6drinks));
-                i.putExtra("timeLimit",getString(R.string.level6time));
-
                 break;
             case R.id.level7button:
                 i.putExtra("level","7");
-                i.putExtra("levelTitle",getString(R.string.level7title));
-                i.putExtra("numOfDrinks",getString(R.string.level7drinks));
-                i.putExtra("timeLimit",getString(R.string.level7time));
                 break;
             case R.id.level8button:
                 i.putExtra("level","8");
-                i.putExtra("levelTitle",getString(R.string.level8title));
-                i.putExtra("numOfDrinks",getString(R.string.level8drinks));
-                i.putExtra("timeLimit",getString(R.string.level8time));
                 break;
             case R.id.level9button:
                 i.putExtra("level","9");
-                i.putExtra("levelTitle",getString(R.string.level9title));
-                i.putExtra("numOfDrinks",getString(R.string.level9drinks));
-                i.putExtra("timeLimit",getString(R.string.level9time));
-                i.putExtra("levelSubtitle",getString(R.string.level9subtitle));
                 break;
             case R.id.level10button:
                 i.putExtra("level","10");
-                i.putExtra("levelTitle",getString(R.string.level10title));
-                i.putExtra("numOfDrinks",getString(R.string.level10drinks));
-                i.putExtra("timeLimit",getString(R.string.level10time));
                 break;
             case R.id.level11button:
                 i.putExtra("level","11");
-                i.putExtra("levelTitle",getString(R.string.level11title));
-                i.putExtra("numOfDrinks",getString(R.string.level11drinks));
-                i.putExtra("timeLimit",getString(R.string.level11time));
                 break;
             case R.id.level12button:
                 i.putExtra("level","12");
-                i.putExtra("levelTitle",getString(R.string.level12title));
-                i.putExtra("numOfDrinks",getString(R.string.level12drinks));
-                i.putExtra("timeLimit",getString(R.string.level12time));
+                break;
+            case R.id.level13button:
+                i.putExtra("level","13");
+                break;
+            case R.id.level14button:
+                i.putExtra("level","14");
+                break;
+            case R.id.level15button:
+                i.putExtra("level","15");
+                break;
+            case R.id.level16button:
+                i.putExtra("level","16");
+                break;
+            case R.id.level17button:
+                i.putExtra("level","17");
+                break;
+            case R.id.level18button:
+                i.putExtra("level","18");
+                break;
+            case R.id.level19button:
+                i.putExtra("level","19");
+                break;
+            case R.id.level20button:
+                i.putExtra("level","20");
                 break;
             case R.id.signOutButton:
                 if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
@@ -224,9 +221,20 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
         level10 = (ImageButton) findViewById(R.id.level10button);
         level11 = (ImageButton) findViewById(R.id.level11button);
         level12 = (ImageButton) findViewById(R.id.level12button);
+        level13 = (ImageButton) findViewById(R.id.level13button);
+        level14 = (ImageButton) findViewById(R.id.level14button);
+        level15 = (ImageButton) findViewById(R.id.level15button);
+        level16 = (ImageButton) findViewById(R.id.level16button);
+        level17 = (ImageButton) findViewById(R.id.level17button);
+        level18 = (ImageButton) findViewById(R.id.level18button);
+        level19 = (ImageButton) findViewById(R.id.level19button);
+        level20 = (ImageButton) findViewById(R.id.level20button);
+
+        switchPageButton = (Button) findViewById(R.id.switchPageButton);
         signOutButton = (Button) findViewById(R.id.signOutButton);
 
         levelGrid = (GridLayout) findViewById(R.id.levelGrid);
+        page2levelGrid = (GridLayout) findViewById(R.id.page2levelGrid);
         gameIntroText = (TextView) findViewById(R.id.gameIntroText);
         tutorialText = (TextView) findViewById(R.id.tutorialText);
         tutorialLayout = (RelativeLayout) findViewById(R.id.tutorialLayout);
@@ -253,13 +261,28 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
         level10.setOnClickListener(this);
         level11.setOnClickListener(this);
         level12.setOnClickListener(this);
+        level13.setOnClickListener(this);
+        level14.setOnClickListener(this);
+        level15.setOnClickListener(this);
+        level16.setOnClickListener(this);
+        level17.setOnClickListener(this);
+        level18.setOnClickListener(this);
+        level19.setOnClickListener(this);
+        level20.setOnClickListener(this);
         signOutButton.setOnClickListener(this);
         playTutorialButton.setOnClickListener(this);
-
-
+        switchPageButton.setOnClickListener(this);
     }
 
     public void disableLevelButtons() {
+        level20.setEnabled(false);
+        level19.setEnabled(false);
+        level18.setEnabled(false);
+        level17.setEnabled(false);
+        level16.setEnabled(false);
+        level15.setEnabled(false);
+        level14.setEnabled(false);
+        level13.setEnabled(false);
         level12.setEnabled(false);
         level11.setEnabled(false);
         level10.setEnabled(false);
@@ -275,11 +298,51 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
     }
 
     public void enableLevelButtons() {
-
-        level = Integer.valueOf(storedString.toString());
-
         switch (level) {
+            case 21:
+                level20.setImageResource(R.drawable.coffeecupgreen);
+            case 20:
+                level20.setEnabled(true);
+                if(level == 20)
+                    level20.setImageResource(R.drawable.coffeecupdkgray);
+                level19.setImageResource(R.drawable.coffeecupgreen);
+            case 19:
+                level19.setEnabled(true);
+                if(level == 19)
+                    level19.setImageResource(R.drawable.coffeecupdkgray);
+                level18.setImageResource(R.drawable.coffeecupgreen);
+            case 18:
+                level18.setEnabled(true);
+                if(level == 18)
+                    level18.setImageResource(R.drawable.coffeecupdkgray);
+                level17.setImageResource(R.drawable.coffeecupgreen);
+            case 17:
+                level17.setEnabled(true);
+                if(level == 17)
+                    level17.setImageResource(R.drawable.coffeecupdkgray);
+                level16.setImageResource(R.drawable.coffeecupgreen);
+            case 16:
+                level16.setEnabled(true);
+                if(level == 16)
+                    level16.setImageResource(R.drawable.coffeecupdkgray);
+                level15.setImageResource(R.drawable.coffeecupgreen);
+            case 15:
+                level15.setEnabled(true);
+                if(level == 15)
+                    level15.setImageResource(R.drawable.coffeecupdkgray);
+                level14.setImageResource(R.drawable.coffeecupgreen);
+            case 14:
+                level14.setEnabled(true);
+                if(level == 14)
+                    level14.setImageResource(R.drawable.coffeecupdkgray);
+                level13.setImageResource(R.drawable.coffeecupgreen);
             case 13:
+                levelGrid.setVisibility(View.GONE);
+                page2levelGrid.setVisibility(View.VISIBLE);
+                switchPageButton.setText("Previous Levels");
+                level13.setEnabled(true);
+                if(level == 13)
+                    level13.setImageResource(R.drawable.coffeecupdkgray);
                 level12.setImageResource(R.drawable.coffeecupgreen);
             case 12:
                 level12.setEnabled(true);
@@ -365,6 +428,7 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
             String strLine = null;
             if((strLine = buf.readLine()) != null) {
                 storedString.append(strLine);
+                level = Integer.valueOf(storedString.toString());
             }
             buf.close();
         } catch (FileNotFoundException e) {
@@ -379,7 +443,7 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
         // Show signed in or signed out view
         if (isSignedIn() && level > 0) {
             findViewById(R.id.signOutButton).setVisibility(View.VISIBLE);
-
+            //unlockAchievement();
         } else {
             findViewById(R.id.signOutButton).setVisibility(View.GONE);
         }
@@ -422,6 +486,62 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
         Intent i = new Intent(this, Main.class);
         this.startActivity(i);
         // super.onBackPressed(); // Comment this super call to avoid calling finish()
+    }
+    private void unlockAchievement() {
+        switch(level - 1) {
+            case 1:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQAQ");
+                break;
+            case 2:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQAg");
+                break;
+            case 3:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQAw");
+                break;
+            case 4:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQBA");
+                break;
+            case 5:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQBQ");
+                break;
+            case 6:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQCA");
+                break;
+            case 7:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQCQ");
+                break;
+            case 8:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQCg");
+                break;
+            case 9:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQCw");
+                break;
+            case 10:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQDA");
+                break;
+            case 11:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQDQ");
+                break;
+            case 12:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQDg");
+                break;
+            case 13:
+                break;
+            case 14:
+                break;
+            case 15:
+                break;
+            case 16:
+                break;
+            case 17:
+                break;
+            case 18:
+                break;
+            case 19:
+                break;
+            case 20:
+                break;
+        }
     }
 }
 
