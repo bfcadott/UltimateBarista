@@ -8,8 +8,8 @@
     <string name="title_activity_game">Game</string>
     <string name="title_activity_base">BaseActivity</string>
 
-    <string name="levelPassedText">You have completed </string>
-    <string name="levelFailedText">You ran out of time to complete</string>
+    <string name="levelFailedText">You ran out of time!</string>
+    <string name="tooManyIncorrect">You made too many mistakes!</string>
 
     <!-- cup sizes -->
     <string name="small">Small</string>
@@ -37,8 +37,6 @@
     <string name="chocolate">Chocolate</string>
 
     <!-- feedback messages -->
-    <string name="correctDrink">Drink was correct!</string>
-    <string name="incorrectDrink">Drink is incorrect! Try again!</string>
     <string name="drinkThrownOut">You threw the drink away!</string>
     <string name="cupAlreadySelected">Cup size already selected!</string>
     <string name="milkAlreadySelected">Milk type already selected!</string>
@@ -52,6 +50,7 @@
     <string name="tutorialLevelObjective">This is a tutorial level. \n There is no time limit to allow you to make the drinks at your own pace.</string>
     <string name="tutorialLevelTitle">Tutorial</string>
     <string name="tutorialdrinks">5</string>
+    <string name="tutorialfinishtext">You have completed the tutorial!</string>
 
     <!-- training level info -->
     <string name="trainingtitle">Training</string>
@@ -61,107 +60,127 @@
     <!-- level 1-->
     <string name="level1title">Barista Basics</string>
     <string name="level1text">Let\'s prepare to compete: \n \n Learn the basics</string>
+    <string name="level1finishtext">Barista Basics training completed!</string>
 
     <!-- level 2-->
     <string name="level2title">Wonderful Whip</string>
     <string name="level2text">Let\'s prepare to compete: \n \n Learn to whip it into shape</string>
+    <string name="level2finishtext">Whip Cream training completed!</string>
 
     <!-- level 3-->
     <string name="level3title">Enticing Espresso</string>
     <string name="level3text">Let\'s prepare to compete: \n \n Learn to caffeinate </string>
+    <string name="level3finishtext">Espresso training completed!</string>
 
     <!-- level 4-->
     <string name="level4title">Demure Decaf</string>
     <string name="level4text">Let\'s prepare to compete: \n \n Learn to decaffeinate</string>
+    <string name="level4finishtext">Decaf training completed!</string>
 
     <!-- level 5-->
-    <string name="level5title">North East Regionals</string>
-    <string name="level5subtitle">New York - Day 1</string>
+    <string name="level5title">North East Regionals - Day 1</string>
+    <string name="level5subtitle">New York</string>
     <string name="level5text">Complete this challenge to advance to day 2.</string>
     <string name="level5drinks">7</string>
-    <string name="level5time">55</string>
+    <string name="level5time">80</string>
+    <string name="level5finishtext">Day 1 completed!</string>
     <!-- level 6-->
-    <string name="level6title">North East Regionals</string>
-    <string name="level6subtitle">New York - Day 2</string>
+    <string name="level6title">North East Regionals - Day 2</string>
+    <string name="level6subtitle">New York</string>
     <string name="level6text">Compete for the North East Regionals Golden Cup!</string>
-    <string name="level6drinks">10</string>
-    <string name="level6time">80</string>
+    <string name="level6drinks">9</string>
+    <string name="level6time">90</string>
+    <string name="level6finishtext">You won the North East Regionals Golden Cup!</string>
     <!-- level 7-->
     <string name="level7title">Sweet Syrup Sensations</string>
     <string name="level7text">Let\'s prepare to compete: \n \n It\'s time to get syrupy! \</string>
+    <string name="level7finishtext">Syrup training completed!</string>
     <!-- level 8-->
     <string name="level8title">West Regionals</string>
     <string name="level8subtitle">California</string>
-    <string name="level8drinks">8</string>
+    <string name="level8drinks">7</string>
     <string name="level8time">80</string>
     <string name="level8text">Compete for the West Regionals Golden Cup!</string>
+    <string name="level8finishtext">You won the West Regionals Golden Cup!</string>
     <!-- level 9-->
     <string name="level9title">Sweet Syrup Sensations 2</string>
     <string name="level9text">Let\'s prepare to compete: \n \n It\'s a sticky situation.</string>
+    <string name="level9finishtext">Syrup training completed!</string>
     <!-- level 10-->
-    <string name="level10title">North American Championships</string>
+    <string name="level10title">North America Championships</string>
     <string name="level10subtitle">Mexico</string>
     <string name="level10text">Compete for North American Golden Cup!</string>
     <string name="level10drinks">7</string>
     <string name="level10time">80</string>
+    <string name="level10finishtext">You won the North America Golden Cup!</string>
     <!-- level 11-->
     <string name="level11title">Latin America Championships</string>
     <string name="level11subtitle">Brazil</string>
-    <string name="level11drinks">10</string>
+    <string name="level11drinks">9</string>
     <string name="level11time">90</string>
-    <string name="level11text">Compete for the Latin American Golden Cup!</string>
+    <string name="level11text">Compete for the Latin America Golden Cup!</string>
+    <string name="level11finishtext">You won the Latin America Golden Cup!</string>
     <!-- level 12-->
-    <string name="level12title">Asia Championships</string>
-    <string name="level12subtitle">China - Day 1</string>
+    <string name="level12title">Asia Championships - Day 1</string>
+    <string name="level12subtitle">China</string>
     <string name="level12drinks">3</string>
-    <string name="level12time">25</string>
+    <string name="level12time">30</string>
     <string name="level12text">Complete this challenge to advance to day 2.</string>
+    <string name="level12finishtext">Day 1 completed!</string>
     <!-- level 13-->
-    <string name="level13title">Asia Championships</string>
-    <string name="level13subtitle">India - Day 2</string>
+    <string name="level13title">Asia Championships - Day 2</string>
+    <string name="level13subtitle">India</string>
     <string name="level13drinks">6</string>
     <string name="level13time">60</string>
-    <string name="level13text">Complete for the Asia Golden Cup!</string>
+    <string name="level13text">Compete for the Asia Golden Cup!</string>
+    <string name="level13finishtext">You won the Asia Golden Cup!</string>
     <!-- level 14-->
     <string name="level14title">Africa Championships</string>
     <string name="level14subtitle">Egypt</string>
     <string name="level14drinks">10</string>
     <string name="level14time">90</string>
-    <string name="level14text">Complete for the Africa Golden Cup!</string>
+    <string name="level14text">Compete for the Africa Golden Cup!</string>
+    <string name="level14finishtext">You won the Africa Golden Cup!</string>
     <!-- level 15-->
-    <string name="level15title">Europe Championships</string>
-    <string name="level15subtitle">Italy - Day 1</string>
+    <string name="level15title">Europe Championships - Day 1</string>
+    <string name="level15subtitle">Italy</string>
     <string name="level15drinks">4</string>
-    <string name="level15time">35</string>
+    <string name="level15time">40</string>
     <string name="level15text">Complete this challenge to advance to day 2.</string>
+    <string name="level15finishtext">Day 1 completed!</string>
     <!-- level 16-->
-    <string name="level16title">Europe Championships</string>
-    <string name="level16subtitle">Italy - Day 2</string>
+    <string name="level16title">Europe Championships - Day 2</string>
+    <string name="level16subtitle">Italy</string>
     <string name="level16drinks">9</string>
     <string name="level16time">80</string>
     <string name="level16text">Complete this challenge to advance to day 3.</string>
+    <string name="level16finishtext">Day 2 completed!</string>
     <!-- level 17-->
-    <string name="level17title">Europe Championships</string>
-    <string name="level17subtitle">Scotland - Day 3</string>
+    <string name="level17title">Europe Championships - Day 3</string>
+    <string name="level17subtitle">Scotland</string>
     <string name="level17drinks">7</string>
     <string name="level17time">50</string>
     <string name="level17text">Complete this challenge to advance to day 4.</string>
+    <string name="level17finishtext">Day 3 completed!</string>
     <!-- level 18-->
-    <string name="level18title">Europe Championships</string>
+    <string name="level18title">Europe Championships - Day 4</string>
     <string name="level18subtitle">Scotland</string>
-    <string name="level18drinks">13</string>
+    <string name="level18drinks">11</string>
     <string name="level18time">90</string>
     <string name="level18text">Compete for the Europe Golden Cup!</string>
+    <string name="level18finishtext">You won the Europe Golden Cup!</string>
     <!-- level 19-->
-    <string name="level19title">World Championships</string>
-    <string name="level19subtitle">France - Day 1</string>
+    <string name="level19title">World Championships - Day 1</string>
+    <string name="level19subtitle">France</string>
     <string name="level19drinks">13</string>
     <string name="level19time">90</string>
     <string name="level19text">Complete this challenge to advance to day 2.</string>
+    <string name="level19finishtext">Day 1 completed!</string>
     <!-- level 20-->
-    <string name="level20title">World Championships</string>
-    <string name="level20subtitle">France - Day 2</string>
+    <string name="level20title">World Championships - Day 2</string>
+    <string name="level20subtitle">France</string>
     <string name="level20drinks">18</string>
     <string name="level20time">120</string>
     <string name="level20text">Compete to become the Ultimate Barista!</string>
+    <string name="level20finishtext">You have become the Ultimate Barista!</string>
 </resources>

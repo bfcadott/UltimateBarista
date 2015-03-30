@@ -19,8 +19,10 @@
             android:text="00"
             android:visibility="visible"
             android:layout_below="@+id/levelTitle"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentRight="false"
+            android:layout_alignParentEnd="true"
+            android:layout_toRightOf="@+id/levelProgressBar"
+            android:layout_marginLeft="10dp" />
 
         <ImageButton
             android:layout_width="40dp"
@@ -244,10 +246,12 @@
             android:id="@+id/levelProgressText"
             android:textColor="@android:color/black"
             android:gravity="center"
+            android:visibility="visible"
             android:layout_below="@+id/levelProgressBar"
-            android:layout_centerHorizontal="true"
-            android:layout_toRightOf="@+id/drinkDisplay"
-            android:visibility="visible" />
+            android:layout_alignLeft="@+id/levelProgressBar"
+            android:layout_alignStart="@+id/levelProgressBar"
+            android:layout_toLeftOf="@+id/levelTimeRemaining"
+            android:layout_toStartOf="@+id/levelTimeRemaining" />
 
         <ImageView
             android:layout_width="170dp"
@@ -348,6 +352,21 @@
             android:visibility="gone" />
     </RelativeLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/handFeedbackText"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentRight="false"
+        android:layout_alignParentEnd="false"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_centerInParent="true"
+        android:textColor="#ffff0e00"
+        android:textStyle="bold"
+        android:textIsSelectable="false"
+        android:textSize="200dp" />
+
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -400,43 +419,6 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/playerGuideLayout"
-        android:visibility="gone"
-        android:background="#fff0e5df">
-
-        <ImageView
-            android:layout_width="525dp"
-            android:layout_height="325dp"
-            android:id="@+id/blankBG"
-            android:background="#ff784e34"
-            android:layout_centerInParent="true" />
-
-        <ImageView
-            android:layout_width="500dp"
-            android:layout_height="300dp"
-            android:id="@+id/playerGuideImage"
-            android:src="@drawable/playerguide"
-            android:layout_alignParentRight="false"
-            android:layout_alignParentEnd="false"
-            android:focusable="false"
-            android:layout_centerInParent="true"
-            android:background="#fff0e5dd"
-            android:padding="5dp"
-            android:scaleType="fitXY" />
-
-        <Button
-            android:layout_width="200dp"
-            android:layout_height="40dp"
-            android:text="Begin Level"
-            android:id="@+id/continueButton"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
         android:layout_width="415dp"
         android:layout_height="145dp"
         android:id="@+id/levelCompletionLayout"
@@ -480,7 +462,29 @@
             android:id="@+id/nextLevelButton"
             android:layout_alignTop="@+id/levelSelectionButton"
             android:layout_toRightOf="@+id/levelSelectionButton"
-            android:layout_toEndOf="@+id/levelSelectionButton" />
+            android:layout_toEndOf="@+id/levelSelectionButton"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:padding="10dp"
+        android:id="@+id/errorBox"
+        android:background="#45ff0008"
+        android:visibility="invisible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/errorText"
+            android:layout_centerInParent="true"
+            android:textColor="@android:color/black"
+            android:textSize="30dp" />
     </RelativeLayout>
 
 </RelativeLayout>

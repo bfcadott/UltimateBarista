@@ -34,7 +34,7 @@ public class Game extends GoogleAPI implements View.OnClickListener{
     private MediaPlayer mp = null;
 
     //ImageButtons for the various game buttons
-    private ImageButton infoButton,handButton,trashButton,smallButton,medButton,largeButton,wholeButton,
+    private ImageButton handButton,trashButton,smallButton,medButton,largeButton,wholeButton,
             nonfatButton,soyButton,espButton,dcfButton,steamButton,caramelButton,
             hazelnutButton,vanillaButton,toffeeButton,peppermintButton,chocolateButton,
             whipCreamButton = null;
@@ -48,16 +48,17 @@ public class Game extends GoogleAPI implements View.OnClickListener{
     //TextViews to display text elements throughout the game
     private TextView levelProgressText,levelTimeRemaining,levelFinishedText,levelInfoTitle,
             levelInfoSubtitle,levelInfoObjective,numOfDecafText,numOfRegText,levelTitle,
-            drinkDisplay = null;
+            drinkDisplay, handFeedbackText, errorText = null;
 
     //Regular buttons to control menu flow
-    private Button continueButton,nextLevelButton,levelInfoBegin, levelSelectionButton = null;
+    private Button nextLevelButton,levelInfoBegin, levelSelectionButton = null;
 
     //Layouts containing all of the buttons
-    private RelativeLayout playerGuideLayout,levelCompletionLayout,levelInfoLayout,gameLayout = null;
+    private RelativeLayout levelCompletionLayout,levelInfoLayout,gameLayout, errorBox = null;
 
     //Number of drinks made by user
     private int drinksMade = 0;
+    private int incorrectDrinks = 0;
 
     //current level, highest level user has completed
     private int level = 0;
@@ -107,9 +108,11 @@ public class Game extends GoogleAPI implements View.OnClickListener{
     private final int[] emptyArray = {-1,0,-1,0,0,0,0,0,0,0,0,0};
     private int[] previousBeverage = new int[12];
 
-    private String fileName = "ultimatebarista.txt";
+    private String fileName = "ultimatebarista.txt", finishedText = null;
 
     private int mediaFile = 0;
+
+
 
 
     @Override
@@ -140,6 +143,7 @@ public class Game extends GoogleAPI implements View.OnClickListener{
         titleText = getString(R.string.tutorialLevelTitle);
         levelTitle.setText(getString(R.string.tutorialLevelTitle));
         drinksGoal = Integer.valueOf(getString(R.string.tutorialdrinks));
+        finishedText = getString(R.string.tutorialfinishtext);
 
         //Makes the information screen visible, and hides the progress bar/countdown for this tutorial
         //level
@@ -192,6 +196,7 @@ public class Game extends GoogleAPI implements View.OnClickListener{
                 subtitleText = getString(R.string.level20subtitle);
                 drinksGoal = Integer.valueOf(getString(R.string.level20drinks));
                 timeLimit = Long.valueOf(getString(R.string.level20time)) * 1000;
+                finishedText = getString(R.string.level20finishtext);
                 mediaFile = R.raw.dogma;
                 break;
             case 19:
@@ -201,6 +206,7 @@ public class Game extends GoogleAPI implements View.OnClickListener{
                 subtitleText = getString(R.string.level19subtitle);
                 drinksGoal = Integer.valueOf(getString(R.string.level19drinks));
                 timeLimit = Long.valueOf(getString(R.string.level19time)) * 1000;
+                finishedText = getString(R.string.level19finishtext);
                 mediaFile = R.raw.travel;
                 break;
             case 18:
@@ -210,6 +216,7 @@ public class Game extends GoogleAPI implements View.OnClickListener{
                 subtitleText = getString(R.string.level18subtitle);
                 drinksGoal = Integer.valueOf(getString(R.string.level18drinks));
                 timeLimit = Long.valueOf(getString(R.string.level18time)) * 1000;
+                finishedText = getString(R.string.level18finishtext);
                 mediaFile = R.raw.shetland2;
                 break;
             case 17:
@@ -219,6 +226,7 @@ public class Game extends GoogleAPI implements View.OnClickListener{
                 subtitleText = getString(R.string.level17subtitle);
                 drinksGoal = Integer.valueOf(getString(R.string.level17drinks));
                 timeLimit = Long.valueOf(getString(R.string.level17time)) * 1000;
+                finishedText = getString(R.string.level17finishtext);
                 mediaFile = R.raw.shetland;
                 break;
             case 16:
@@ -228,6 +236,7 @@ public class Game extends GoogleAPI implements View.OnClickListener{
                 subtitleText = getString(R.string.level16subtitle);
                 drinksGoal = Integer.valueOf(getString(R.string.level16drinks));
                 timeLimit = Long.valueOf(getString(R.string.level16time)) * 1000;
+                finishedText = getString(R.string.level16finishtext);
                 mediaFile = R.raw.dolcevita;
                 break;
             case 15:
@@ -237,6 +246,7 @@ public class Game extends GoogleAPI implements View.OnClickListener{
                 subtitleText = getString(R.string.level15subtitle);
                 drinksGoal = Integer.valueOf(getString(R.string.level15drinks));
                 timeLimit = Long.valueOf(getString(R.string.level15time)) * 1000;
+                finishedText = getString(R.string.level15finishtext);
                 mediaFile = R.raw.vino;
                 break;
             case 14:
@@ -246,15 +256,17 @@ public class Game extends GoogleAPI implements View.OnClickListener{
                 subtitleText = getString(R.string.level14subtitle);
                 drinksGoal = Integer.valueOf(getString(R.string.level14drinks));
                 timeLimit = Long.valueOf(getString(R.string.level14time)) * 1000;
+                finishedText = getString(R.string.level14finishtext);
                 mediaFile = R.raw.tigris;
                 break;
             case 13:
-                gameLayout.setBackgroundResource(R.drawable.bg);
+                gameLayout.setBackgroundResource(R.drawable.bgindia);
                 levelText = getString(R.string.level13text);
                 titleText = getString(R.string.level13title);
                 subtitleText = getString(R.string.level13subtitle);
                 drinksGoal = Integer.valueOf(getString(R.string.level13drinks));
                 timeLimit = Long.valueOf(getString(R.string.level13time)) * 1000;
+                finishedText = getString(R.string.level13finishtext);
                 mediaFile = R.raw.celestialbody;
                 break;
             case 12:
@@ -264,15 +276,17 @@ public class Game extends GoogleAPI implements View.OnClickListener{
                 subtitleText = getString(R.string.level12subtitle);
                 drinksGoal = Integer.valueOf(getString(R.string.level12drinks));
                 timeLimit = Long.valueOf(getString(R.string.level12time)) * 1000;
+                finishedText = getString(R.string.level12finishtext);
                 mediaFile = R.raw.shogun;
                 break;
             case 11:
-                gameLayout.setBackgroundResource(R.drawable.bg);
+                gameLayout.setBackgroundResource(R.drawable.bgbrazil);
                 levelText = getString(R.string.level11text);
                 titleText = getString(R.string.level11title);
                 subtitleText = getString(R.string.level11subtitle);
                 drinksGoal = Integer.valueOf(getString(R.string.level11drinks));
                 timeLimit = Long.valueOf(getString(R.string.level11time)) * 1000;
+                finishedText = getString(R.string.level11finishtext);
                 mediaFile = R.raw.island;
                 break;
             case 10:
@@ -282,6 +296,7 @@ public class Game extends GoogleAPI implements View.OnClickListener{
                 subtitleText = getString(R.string.level10subtitle);
                 drinksGoal = Integer.valueOf(getString(R.string.level10drinks));
                 timeLimit = Long.valueOf(getString(R.string.level10time)) * 1000;
+                finishedText = getString(R.string.level10finishtext);
                 mediaFile = R.raw.havana;
                 break;
             case 9:
@@ -291,6 +306,7 @@ public class Game extends GoogleAPI implements View.OnClickListener{
                 subtitleText = getString(R.string.trainingtitle);
                 drinksGoal = Integer.valueOf(getString(R.string.trainingdrinks));
                 timeLimit = Long.valueOf(getString(R.string.trainingtime)) * 1000;
+                finishedText = getString(R.string.level9finishtext);
                 mediaFile = R.raw.progressivehouse;
                 break;
             case 8:
@@ -300,6 +316,7 @@ public class Game extends GoogleAPI implements View.OnClickListener{
                 subtitleText = getString(R.string.level8subtitle);
                 drinksGoal = Integer.valueOf(getString(R.string.level8drinks));
                 timeLimit = Long.valueOf(getString(R.string.level8time)) * 1000;
+                finishedText = getString(R.string.level8finishtext);
                 mediaFile = R.raw.catwalk;
                 break;
             case 7:
@@ -309,24 +326,27 @@ public class Game extends GoogleAPI implements View.OnClickListener{
                 subtitleText = getString(R.string.trainingtitle);
                 drinksGoal = Integer.valueOf(getString(R.string.trainingdrinks));
                 timeLimit = Long.valueOf(getString(R.string.trainingtime)) * 1000;
+                finishedText = getString(R.string.level7finishtext);
                 mediaFile = R.raw.progressivehouse;
                 break;
             case 6:
-                gameLayout.setBackgroundResource(R.drawable.bg);
+                gameLayout.setBackgroundResource(R.drawable.bgnewyork);
                 levelText = getString(R.string.level6text);
                 titleText = getString(R.string.level6title);
                 subtitleText = getString(R.string.level6subtitle);
                 drinksGoal = Integer.valueOf(getString(R.string.level6drinks));
                 timeLimit = Long.valueOf(getString(R.string.level6time)) * 1000;
+                finishedText = getString(R.string.level6finishtext);
                 mediaFile = R.raw.bossaloungerlong;
                 break;
             case 5:
-                gameLayout.setBackgroundResource(R.drawable.bg);
+                gameLayout.setBackgroundResource(R.drawable.bgnewyork);
                 levelText = getString(R.string.level5text);
                 titleText = getString(R.string.level5title);
                 subtitleText = getString(R.string.level5subtitle);
                 drinksGoal = Integer.valueOf(getString(R.string.level5drinks));
                 timeLimit = Long.valueOf(getString(R.string.level5time)) * 1000;
+                finishedText = getString(R.string.level5finishtext);
                 mediaFile = R.raw.parkbench;
                 break;
             case 4:
@@ -336,6 +356,7 @@ public class Game extends GoogleAPI implements View.OnClickListener{
                 subtitleText = getString(R.string.trainingtitle);
                 drinksGoal = Integer.valueOf(getString(R.string.trainingdrinks));
                 timeLimit = Long.valueOf(getString(R.string.trainingtime)) * 1000;
+                finishedText = getString(R.string.level4finishtext);
                 mediaFile = R.raw.progressivehouse;
                 break;
             case 3:
@@ -345,6 +366,7 @@ public class Game extends GoogleAPI implements View.OnClickListener{
                 subtitleText = getString(R.string.trainingtitle);
                 drinksGoal = Integer.valueOf(getString(R.string.trainingdrinks));
                 timeLimit = Long.valueOf(getString(R.string.trainingtime)) * 1000;
+                finishedText = getString(R.string.level3finishtext);
                 mediaFile = R.raw.progressivehouse;
                 break;
             case 2:
@@ -354,6 +376,7 @@ public class Game extends GoogleAPI implements View.OnClickListener{
                 subtitleText = getString(R.string.trainingtitle);
                 drinksGoal = Integer.valueOf(getString(R.string.trainingdrinks));
                 timeLimit = Long.valueOf(getString(R.string.trainingtime)) * 1000;
+                finishedText = getString(R.string.level2finishtext);
                 mediaFile = R.raw.progressivehouse;
                 break;
             case 1:
@@ -363,6 +386,7 @@ public class Game extends GoogleAPI implements View.OnClickListener{
                 subtitleText = getString(R.string.trainingtitle);
                 drinksGoal = Integer.valueOf(getString(R.string.trainingdrinks));
                 timeLimit = Long.valueOf(getString(R.string.trainingtime)) * 1000;
+                finishedText = getString(R.string.level1finishtext);
                 mediaFile = R.raw.progressivehouse;
                 break;
         }
@@ -394,6 +418,7 @@ public class Game extends GoogleAPI implements View.OnClickListener{
                 levelFinished(false);
             }
         };
+
     }
 
     /*
@@ -540,15 +565,18 @@ public class Game extends GoogleAPI implements View.OnClickListener{
                 drinkOrder.append(getString(R.string.soy) + "\n");
                 break;
         }
-        if(customerOrder[WHP_CRM] == 1) drinkOrder.append(getString(R.string.whip) + "\n");
-        if(customerOrder[DEC_ESP] > 0) drinkOrder.append(Integer.toString(customerOrder[9]) + " " + getString(R.string.decaf) + "\n");
-        if(customerOrder[REG_ESP] > 0) drinkOrder.append(Integer.toString(customerOrder[10]) + " " + getString(R.string.regular) + "\n");
+        if(customerOrder[DEC_ESP] > 0) drinkOrder.append(Integer.toString(customerOrder[9]) + " " + getString(R.string.decaf));
+        if(customerOrder[REG_ESP] > 0) {
+
+        }
+        if(customerOrder[REG_ESP] > 0) drinkOrder.append(Integer.toString(customerOrder[10]) + " " + getString(R.string.regular));
         if(customerOrder[CARA_SHOT] == 1) drinkOrder.append(getString(R.string.caramel) + "     ");
         if(customerOrder[HAZEL_SHOT] == 1) drinkOrder.append(getString(R.string.hazelnut) +"     ");
         if(customerOrder[VAN_SHOT] == 1) drinkOrder.append(getString(R.string.vanilla) + "     ");
         if(customerOrder[TOFFEE_SHOT] == 1) drinkOrder.append(getString(R.string.toffee) + "      ");
         if(customerOrder[PEP_SHOT] == 1) drinkOrder.append(getString(R.string.peppermint) + "      ");
         if(customerOrder[CHOC_SHOT] == 1) drinkOrder.append(getString(R.string.chocolate) + "     ");
+        if(customerOrder[WHP_CRM] == 1) drinkOrder.append("\n" + getString(R.string.whip));
 
         //updates the TextView to display the customer's order using the generated String
         drinkDisplay.setText(drinkOrder.toString());
@@ -583,6 +611,7 @@ public class Game extends GoogleAPI implements View.OnClickListener{
                 countDownTimer.cancel();
             }
             levelFinished(true);
+
         }
     }
 
@@ -596,15 +625,16 @@ public class Game extends GoogleAPI implements View.OnClickListener{
         //The level completion box is made visible, and the game play screen is dimmed
         levelCompletionLayout.setVisibility(View.VISIBLE);
         gameLayout.setAlpha(0.3f);
-        drinkDisplay.setText("");
+        setGamePlayButtonsEnabled(false);
         levelProgress.setVisibility(View.INVISIBLE);
         levelProgressText.setVisibility(View.INVISIBLE);
         levelTimeRemaining.setText("");
+        drinkDisplay.setText("");
 
         //True if user completed all goals, false if user failed level
         if(metObjectives) {
             levelCompletionLayout.setBackgroundColor(Color.parseColor("#ff1daf13"));
-            levelFinishedText.setText(getString(R.string.levelPassedText) + " " + levelTitle.getText() + "!");
+            levelFinishedText.setText(finishedText);
             //unlockAchievement();
             level++;
 
@@ -612,11 +642,18 @@ public class Game extends GoogleAPI implements View.OnClickListener{
             if(level > maxLevelCompleted) {
                 updateSaveFile();
             }
+            nextLevelButton.setText("Next Level");
 
+        } else if (incorrectDrinks == 3) {
+            levelCompletionLayout.setBackgroundColor(Color.parseColor("#ffca1a24"));
+            levelFinishedText.setText(getString(R.string.tooManyIncorrect));
+            nextLevelButton.setText("Retry Level");
         } else {
             levelCompletionLayout.setBackgroundColor(Color.parseColor("#ffca1a24"));
-            levelFinishedText.setText(getString(R.string.levelFailedText) + " " + levelTitle.getText() + "!");
+            levelFinishedText.setText(getString(R.string.levelFailedText));
             nextLevelButton.setText("Retry Level");
+            clearSelected();
+            userBeverage = emptyArray.clone();
         }
 
     }
@@ -736,11 +773,8 @@ public class Game extends GoogleAPI implements View.OnClickListener{
         levelFinishedText = (TextView) findViewById(R.id.levelFinishedText);
         drinkDisplay = (TextView) findViewById(R.id.drinkDisplay);
 
-        continueButton = (Button) findViewById(R.id.continueButton);
-        playerGuideLayout = (RelativeLayout) findViewById(R.id.playerGuideLayout);
         levelCompletionLayout = (RelativeLayout) findViewById(R.id.levelCompletionLayout);
         nextLevelButton = (Button) findViewById(R.id.nextLevelButton);
-        infoButton = (ImageButton) findViewById(R.id.infoButton);
 
         levelTimeRemaining = (TextView) findViewById(R.id.levelTimeRemaining);
 
@@ -785,17 +819,18 @@ public class Game extends GoogleAPI implements View.OnClickListener{
         gameLayout = (RelativeLayout) findViewById(R.id.gameLayout);
 
         levelSelectionButton = (Button) findViewById(R.id.levelSelectionButton);
+
+        handFeedbackText = (TextView) findViewById(R.id.handFeedbackText);
+        errorBox = (RelativeLayout) findViewById(R.id.errorBox);
+        errorText = (TextView) findViewById(R.id.errorText);
     }
 
     /*
     * setClickListeners links all of the GUI's buttons with the click listeners
      */
     public void setClickListeners() {
-        continueButton.setOnClickListener(this);
 
         nextLevelButton.setOnClickListener(this);
-
-        infoButton.setOnClickListener(this);
 
         handButton.setOnClickListener(this);
         trashButton.setOnClickListener(this);
@@ -845,24 +880,32 @@ public class Game extends GoogleAPI implements View.OnClickListener{
                 Intent i = new Intent(this, Levels.class);
                 startActivity(i);
                 this.finish();
-            case R.id.infoButton:
-                playerGuideLayout.setVisibility(View.VISIBLE);
                 break;
             case R.id.nextLevelButton:
-                if(nextLevelButton.getText() == "Retry Level") {
+                if (nextLevelButton.getText() == "Retry Level") {
+                    setGamePlayButtonsEnabled(true);
                     setUpLevel();
                     displayObjectives();
                     levelCompletionLayout.setVisibility(View.GONE);
+                    levelProgress.setProgress(0);
                     drinksMade = 0;
+                    incorrectDrinks = 0;
                 } else {
-
+                    setGamePlayButtonsEnabled(true);
+                    setUpLevel();
+                    displayObjectives();
+                    if (mp != null) {
+                        mp.release();
+                    }
+                    startMediaPlayer();
+                    levelCompletionLayout.setVisibility(View.GONE);
+                    drinksMade = 0;
+                    incorrectDrinks = 0;
+                    levelProgress.setProgress(0);
                 }
                 break;
-            case R.id.continueButton:
-                playerGuideLayout.setVisibility(View.INVISIBLE);
-                break;
             case R.id.levelInfoBegin:
-                if(levelInfoBegin.getText() == "Begin Level") //Being level button is active
+                if (levelInfoBegin.getText() == "Begin Level") //Being level button is active
                 {
                     beginLevel();
                 } else {
@@ -885,17 +928,16 @@ public class Game extends GoogleAPI implements View.OnClickListener{
                 clearSelected();
                 //if drinks are the same, increase counter, update level progress, and generate new
                 //drink order
-                if(compareDrinks()) {
-                    levelProgressText.setText(getString(R.string.correctDrink));
+                if (compareDrinks()) {
+                    ;
                     drinksMade++;
-
                     previousBeverage = customerOrder.clone();
                     // generates a new drink
                     //If the milk type is the same, changes to a different type. This prevents
                     //the user from having the same drink twice.
                     randomDrinkGen();
-                    if(customerOrder[MILK_TYPE] == previousBeverage[MILK_TYPE]) {
-                        if(previousBeverage[MILK_TYPE] < 2) {
+                    if (customerOrder[MILK_TYPE] == previousBeverage[MILK_TYPE]) {
+                        if (previousBeverage[MILK_TYPE] < 2) {
                             customerOrder[MILK_TYPE]++;
                         } else {
                             customerOrder[MILK_TYPE]--;
@@ -903,11 +945,43 @@ public class Game extends GoogleAPI implements View.OnClickListener{
                     }
                     displayDrinkOrder();
 
-
                     updateLevelProgress();
                 } else { //drink is incorrect, inform user
-                    levelProgressText.setText(getString(R.string.incorrectDrink));
+                    if (incorrectDrinks < 3) {
+                        incorrectDrinks++;
+                    }
                     vibrator.vibrate(400);
+
+                    //CountDownTimer makes 1-3 X's appear for 500ms.
+                    CountDownTimer c = new CountDownTimer(500, 100) {
+                        @Override
+                        public void onTick(long millisUntilFinished) {
+
+                        }
+
+                        @Override
+                        public void onFinish() {
+                            handFeedbackText.setText("");
+                            if (incorrectDrinks == 3) {
+                                levelFinished(false);
+                            }
+                        }
+                    };
+                    switch (incorrectDrinks) {
+                        case 1:
+                            handFeedbackText.setText("X");
+                            c.start();
+                            break;
+                        case 2:
+                            handFeedbackText.setText("X X");
+                            c.start();
+                            break;
+                        case 3:
+                            handFeedbackText.setText("X X X");
+                            countDownTimer.cancel();
+                            c.start();
+                            break;
+                    }
                 }
                 //clear the user's created beverage
                 userBeverage = emptyArray.clone();
@@ -925,27 +999,27 @@ public class Game extends GoogleAPI implements View.OnClickListener{
             * selected an error message is generated
              */
             case R.id.smallButton:
-                if(userBeverage[CUP_SIZE] >= 0) {
-                    levelProgressText.setText(getString(R.string.cupAlreadySelected));
+                if (userBeverage[CUP_SIZE] >= 0) {
+                    displayErrorMessage(2);
                 } else {
                     userBeverage[CUP_SIZE] = 0;
-                    smallButton.setColorFilter(Color.argb(100, 0, 77,255));
+                    smallButton.setColorFilter(Color.argb(100, 0, 77, 255));
                 }
                 break;
             case R.id.medButton:
-                if(userBeverage[CUP_SIZE] >= 0) {
-                    levelProgressText.setText(getString(R.string.cupAlreadySelected));
+                if (userBeverage[CUP_SIZE] >= 0) {
+                    displayErrorMessage(2);
                 } else {
                     userBeverage[CUP_SIZE] = 1;
-                    medButton.setColorFilter(Color.argb(100, 0, 77,255));
+                    medButton.setColorFilter(Color.argb(100, 0, 77, 255));
                 }
                 break;
             case R.id.largeButton:
-                if(userBeverage[CUP_SIZE] >= 0) {
-                    levelProgressText.setText(getString(R.string.cupAlreadySelected));
+                if (userBeverage[CUP_SIZE] >= 0) {
+                    displayErrorMessage(2);
                 } else {
                     userBeverage[CUP_SIZE] = 2;
-                    largeButton.setColorFilter(Color.argb(100, 0, 77,255));
+                    largeButton.setColorFilter(Color.argb(100, 0, 77, 255));
                 }
                 break;
 
@@ -954,41 +1028,63 @@ public class Game extends GoogleAPI implements View.OnClickListener{
             * was already selected an error is generated
              */
             case R.id.wholeButton:
-                if(userBeverage[MILK_TYPE] >= 0) {
-                    levelProgressText.setText(getString(R.string.milkAlreadySelected));
+                if (userBeverage[CUP_SIZE] < 0) {
+                    displayErrorMessage(1);
+                } else if (userBeverage[MILK_TYPE] >= 0) {
+                    displayErrorMessage(4);
                 } else {
                     userBeverage[MILK_TYPE] = 0;
-                    wholeButton.setColorFilter(Color.argb(100, 0, 77,255));
+                    wholeButton.setColorFilter(Color.argb(100, 0, 77, 255));
                 }
                 break;
             case R.id.nonfatButton:
-                if(userBeverage[MILK_TYPE] >= 0) {
-                    levelProgressText.setText(getString(R.string.milkAlreadySelected));
+                if (userBeverage[CUP_SIZE] < 0) {
+                    displayErrorMessage(1);
+                } else if (userBeverage[MILK_TYPE] >= 0) {
+                    displayErrorMessage(4);
                 } else {
                     userBeverage[MILK_TYPE] = 1;
-                    nonfatButton.setColorFilter(Color.argb(100, 0, 77,255));
+                    nonfatButton.setColorFilter(Color.argb(100, 0, 77, 255));
                 }
                 break;
             case R.id.soyButton:
-                if(userBeverage[MILK_TYPE] >= 0) {
-                    levelProgressText.setText(getString(R.string.milkAlreadySelected));
+                if (userBeverage[CUP_SIZE] < 0) {
+                    displayErrorMessage(1);
+                } else if (userBeverage[MILK_TYPE] >=  0) {
+                    displayErrorMessage(4);
                 } else {
                     userBeverage[MILK_TYPE] = 2;
-                    soyButton.setColorFilter(Color.argb(100, 0, 77,255));
+                    soyButton.setColorFilter(Color.argb(100, 0, 77, 255));
                 }
                 break;
             /*
             * The following espresso buttons increases the # of shots in the user drink
              */
             case R.id.espButton:
-                userBeverage[REG_ESP] = userBeverage[REG_ESP] + 1;
-                espButton.setColorFilter(Color.argb(100, 0, 77,255));
-                numOfRegText.setText(Integer.toString(userBeverage[REG_ESP]));
+                if (userBeverage[CUP_SIZE] < 0) {
+                    displayErrorMessage(1);
+                } else if (userBeverage[MILK_TYPE] < 0) {
+                    displayErrorMessage(3);
+                } else if (userBeverage[WHP_CRM] == 1) {
+                    displayErrorMessage(5);
+                } else if (userBeverage[REG_ESP] < 4) {
+                    userBeverage[REG_ESP] = userBeverage[REG_ESP] + 1;
+                    espButton.setColorFilter(Color.argb(100, 0, 77, 255));
+                    numOfRegText.setText(Integer.toString(userBeverage[REG_ESP]));
+                }
                 break;
             case R.id.dcfButton:
-                userBeverage[DEC_ESP] = userBeverage[DEC_ESP] + 1;
-                dcfButton.setColorFilter(Color.argb(100, 0, 77,255));
-                numOfDecafText.setText(Integer.toString(userBeverage[DEC_ESP]));
+                if (userBeverage[CUP_SIZE] < 0) {
+                    displayErrorMessage(1);
+                } else if (userBeverage[MILK_TYPE] < 0) {
+                    displayErrorMessage(3);
+                } else if (userBeverage[WHP_CRM] == 1) {
+                    displayErrorMessage(5);
+                } else if (userBeverage[DEC_ESP] < 4) {
+                    userBeverage[DEC_ESP] = userBeverage[DEC_ESP] + 1;
+                    dcfButton.setColorFilter(Color.argb(100, 0, 77, 255));
+                    numOfDecafText.setText(Integer.toString(userBeverage[DEC_ESP]));
+                }
                 break;
 
             /*
@@ -996,40 +1092,151 @@ public class Game extends GoogleAPI implements View.OnClickListener{
             * (true) for the user beverage
              */
             case R.id.steamButton:
-                userBeverage[STEAM] = 1;
-                steamButton.setColorFilter(Color.argb(100, 0, 77,255));
+                if (userBeverage[MILK_TYPE] < 0) {
+                    displayErrorMessage(3);
+                } else if (userBeverage[WHP_CRM] == 1) {
+                    displayErrorMessage(5);
+                } else {
+                    userBeverage[STEAM] = 1;
+                    steamButton.setColorFilter(Color.argb(100, 0, 77, 255));
+                }
                 break;
             case R.id.vanillaButton:
-                userBeverage[VAN_SHOT] = 1;
-                vanillaButton.setColorFilter(Color.argb(100, 0, 77,255));
+                if (userBeverage[CUP_SIZE] < 0) {
+                    displayErrorMessage(1);
+                } else if (userBeverage[MILK_TYPE] < 0) {
+                    displayErrorMessage(3);
+                } else if (userBeverage[WHP_CRM] == 1) {
+                    displayErrorMessage(5);
+                } else {
+                    userBeverage[VAN_SHOT] = 1;
+                    vanillaButton.setColorFilter(Color.argb(100, 0, 77, 255));
+                }
                 break;
             case R.id.hazelnutButton:
-                userBeverage[HAZEL_SHOT] = 1;
-                hazelnutButton.setColorFilter(Color.argb(100, 0, 77,255));
+                if (userBeverage[CUP_SIZE] < 0) {
+                    displayErrorMessage(1);
+                } else if (userBeverage[MILK_TYPE] < 0) {
+                    displayErrorMessage(3);
+                } else if (userBeverage[WHP_CRM] == 1) {
+                    displayErrorMessage(5);
+                } else {
+                    userBeverage[HAZEL_SHOT] = 1;
+                    hazelnutButton.setColorFilter(Color.argb(100, 0, 77, 255));
+                }
                 break;
             case R.id.chocolateButton:
-                userBeverage[CHOC_SHOT] = 1;
-                chocolateButton.setColorFilter(Color.argb(100, 0, 77,255));
+                if (userBeverage[CUP_SIZE] < 0) {
+                    displayErrorMessage(1);
+                } else if (userBeverage[MILK_TYPE] < 0) {
+                    displayErrorMessage(3);
+                } else if (userBeverage[WHP_CRM] == 1) {
+                    displayErrorMessage(5);
+                } else {
+                    userBeverage[CHOC_SHOT] = 1;
+                    chocolateButton.setColorFilter(Color.argb(100, 0, 77, 255));
+                }
                 break;
             case R.id.toffeeButton:
-                userBeverage[TOFFEE_SHOT] = 1;
-                toffeeButton.setColorFilter(Color.argb(100, 0, 77,255));
+                if (userBeverage[CUP_SIZE] < 0) {
+                    displayErrorMessage(1);
+                } else if (userBeverage[MILK_TYPE] < 0) {
+                    displayErrorMessage(3);
+                } else if (userBeverage[WHP_CRM] == 1) {
+                    displayErrorMessage(5);
+                } else {
+                    userBeverage[TOFFEE_SHOT] = 1;
+                    toffeeButton.setColorFilter(Color.argb(100, 0, 77, 255));
+                }
                 break;
             case R.id.peppermintButton:
-                userBeverage[PEP_SHOT] = 1;
-                peppermintButton.setColorFilter(Color.argb(100, 0, 77,255));
+                if (userBeverage[CUP_SIZE] < 0) {
+                    displayErrorMessage(1);
+                } else if (userBeverage[MILK_TYPE] < 0) {
+                    displayErrorMessage(3);
+                } else if (userBeverage[WHP_CRM] == 1) {
+                    displayErrorMessage(5);
+                } else {
+                    userBeverage[PEP_SHOT] = 1;
+                    peppermintButton.setColorFilter(Color.argb(100, 0, 77, 255));
+                }
                 break;
             case R.id.caramelButton:
-                userBeverage[CARA_SHOT] = 1;
-                caramelButton.setColorFilter(Color.argb(100, 0, 77,255));
+                if (userBeverage[CUP_SIZE] < 0) {
+                    displayErrorMessage(1);
+                } else if (userBeverage[MILK_TYPE] < 0) {
+                    displayErrorMessage(3);
+                } else if (userBeverage[WHP_CRM] == 1) {
+                    displayErrorMessage(5);
+                } else {
+                    userBeverage[CARA_SHOT] = 1;
+                    caramelButton.setColorFilter(Color.argb(100, 0, 77, 255));
+                }
                 break;
             case R.id.whipButton:
-                userBeverage[WHP_CRM] = 1;
-                whipCreamButton.setColorFilter(Color.argb(100, 0, 77,255));
+                if (userBeverage[CUP_SIZE] < 0) {
+                    displayErrorMessage(1);
+                } else if (userBeverage[MILK_TYPE] < 0) {
+                    displayErrorMessage(3);
+                } else {
+                    userBeverage[WHP_CRM] = 1;
+                    whipCreamButton.setColorFilter(Color.argb(100, 0, 77, 255));
+                }
                 break;
         }
 
     }
+
+    /*
+    * setGamePlayButtonsEnabled will enable all of the game play buttons when enabled == true, otherwise
+    * it will disable all of the game play buttons.
+     */
+    private void setGamePlayButtonsEnabled(boolean enabled) {
+        for (int i = 0; i < gameLayout.getChildCount(); i++) {
+            View child = gameLayout.getChildAt(i);
+            child.setEnabled(enabled);
+        }
+    }
+
+    /*
+    * Dispalys an error message on the screen.
+    * 1 - Cup not selected
+    * 2 - Cup already selected!
+    * 3 - Milk not selected!
+    * 4 - Milk already selected!
+    * 5 - Drink is finished, give to customer!
+     */
+    private void displayErrorMessage(int errorType) {
+        CountDownTimer c = new CountDownTimer(1000,100) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+            @Override
+            public void onFinish() {
+                errorBox.setVisibility(View.INVISIBLE);
+            }
+        }.start();
+        switch(errorType) {
+            case 1:
+                errorText.setText("Cup size not selected!");
+                break;
+            case 2:
+                errorText.setText("Cup size already selected!");
+                break;
+            case 3:
+                errorText.setText("Milk not selected!");
+                break;
+            case 4:
+                errorText.setText("Milk already selected!");
+                break;
+            case 5:
+                errorText.setText("Give drink to customer!");
+                break;
+        }
+        errorBox.setVisibility(View.VISIBLE);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
