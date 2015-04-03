@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">UltimateBarista</string>
+    <string name="app_name">Ultimate\nBarista</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_levels">Levels</string>
@@ -18,8 +18,8 @@
 
     <!-- steamed, espresso types -->
     <string name="steamed">Steamed</string>
-    <string name="regular">Regular</string>
-    <string name="decaf">Decaf</string>
+    <string name="regular"> Regular</string>
+    <string name="decaf"> Decaf</string>
 
     <!-- milk types -->
     <string name="whole">Whole Milk</string>
@@ -179,8 +179,8 @@
     <!-- level 20-->
     <string name="level20title">World Championships - Day 2</string>
     <string name="level20subtitle">France</string>
-    <string name="level20drinks">18</string>
+    <string name="level20drinks">20</string>
     <string name="level20time">120</string>
     <string name="level20text">Compete to become the Ultimate Barista!</string>
-    <string name="level20finishtext">You have become the Ultimate Barista!</string>
+    <string name="level20finishtext">Congratulations! You have become the Ultimate Barista!</string>
 </resources>

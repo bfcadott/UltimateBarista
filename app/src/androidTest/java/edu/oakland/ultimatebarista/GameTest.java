@@ -2,6 +2,10 @@ package edu.oakland.ultimatebarista;
 
 import android.test.ActivityInstrumentationTestCase2;
 
+import junit.framework.Assert;
+
+import java.util.Arrays;
+
 /**
  * Created by Ryan on 3/30/2015.
  */
@@ -20,6 +24,6 @@ public class GameTest extends ActivityInstrumentationTestCase2<Game> {
     }
     public void testArrays(){
         int[] propEmptyArray = {-1,0,-1,0,0,0,0,0,0,0,0,0};
-        assertEquals("The empty array wasn't correct.", propEmptyArray, mGame.emptyArray);
+        assertTrue("The empty array wasn't correct.", Arrays.equals(propEmptyArray, mGame.emptyArray));
     }
 }

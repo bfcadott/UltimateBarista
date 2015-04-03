@@ -90,7 +90,7 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
     public void onClick(View v) {
         //Listener decides what level to load based on which button throws the onClick event
             Intent i = new Intent(this, Game.class);
-            i.putExtra("maxLevelCompleted", String.valueOf(level));
+            i.putExtra("maxLevelCompleted", level);
         startGame = true;
         switch (v.getId()) {
             case R.id.switchPageButton:
@@ -128,71 +128,71 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
                         tutorialPhase++;
                         break;
                     case 3:
-                        i.putExtra("level", "0");
-                        i.putExtra("maxLevelCompleted",String.valueOf(level));
+                        i.putExtra("level", 0);
+                        i.putExtra("maxLevelCompleted",level);
                         startGame = true;
                         break;
                 }
                 break;
             case R.id.level1button:
-                i.putExtra("level","1");
+                i.putExtra("level",1);
                 break;
             case R.id.level2button:
-                i.putExtra("level","2");
+                i.putExtra("level",2);
                 break;
             case R.id.level3button:
-                i.putExtra("level","3");
+                i.putExtra("level",3);
                 break;
             case R.id.level4button:
-                i.putExtra("level","4");
+                i.putExtra("level",4);
                 break;
             case R.id.level5button:
-                i.putExtra("level","5");
+                i.putExtra("level",5);
                 break;
             case R.id.level6button:
-                i.putExtra("level","6");
+                i.putExtra("level",6);
                 break;
             case R.id.level7button:
-                i.putExtra("level","7");
+                i.putExtra("level",7);
                 break;
             case R.id.level8button:
-                i.putExtra("level","8");
+                i.putExtra("level",8);
                 break;
             case R.id.level9button:
-                i.putExtra("level","9");
+                i.putExtra("level",9);
                 break;
             case R.id.level10button:
-                i.putExtra("level","10");
+                i.putExtra("level",10);
                 break;
             case R.id.level11button:
-                i.putExtra("level","11");
+                i.putExtra("level",11);
                 break;
             case R.id.level12button:
-                i.putExtra("level","12");
+                i.putExtra("level",12);
                 break;
             case R.id.level13button:
-                i.putExtra("level","13");
+                i.putExtra("level",13);
                 break;
             case R.id.level14button:
-                i.putExtra("level","14");
+                i.putExtra("level",14);
                 break;
             case R.id.level15button:
-                i.putExtra("level","15");
+                i.putExtra("level",15);
                 break;
             case R.id.level16button:
-                i.putExtra("level","16");
+                i.putExtra("level",16);
                 break;
             case R.id.level17button:
-                i.putExtra("level","17");
+                i.putExtra("level",17);
                 break;
             case R.id.level18button:
-                i.putExtra("level","18");
+                i.putExtra("level",18);
                 break;
             case R.id.level19button:
-                i.putExtra("level","19");
+                i.putExtra("level",19);
                 break;
             case R.id.level20button:
-                i.putExtra("level","20");
+                i.putExtra("level",20);
                 break;
             case R.id.signOutButton:
                 if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
@@ -300,7 +300,7 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
     public void enableLevelButtons() {
         switch (level) {
             case 21:
-                level20.setImageResource(R.drawable.coffeecupgreen);
+                level20.setImageResource(R.drawable.goldcupconfetti);
             case 20:
                 level20.setEnabled(true);
                 if(level == 20)
@@ -310,7 +310,7 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
                 level19.setEnabled(true);
                 if(level == 19)
                     level19.setImageResource(R.drawable.coffeecupdkgray);
-                level18.setImageResource(R.drawable.coffeecupgreen);
+                level18.setImageResource(R.drawable.goldcup);
             case 18:
                 level18.setEnabled(true);
                 if(level == 18)
@@ -330,12 +330,12 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
                 level15.setEnabled(true);
                 if(level == 15)
                     level15.setImageResource(R.drawable.coffeecupdkgray);
-                level14.setImageResource(R.drawable.coffeecupgreen);
+                level14.setImageResource(R.drawable.goldcup);
             case 14:
                 level14.setEnabled(true);
                 if(level == 14)
                     level14.setImageResource(R.drawable.coffeecupdkgray);
-                level13.setImageResource(R.drawable.coffeecupgreen);
+                level13.setImageResource(R.drawable.goldcup);
             case 13:
                 levelGrid.setVisibility(View.GONE);
                 page2levelGrid.setVisibility(View.VISIBLE);
@@ -348,12 +348,12 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
                 level12.setEnabled(true);
                 if(level == 12)
                     level12.setImageResource(R.drawable.coffeecupdkgray);
-                level11.setImageResource(R.drawable.coffeecupgreen);
+                level11.setImageResource(R.drawable.goldcup);
             case 11:
                 level11.setEnabled(true);
                 if(level == 11)
                     level11.setImageResource(R.drawable.coffeecupdkgray);
-                level10.setImageResource(R.drawable.coffeecupgreen);
+                level10.setImageResource(R.drawable.goldcup);
             case 10:
                 level10.setEnabled(true);
                 if(level == 10)
@@ -363,7 +363,7 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
                 level9.setEnabled(true);
                 if(level == 9)
                     level9.setImageResource(R.drawable.coffeecupdkgray);
-                level8.setImageResource(R.drawable.coffeecupgreen);
+                level8.setImageResource(R.drawable.goldcup);
             case 8:
                 level8.setEnabled(true);
                 if(level == 8)
@@ -373,7 +373,7 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
                 level7.setEnabled(true);
                 if(level == 7)
                     level7.setImageResource(R.drawable.coffeecupdkgray);
-                level6.setImageResource(R.drawable.coffeecupgreen);
+                level6.setImageResource(R.drawable.goldcup);
             case 6:
                 level6.setEnabled(true);
                 if(level == 6)
@@ -442,10 +442,11 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
     protected void updateUI() {
         // Show signed in or signed out view
         if (isSignedIn() && level > 0) {
+
             findViewById(R.id.signOutButton).setVisibility(View.VISIBLE);
-            //unlockAchievement();
+            unlockAchievement();
         } else {
-            findViewById(R.id.signOutButton).setVisibility(View.GONE);
+            findViewById(R.id.signOutButton).setVisibility(View.INVISIBLE);
         }
     }
 
@@ -485,63 +486,53 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
     {
         Intent i = new Intent(this, Main.class);
         this.startActivity(i);
-        // super.onBackPressed(); // Comment this super call to avoid calling finish()
+        this.finish();
     }
     private void unlockAchievement() {
         switch(level - 1) {
+            case 20:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQFg");
+            case 19:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQFQ");
+            case 18:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQFA");
+            case 17:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQEw");
+            case 16:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQEg");
+            case 15:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQEQ");
+            case 14:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQEA");
+            case 13:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQDw");
+            case 12:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQDg");
+            case 11:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQDQ");
+            case 10:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQDA");
+            case 9:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQCw");
+            case 8:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQCg");
+            case 7:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQCQ");
+            case 6:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQCA");
+            case 5:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQBQ");
+            case 4:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQBA");
+            case 3:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQAw");
+            case 2:
+                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQAg");
             case 1:
                 Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQAQ");
                 break;
-            case 2:
-                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQAg");
-                break;
-            case 3:
-                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQAw");
-                break;
-            case 4:
-                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQBA");
-                break;
-            case 5:
-                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQBQ");
-                break;
-            case 6:
-                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQCA");
-                break;
-            case 7:
-                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQCQ");
-                break;
-            case 8:
-                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQCg");
-                break;
-            case 9:
-                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQCw");
-                break;
-            case 10:
-                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQDA");
-                break;
-            case 11:
-                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQDQ");
-                break;
-            case 12:
-                Games.Achievements.unlock(mGoogleApiClient,"CgkIto6VvK4ZEAIQDg");
-                break;
-            case 13:
-                break;
-            case 14:
-                break;
-            case 15:
-                break;
-            case 16:
-                break;
-            case 17:
-                break;
-            case 18:
-                break;
-            case 19:
-                break;
-            case 20:
-                break;
         }
     }
+
 }
 

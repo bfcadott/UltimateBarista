@@ -245,13 +245,16 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:id="@+id/levelProgressText"
             android:textColor="@android:color/black"
-            android:gravity="center"
             android:visibility="visible"
-            android:layout_below="@+id/levelProgressBar"
             android:layout_alignLeft="@+id/levelProgressBar"
             android:layout_alignStart="@+id/levelProgressBar"
             android:layout_toLeftOf="@+id/levelTimeRemaining"
-            android:layout_toStartOf="@+id/levelTimeRemaining" />
+            android:layout_toStartOf="@+id/levelTimeRemaining"
+            android:layout_alignTop="@+id/levelProgressBar"
+            android:layout_alignBottom="@+id/levelProgressBar"
+            android:gravity="left"
+            android:paddingLeft="10dp"
+            android:textSize="19dp" />
 
         <ImageView
             android:layout_width="170dp"
@@ -263,11 +266,11 @@
             android:layout_marginTop="88dp" />
 
         <ImageButton
-            android:layout_width="30dp"
-            android:layout_height="25dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:id="@+id/steamButton"
             android:layout_alignLeft="@+id/espressoMachine"
-            android:layout_marginLeft="21dp"
+            android:layout_marginLeft="15dp"
             android:layout_alignTop="@+id/espButton"
             android:layout_marginTop="0dp"
             android:textColor="#ff0006ff"
@@ -300,8 +303,8 @@
             android:layout_above="@+id/dcfButton" />
 
         <ImageButton
-            android:layout_width="30dp"
-            android:layout_height="25dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:id="@+id/dcfButton"
             android:layout_marginLeft="51dp"
             android:layout_marginStart="41dp"
@@ -314,8 +317,8 @@
             android:background="@android:color/transparent" />
 
         <ImageButton
-            android:layout_width="30dp"
-            android:layout_height="25dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:id="@+id/espButton"
             android:layout_alignTop="@+id/espressoMachine"
             android:layout_toRightOf="@+id/dcfButton"
@@ -397,7 +400,7 @@
             android:layout_below="@+id/levelInfoTitle"
             android:textStyle="italic"
             android:visibility="visible"
-            android:layout_marginTop="-15dp" />
+            android:layout_marginTop="0dp" />
 
         <TextView
             android:layout_width="525dp"
@@ -419,7 +422,47 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="415dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:padding="10dp"
+        android:id="@+id/errorBox"
+        android:background="#9cff0000"
+        android:visibility="invisible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/errorText"
+            android:layout_centerInParent="true"
+            android:textColor="@android:color/black"
+            android:textSize="30dp"
+            android:textStyle="bold|italic" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="400dp"
+        android:id="@+id/confetti"
+        android:src="@drawable/confetti"
+        android:layout_alignParentRight="false"
+        android:layout_alignParentEnd="false"
+        android:layout_centerInParent="true"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/confetti2"
+        android:src="@drawable/confetti"
+        android:layout_alignParentRight="false"
+        android:layout_alignParentEnd="false"
+        android:layout_centerInParent="true"
+        android:visibility="invisible" />
+
+    <RelativeLayout
+        android:layout_width="400dp"
         android:layout_height="145dp"
         android:id="@+id/levelCompletionLayout"
         android:visibility="gone"
@@ -452,39 +495,22 @@
             android:text="Level Selection"
             android:id="@+id/levelSelectionButton"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentStart="false"
+            android:layout_alignParentRight="false" />
 
         <Button
             android:layout_width="200dp"
             android:layout_height="40dp"
             android:text="Next Level"
             android:id="@+id/nextLevelButton"
-            android:layout_alignTop="@+id/levelSelectionButton"
-            android:layout_toRightOf="@+id/levelSelectionButton"
-            android:layout_toEndOf="@+id/levelSelectionButton"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true" />
+            android:layout_alignParentRight="false"
+            android:layout_alignParentLeft="false"
+            android:visibility="visible"
+            android:layout_alignParentStart="false"
+            android:layout_toRightOf="@+id/levelSelectionButton" />
 
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:padding="10dp"
-        android:id="@+id/errorBox"
-        android:background="#45ff0008"
-        android:visibility="invisible">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/errorText"
-            android:layout_centerInParent="true"
-            android:textColor="@android:color/black"
-            android:textSize="30dp" />
     </RelativeLayout>
 
 </RelativeLayout>
