@@ -1,45 +1,20 @@
 package edu.oakland.ultimatebarista;
 
-import com.google.android.gms.*;
-
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.media.MediaPlayer;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
-import com.google.android.gms.appstate.AppStateManager;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.drive.Drive;
-import com.google.android.gms.drive.DriveApi;
-import com.google.android.gms.drive.DriveContents;
-import com.google.android.gms.drive.DriveFolder;
-import com.google.android.gms.drive.MetadataChangeSet;
 import com.google.android.gms.games.Games;
-import com.google.android.gms.games.snapshot.Snapshot;
-import com.google.android.gms.games.snapshot.SnapshotMetadata;
-import com.google.android.gms.games.snapshot.SnapshotMetadataChange;
-import com.google.android.gms.games.snapshot.Snapshots;
-import com.google.example.games.basegameutils.BaseGameUtils;
+import com.google.android.gms.games.achievement.Achievement;
+import com.google.android.gms.games.achievement.AchievementBuffer;
+import com.google.android.gms.games.achievement.Achievements;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
+import java.util.Iterator;
 
 
 public class Main extends GoogleAPI implements View.OnClickListener {
@@ -51,6 +26,7 @@ public class Main extends GoogleAPI implements View.OnClickListener {
 
 
     String fileName = "ultimatebarista.txt";
+    int level = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,7 +100,7 @@ public class Main extends GoogleAPI implements View.OnClickListener {
         if (isSignedIn()) {
             findViewById(R.id.sign_out_button).setVisibility(View.VISIBLE);
             findViewById(R.id.sign_in_button).setVisibility(View.GONE);
-
+            Games.Achievements.load(mGoogleApiClient, false).setResultCallback(new UserAchievements());
             continueButton.setText("Continue");
 
         } else {
@@ -133,6 +109,7 @@ public class Main extends GoogleAPI implements View.OnClickListener {
             continueButton.setText("Continue Without Sign In");
         }
     }
+
 
     @Override
     protected void onPause() {
@@ -163,6 +140,94 @@ public class Main extends GoogleAPI implements View.OnClickListener {
             mGoogleApiClient.disconnect();
         }
     }
+
+
+
+class UserAchievements implements ResultCallback<Achievements.LoadAchievementsResult> {
+    @Override
+    public void onResult(Achievements.LoadAchievementsResult arg0) {
+        int syncLevel = -1;
+        Achievement ach;
+        AchievementBuffer achievementBuffer = arg0.getAchievements();
+        Iterator<Achievement> aIterator = achievementBuffer.iterator();
+
+        while (aIterator.hasNext()) {
+            ach = aIterator.next();
+            if(ach.getState() == Achievement.STATE_UNLOCKED) {
+                syncLevel = syncLevelProgress(ach);
+                if(syncLevel > -1) {
+                    achievementBuffer.close();
+                    level = syncLevel;
+                    updateSaveFile();
+                    break;
+                }
+            }
+
+        }
+    }
+}
+
+    protected int syncLevelProgress(Achievement ach) {
+        switch(ach.getAchievementId()) {
+            case "CgkIto6VvK4ZEAIQFg":
+                return 21;
+            case "CgkIto6VvK4ZEAIQFQ":
+                return 20;
+            case "CgkIto6VvK4ZEAIQFA":
+                return 19;
+            case "CgkIto6VvK4ZEAIQEw":
+                return 18;
+            case "CgkIto6VvK4ZEAIQEg":
+                return 17;
+            case "CgkIto6VvK4ZEAIQEQ":
+                return 16;
+            case "CgkIto6VvK4ZEAIQEA":
+                return 15;
+            case "CgkIto6VvK4ZEAIQDw":
+                return 14;
+            case "CgkIto6VvK4ZEAIQDg":
+                return 13;
+            case "CgkIto6VvK4ZEAIQDQ":
+                return 12;
+            case "CgkIto6VvK4ZEAIQDA":
+                return 11;
+            case "CgkIto6VvK4ZEAIQCw":
+                return 10;
+            case "CgkIto6VvK4ZEAIQCg":
+                return 9;
+            case "CgkIto6VvK4ZEAIQCQ":
+                return 8;
+            case "CgkIto6VvK4ZEAIQCA":
+                return 7;
+            case "CgkIto6VvK4ZEAIQBQ":
+                return 6;
+            case "CgkIto6VvK4ZEAIQBA":
+                return 5;
+            case "CgkIto6VvK4ZEAIQAw":
+                return 4;
+            case "CgkIto6VvK4ZEAIQAg":
+                return 3;
+            case "CgkIto6VvK4ZEAIQAQ":
+                return 2;
+            default:
+                return -1;
+        }
+    }
+
+    public void updateSaveFile() {
+        String string = String.valueOf(level);
+        FileOutputStream outputStream;
+
+        try {
+            outputStream = openFileOutput(fileName, this.MODE_PRIVATE);
+            outputStream.write(string.getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 
 }

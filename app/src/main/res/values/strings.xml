@@ -47,7 +47,7 @@
     <!-- tutorial level info -->
 
     <string name="tutorialLevelInfoTitle">Time to play!</string>
-    <string name="tutorialLevelObjective">This is a tutorial level. \n There is no time limit to allow you to make the drinks at your own pace.</string>
+    <string name="tutorialLevelObjective">This is a tutorial level. \n\n There is no time limit to allow you to make the drinks at your own pace.</string>
     <string name="tutorialLevelTitle">Tutorial</string>
     <string name="tutorialdrinks">5</string>
     <string name="tutorialfinishtext">You have completed the tutorial!</string>

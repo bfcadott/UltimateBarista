@@ -1,7 +1,7 @@
 package edu.oakland.ultimatebarista;
 
 //Imports allow usage of built-in functionality
-import android.app.Activity;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
@@ -11,8 +11,6 @@ import android.os.Vibrator;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -23,10 +21,8 @@ import android.widget.TextView;
 
 import com.google.android.gms.games.Games;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Random;
-import java.util.Timer;
 
 //Class which controls Game-Screen functionality
 public class Game extends GoogleAPI implements View.OnClickListener{
@@ -145,6 +141,8 @@ public class Game extends GoogleAPI implements View.OnClickListener{
     * The runTutorial method is used to set up the level for the tutorial
      */
     private void runTutorial() {
+        gameLayout.setVisibility(View.INVISIBLE);
+        setGamePlayButtonsEnabled(false);
         //Fills in the level's TextViews with appropriate tutorial level text
         levelInfoTitle.setText(getString(R.string.tutorialLevelTitle));
         levelInfoObjective.setText(getString(R.string.tutorialLevelObjective));
@@ -454,6 +452,7 @@ public class Game extends GoogleAPI implements View.OnClickListener{
         displayDrinkOrder();
 
         if(level > 0) {
+            levelTimeRemaining.setVisibility(View.VISIBLE);
             countDownTimer.start();
         }
 
@@ -1394,9 +1393,6 @@ public class Game extends GoogleAPI implements View.OnClickListener{
     }
 
     protected void updateUI() {
-
     }
-
-
 
 }

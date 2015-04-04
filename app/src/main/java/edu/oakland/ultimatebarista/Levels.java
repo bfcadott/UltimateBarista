@@ -1,40 +1,18 @@
 package edu.oakland.ultimatebarista;
 
 //import list, brings in needed functionality
-import com.google.android.gms.*;
-
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.media.MediaPlayer;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.appstate.AppStateManager;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.drive.Drive;
 import com.google.android.gms.games.Games;
-import com.google.android.gms.games.snapshot.Snapshot;
-import com.google.android.gms.games.snapshot.SnapshotMetadata;
-import com.google.android.gms.games.snapshot.SnapshotMetadataChange;
-import com.google.android.gms.games.snapshot.Snapshots;
-import com.google.example.games.basegameutils.BaseGameUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -120,14 +98,31 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
                         tutorialPhase++;
                         break;
                     case 2:
+                        gameIntroText.setText("First, select a cup, then milk, then add the rest. \n \n  Lastly, if required, add whipped cream! \n \n" +
+                                "After adding whipped cream you are unable to modify the drink.");
+                        playerGuideImage.setVisibility(View.INVISIBLE);
+                        gameIntroText.setVisibility(View.VISIBLE);
+                        tutorialPhase++;
+                        break;
+                    case 3:
+                        gameIntroText.setVisibility(View.INVISIBLE);
                         playerGuideImage.setVisibility(View.INVISIBLE);
                         tutorialText.setVisibility(View.VISIBLE);
                         trashCan.setVisibility(View.VISIBLE);
                         customerHand.setVisibility(View.VISIBLE);
+                        tutorialPhase++;
+                        break;
+                    case 4:
+                        tutorialText.setVisibility(View.INVISIBLE);
+                        trashCan.setVisibility(View.INVISIBLE);
+                        customerHand.setVisibility(View.INVISIBLE);
+                        gameIntroText.setVisibility(View.VISIBLE);
+                        gameIntroText.setText("An \"X\" will appear if you give the customer an incorrect drink. \n\n" +
+                                "If you give customers 3 incorrect drinks, or run out of time, you fail the level!");
                         playTutorialButton.setText("Play Tutorial Level");
                         tutorialPhase++;
                         break;
-                    case 3:
+                    case 5:
                         i.putExtra("level", 0);
                         i.putExtra("maxLevelCompleted",level);
                         startGame = true;

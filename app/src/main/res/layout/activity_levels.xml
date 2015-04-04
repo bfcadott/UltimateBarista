@@ -390,7 +390,7 @@
             android:gravity="left"
             android:layout_alignParentBottom="true"
             android:paddingLeft="10dp"
-            android:text="• When the drink is done, click on the customer hand.\n\n • If you make a mistake, click the trash to start over." />
+            android:text="When the drink is done, click on the customer hand.\n\n If you make a mistake, click the trash to start over." />
 
         <ImageView
             android:layout_width="80dp"
