@@ -172,14 +172,14 @@
     <!-- level 19-->
     <string name="level19title">World Championships - Day 1</string>
     <string name="level19subtitle">France</string>
-    <string name="level19drinks">13</string>
+    <string name="level19drinks">1</string>
     <string name="level19time">90</string>
     <string name="level19text">Complete this challenge to advance to day 2.</string>
     <string name="level19finishtext">Day 1 completed!</string>
     <!-- level 20-->
     <string name="level20title">World Championships - Day 2</string>
     <string name="level20subtitle">France</string>
-    <string name="level20drinks">20</string>
+    <string name="level20drinks">1</string>
     <string name="level20time">120</string>
     <string name="level20text">Compete to become the Ultimate Barista!</string>
     <string name="level20finishtext">Congratulations! You have become the Ultimate Barista!</string>

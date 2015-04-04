@@ -179,6 +179,7 @@ public class Game extends GoogleAPI implements View.OnClickListener{
         levelInfoBegin.setText("Continue");
         levelInfoObjective.setText(levelText);
         levelInfoLayout.setVisibility(View.VISIBLE);
+        gameLayout.setVisibility(View.INVISIBLE);
     }
 
     /*
@@ -402,7 +403,7 @@ public class Game extends GoogleAPI implements View.OnClickListener{
 
         //All of the competition levels display the City Name as the level title, rather than the
         //competition name
-        if(level > 3 && level != 7 && level != 9) {
+        if(level > 4 && level != 7 && level != 9) {
             levelTitle.setText(subtitleText);
         } else {
             levelTitle.setText(titleText);
@@ -447,6 +448,7 @@ public class Game extends GoogleAPI implements View.OnClickListener{
      */
     private void beginLevel() {
         gameLayout.setAlpha(1.0f);
+        gameLayout.setVisibility(View.VISIBLE);
         levelInfoLayout.setVisibility(View.INVISIBLE);
         randomDrinkGen();
         displayDrinkOrder();
@@ -701,27 +703,24 @@ public class Game extends GoogleAPI implements View.OnClickListener{
             if (isSignedIn()) {
                 unlockAchievement();
             }
+
+            nextLevelButton.setText("Next Level");
             level++;
 
             //Save file is only updated if the level is greater than the max completed level
             if(level > maxLevelCompleted) {
                 updateSaveFile();
             }
+
             if(level > 20) {
-                nextLevelButton.setVisibility(View.GONE);
+                nextLevelButton.setEnabled(false);
+                nextLevelButton.setText("More Coming Soon!");
                 levelSelectionButton.setWidth(1000);
                 mp.release();
                 mediaFile = R.raw.gamecompleted;
 
                 findViewById(R.id.confetti).setVisibility(View.VISIBLE);
                 findViewById(R.id.confetti2).setVisibility(View.VISIBLE);
-                /*
-                Animation a = new RotateAnimation(0.0f, 360.0f,
-                        Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
-                        0.5f);
-                a.setRepeatCount(500);
-                a.setDuration(10);
-                */
                 TranslateAnimation animation = new TranslateAnimation(-100.0f, 100f,
                         0f,0f);          //  new TranslateAnimation(xFrom,xTo, yFrom,yTo)
                 animation.setDuration(1000);  // animation duration
@@ -738,7 +737,6 @@ public class Game extends GoogleAPI implements View.OnClickListener{
                 findViewById(R.id.confetti2).startAnimation(animation2);
                 startMediaPlayer();
             }
-            nextLevelButton.setText("Next Level");
 
         } else if (incorrectDrinks == 3) {
             levelCompletionLayout.setBackgroundColor(Color.parseColor("#ffca1a24"));
@@ -1358,6 +1356,9 @@ public class Game extends GoogleAPI implements View.OnClickListener{
         if (mpAlert != null) {
             mpAlert.release();
         }
+        if(countDownTimer != null) {
+            countDownTimer.cancel();
+        }
 
     }
 
@@ -1386,6 +1387,9 @@ public class Game extends GoogleAPI implements View.OnClickListener{
         super.onStop();
         if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
+        }
+        if(countDownTimer != null) {
+            countDownTimer.cancel();
         }
     }
 
