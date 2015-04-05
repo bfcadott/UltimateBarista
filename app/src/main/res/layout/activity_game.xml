@@ -119,7 +119,7 @@
             android:layout_toRightOf="@+id/hazelnutButton"
             android:layout_toEndOf="@+id/hazelnutButton"
             android:layout_alignBottom="@+id/caramelButton"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginLeft="5dp" />
 
         <ImageButton
             android:layout_width="70dp"
@@ -129,7 +129,7 @@
             android:src="@drawable/caramel"
             android:scaleType="fitCenter"
             android:layout_above="@+id/toffeeButton"
-            android:layout_marginLeft="-40dp"
+            android:layout_marginLeft="-45dp"
             android:layout_toRightOf="@+id/toffeeButton"
             android:layout_marginBottom="-5dp" />
 
@@ -143,7 +143,7 @@
             android:layout_alignBottom="@+id/caramelButton"
             android:layout_toRightOf="@+id/caramelButton"
             android:layout_toEndOf="@+id/caramelButton"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginLeft="15dp" />
 
         <ImageButton
             android:layout_width="70dp"
@@ -181,7 +181,7 @@
             android:src="@drawable/peppermint"
             android:scaleType="fitCenter"
             android:layout_alignBottom="@+id/toffeeButton"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="0dp"
             android:layout_marginBottom="0dp"
             android:cropToPadding="false" />
 
