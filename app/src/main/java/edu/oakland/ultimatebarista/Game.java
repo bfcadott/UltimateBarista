@@ -122,7 +122,7 @@ public class Game extends GoogleAPI implements View.OnClickListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
+        setContentView(R.layout.activity_game_sw600dp);
 
         linkUIElements();
         setClickListeners();

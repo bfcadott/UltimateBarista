@@ -1,0 +1,433 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="edu.oakland.ultimatebarista.Levels"
+    android:background="@drawable/schedule"
+    android:id="@+id/levelsScreenLayout">
+
+    <Button
+        android:id="@+id/switchPageButton"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Next Levels"
+        android:visibility="visible"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="false"
+        android:layout_alignTop="@+id/signOutButton" />
+
+    <Button
+        android:id="@+id/signOutButton"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Sign Out"
+        android:visibility="invisible"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp" />
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="false"
+        android:layout_centerInParent="true"
+        android:layout_alignParentRight="false"
+        android:id="@+id/levelGrid"
+        android:visibility="visible">
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/level1button"
+            android:layout_column="0"
+            android:enabled = "false"
+            android:layout_margin="0dp"
+            android:layout_row="0"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY" />
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/level2button"
+            android:layout_column="1"
+            android:enabled = "false"
+            android:layout_margin="0dp"
+            android:layout_row="0"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY" />
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/level3button"
+            android:layout_column="2"
+            android:enabled = "false"
+            android:layout_margin="0dp"
+            android:layout_row="0"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY" />
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/level4button"
+            android:layout_column="3"
+            android:enabled = "false"
+            android:layout_margin="0dp"
+            android:layout_row="0"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY" />
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/level5button"
+            android:layout_column="4"
+            android:enabled = "false"
+            android:layout_margin="0dp"
+            android:layout_row="0"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY" />
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/level6button"
+            android:layout_column="5"
+            android:enabled = "false"
+            android:layout_margin="0dp"
+            android:layout_row="0"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY" />
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/level7button"
+            android:layout_column="0"
+            android:enabled = "false"
+            android:layout_margin="0dp"
+            android:layout_row="1"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY" />
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/level8button"
+            android:layout_column="1"
+            android:enabled = "false"
+            android:layout_margin="0dp"
+            android:layout_row="1"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY" />
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/level9button"
+            android:layout_column="2"
+            android:enabled = "false"
+            android:layout_margin="0dp"
+            android:layout_row="1"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY" />
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/level10button"
+            android:layout_column="3"
+            android:enabled = "false"
+            android:layout_margin="0dp"
+            android:layout_row="1"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY" />
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/level11button"
+            android:layout_column="4"
+            android:layout_margin="0dp"
+            android:layout_row="1"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY" />
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/level12button"
+            android:layout_column="5"
+            android:enabled = "false"
+            android:layout_margin="0dp"
+            android:layout_row="1"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY" />
+    </GridLayout>
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="false"
+        android:layout_centerInParent="true"
+        android:layout_alignParentRight="false"
+        android:id="@+id/page2levelGrid"
+        android:visibility="gone" >
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/level13button"
+            android:layout_column="0"
+            android:enabled="false"
+            android:layout_margin="0dp"
+            android:layout_row="0"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY" />
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/level14button"
+            android:layout_column="1"
+            android:enabled="false"
+            android:layout_margin="0dp"
+            android:layout_row="0"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY" />
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/level15button"
+            android:layout_column="2"
+            android:enabled="false"
+            android:layout_margin="0dp"
+            android:layout_row="0"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY" />
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/level16button"
+            android:layout_column="3"
+            android:enabled="false"
+            android:layout_margin="0dp"
+            android:layout_row="0"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY" />
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/level17button"
+            android:layout_column="4"
+            android:enabled="false"
+            android:layout_margin="0dp"
+            android:layout_row="0"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY" />
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/level18button"
+            android:layout_column="5"
+            android:enabled="false"
+            android:layout_margin="0dp"
+            android:layout_row="0"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY"
+            android:visibility="visible" />
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/imageButton7"
+            android:layout_column="0"
+            android:enabled="false"
+            android:layout_margin="0dp"
+            android:layout_row="1"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY"
+            android:visibility="visible" />
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/imageButton8"
+            android:layout_column="1"
+            android:enabled="false"
+            android:layout_margin="0dp"
+            android:layout_row="1"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY"
+            android:visibility="visible" />
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/level19button"
+            android:layout_column="2"
+            android:enabled="false"
+            android:layout_margin="0dp"
+            android:layout_row="1"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY"
+            android:visibility="visible" />
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/level20button"
+            android:layout_column="3"
+            android:enabled="false"
+            android:layout_margin="0dp"
+            android:layout_row="1"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY"
+            android:visibility="visible" />
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/imageButton11"
+            android:layout_column="4"
+            android:layout_margin="0dp"
+            android:layout_row="1"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY"
+            android:visibility="visible" />
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/imageButton12"
+            android:layout_column="5"
+            android:enabled="false"
+            android:layout_margin="0dp"
+            android:layout_row="1"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/coffeecupltgray"
+            android:scaleType="fitXY"
+            android:visibility="visible" />
+    </GridLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/tutorialLayout"
+        android:visibility="gone"
+        android:layout_alignParentBottom="false">
+
+        <Button
+            android:id="@+id/playTutorialButton"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Begin Tutorial"
+            android:visibility="visible"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/gameIntroText"
+            android:gravity="center"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:visibility="visible"
+            android:text="Become the Ultimate Barista by making drinks for customers before the time runs out."
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="480dp"
+            android:layout_height="250dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/tutorialText"
+            android:visibility="invisible"
+            android:gravity="left"
+            android:layout_alignParentBottom="true"
+            android:paddingLeft="10dp"
+            android:text="When the drink is done, click on the customer hand.\n\n If you make a mistake, click the trash to start over." />
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:id="@+id/customerHand"
+            android:src="@drawable/hand"
+            android:scaleType="fitXY"
+            android:visibility="invisible"
+            android:layout_alignTop="@+id/tutorialText"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="20dp" />
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="90dp"
+            android:id="@+id/trashCan"
+            android:scaleType="fitXY"
+            android:src="@drawable/trash"
+            android:visibility="invisible"
+            android:layout_above="@+id/playTutorialButton"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:id="@+id/playerGuideImage"
+        android:src="@drawable/playerguideimage"
+        android:visibility="invisible"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="false"
+        android:layout_alignTop="@+id/levelGrid"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

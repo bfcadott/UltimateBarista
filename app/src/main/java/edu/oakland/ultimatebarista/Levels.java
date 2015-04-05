@@ -52,7 +52,7 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_levels);
+        setContentView(R.layout.activity_levels_sw600dp);
 
         linkUIElements();
         loadSavedInfo();
