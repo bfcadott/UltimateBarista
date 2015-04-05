@@ -26,32 +26,31 @@
 
         <ImageButton
             android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:id="@+id/smallButton"
             android:background="@android:color/transparent"
             android:src="@drawable/small"
             android:scaleType="fitCenter"
+            android:layout_above="@+id/caramelButton"
             android:layout_alignLeft="@+id/medButton"
-            android:layout_alignStart="@+id/medButton"
-            android:layout_marginBottom="15dp"
-            android:layout_above="@+id/medButton" />
+            android:layout_alignStart="@+id/medButton" />
 
         <ImageButton
             android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:id="@+id/medButton"
             android:background="@android:color/transparent"
             android:scaleType="fitCenter"
             android:src="@drawable/medium"
             android:layout_marginLeft="33dp"
-            android:layout_above="@+id/largeButton"
+            android:layout_above="@+id/soyButton"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="15dp" />
+            android:layout_marginBottom="10dp" />
 
         <ImageButton
             android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:id="@+id/largeButton"
             android:background="@android:color/transparent"
             android:scaleType="fitCenter"
@@ -67,11 +66,11 @@
             android:src="@drawable/whole"
             android:scaleType="fitXY"
             android:background="@android:color/transparent"
-            android:layout_marginBottom="15dp"
-            android:layout_marginLeft="25dp"
-            android:tintMode="src_atop"
-            android:layout_toRightOf="@+id/medButton"
-            android:layout_alignBottom="@+id/medButton" />
+            android:layout_above="@+id/soyButton"
+            android:layout_marginBottom="25dp"
+            android:layout_marginLeft="0dp"
+            android:layout_alignLeft="@+id/soyButton"
+            android:tintMode="src_atop" />
 
         <ImageButton
             android:layout_width="40dp"
@@ -80,9 +79,10 @@
             android:background="@android:color/transparent"
             android:scaleType="fitXY"
             android:src="@drawable/nonfat"
+            android:layout_above="@+id/whipButton"
             android:layout_toRightOf="@+id/wholeButton"
-            android:layout_marginLeft="20dp"
-            android:layout_alignBottom="@+id/wholeButton" />
+            android:layout_marginBottom="25dp"
+            android:layout_marginLeft="20dp" />
 
         <ImageButton
             android:layout_width="40dp"
@@ -105,12 +105,13 @@
             android:src="@drawable/soy"
             android:scaleType="fitXY"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="0dp"
-            android:layout_alignLeft="@+id/wholeButton" />
+            android:layout_toRightOf="@+id/largeButton"
+            android:layout_marginLeft="50dp"
+            android:layout_marginBottom="0dp" />
 
         <ImageButton
             android:layout_width="70dp"
-            android:layout_height="60dp"
+            android:layout_height="70dp"
             android:id="@+id/vanillaButton"
             android:background="@android:color/transparent"
             android:scaleType="fitCenter"
@@ -122,19 +123,19 @@
 
         <ImageButton
             android:layout_width="70dp"
-            android:layout_height="60dp"
+            android:layout_height="70dp"
             android:id="@+id/caramelButton"
             android:background="@android:color/transparent"
             android:src="@drawable/caramel"
             android:scaleType="fitCenter"
             android:layout_above="@+id/toffeeButton"
-            android:layout_marginLeft="-45dp"
+            android:layout_marginLeft="-40dp"
             android:layout_toRightOf="@+id/toffeeButton"
             android:layout_marginBottom="-5dp" />
 
         <ImageButton
             android:layout_width="70dp"
-            android:layout_height="60dp"
+            android:layout_height="70dp"
             android:id="@+id/hazelnutButton"
             android:background="@android:color/transparent"
             android:scaleType="fitCenter"
@@ -146,7 +147,7 @@
 
         <ImageButton
             android:layout_width="70dp"
-            android:layout_height="60dp"
+            android:layout_height="70dp"
             android:id="@+id/chocolateButton"
             android:background="@android:color/transparent"
             android:layout_marginTop="0dp"
@@ -155,12 +156,12 @@
             android:scaleType="fitCenter"
             android:src="@drawable/chocolate"
             android:layout_alignBottom="@+id/peppermintButton"
-            android:layout_marginLeft="0dp"
-            android:layout_marginBottom="0dp" />
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="10dp" />
 
         <ImageButton
             android:layout_width="70dp"
-            android:layout_height="60dp"
+            android:layout_height="70dp"
             android:id="@+id/toffeeButton"
             android:background="@android:color/transparent"
             android:scaleType="fitCenter"
@@ -168,11 +169,11 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="5dp"
             android:layout_toRightOf="@+id/whipButton"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginLeft="35dp" />
 
         <ImageButton
             android:layout_width="70dp"
-            android:layout_height="60dp"
+            android:layout_height="70dp"
             android:id="@+id/peppermintButton"
             android:background="@android:color/transparent"
             android:layout_alignTop="@+id/toffeeButton"
@@ -185,8 +186,8 @@
             android:cropToPadding="false" />
 
         <ImageButton
-            android:layout_width="80dp"
-            android:layout_height="50dp"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
             android:id="@+id/handButton"
             android:background="@android:color/transparent"
             android:layout_alignParentRight="true"
@@ -198,12 +199,13 @@
 
         <ImageButton
             android:layout_width="60dp"
-            android:layout_height="80dp"
+            android:layout_height="90dp"
             android:id="@+id/trashButton"
             android:background="@android:color/transparent"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
+            android:layout_below="@+id/handButton"
             android:layout_marginTop="80dp"
             android:layout_marginRight="0dp"
             android:src="@drawable/trash"
@@ -255,13 +257,13 @@
             android:textSize="19dp" />
 
         <ImageView
-            android:layout_width="140dp"
+            android:layout_width="170dp"
             android:layout_height="130dp"
             android:id="@+id/espressoMachine"
             android:src="@drawable/espresso"
             android:scaleType="fitXY"
-            android:layout_marginLeft="225dp"
-            android:layout_marginTop="60dp" />
+            android:layout_marginLeft="260dp"
+            android:layout_marginTop="88dp" />
 
         <ImageButton
             android:layout_width="35dp"
@@ -304,14 +306,15 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:id="@+id/dcfButton"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="51dp"
             android:layout_marginStart="41dp"
             android:layout_alignTop="@+id/steamButton"
+            android:layout_alignLeft="@+id/steamButton"
+            android:layout_alignStart="@+id/steamButton"
             android:textColor="#ff0006ff"
             android:scaleType="fitXY"
             android:src="@drawable/decaf"
-            android:background="@android:color/transparent"
-            android:layout_toRightOf="@+id/steamButton" />
+            android:background="@android:color/transparent" />
 
         <ImageButton
             android:layout_width="35dp"
@@ -319,7 +322,7 @@
             android:id="@+id/espButton"
             android:layout_alignTop="@+id/espressoMachine"
             android:layout_toRightOf="@+id/dcfButton"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="18dp"
             android:layout_marginTop="25dp"
             android:textColor="#fff8ff00"
             android:textColorHighlight="#ff000000"
@@ -328,8 +331,8 @@
             android:scaleType="fitXY" />
 
         <TextView
-            android:layout_width="180dp"
-            android:layout_height="140dp"
+            android:layout_width="200dp"
+            android:layout_height="155dp"
             android:id="@+id/drinkDisplay"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -340,8 +343,7 @@
             android:paddingTop="7dp"
             android:background="@drawable/blackboard"
             android:text="texttextext"
-            android:paddingRight="15dp"
-            android:textSize="11dp" />
+            android:paddingRight="15dp" />
 
         <MediaController
             android:layout_width="wrap_content"
