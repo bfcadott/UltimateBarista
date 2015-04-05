@@ -560,7 +560,7 @@ public class Game extends GoogleAPI implements View.OnClickListener{
 
     /*
     * displayDrinkOrder displays the information from the customerOrder array into the TextView
-    * on the screen
+    * on the screen by converting each part of the array into a String.
      */
     public void displayDrinkOrder() {
         StringBuffer drinkOrder = new StringBuffer();
@@ -648,7 +648,7 @@ public class Game extends GoogleAPI implements View.OnClickListener{
 
     /*
     * compareDrinks loops through the customerOrder and userBeverage arrays and returns true if all
-    * attributes are the same
+    * attributes are the same. If any attributes don't match, false is returned.
      */
     public boolean compareDrinks() {
         int i = 0;
@@ -694,7 +694,7 @@ public class Game extends GoogleAPI implements View.OnClickListener{
         levelTimeRemaining.setText("");
         drinkDisplay.setText("");
 
-        //True if user completed all goals, false if user failed level
+        //If user has met all level objectives within the set time
         if(metObjectives) {
             levelCompletionLayout.setBackgroundColor(Color.parseColor("#ff1daf13"));
             levelFinishedText.setText(finishedText);
@@ -711,6 +711,7 @@ public class Game extends GoogleAPI implements View.OnClickListener{
                 updateSaveFile();
             }
 
+            //If level is > 20, the user has won the game!
             if(level > 20) {
                 nextLevelButton.setEnabled(false);
                 nextLevelButton.setText("More Coming Soon!");
@@ -720,12 +721,15 @@ public class Game extends GoogleAPI implements View.OnClickListener{
 
                 findViewById(R.id.confetti).setVisibility(View.VISIBLE);
                 findViewById(R.id.confetti2).setVisibility(View.VISIBLE);
+
+                // Animation effect for the confetti
                 TranslateAnimation animation = new TranslateAnimation(-100.0f, 100f,
                         0f,0f);          //  new TranslateAnimation(xFrom,xTo, yFrom,yTo)
                 animation.setDuration(1000);  // animation duration
                 animation.setRepeatCount(500);  // animation repeat count
                 animation.setRepeatMode(2);   // repeat animation (left to right, right to left )
 
+                // Animation effect for the confetti
                 TranslateAnimation animation2 = new TranslateAnimation(100.0f, -100f,
                         0f,0f);          //  new TranslateAnimation(xFrom,xTo, yFrom,yTo)
                 animation2.setDuration(1000);  // animation duration
@@ -737,10 +741,12 @@ public class Game extends GoogleAPI implements View.OnClickListener{
                 startMediaPlayer();
             }
 
+        // User has made too many incorrect drinks. Level is failed
         } else if (incorrectDrinks == 3) {
             levelCompletionLayout.setBackgroundColor(Color.parseColor("#ffca1a24"));
             levelFinishedText.setText(getString(R.string.tooManyIncorrect));
             nextLevelButton.setText("Retry Level");
+        // User ran out of time. Level is failed
         } else {
             levelCompletionLayout.setBackgroundColor(Color.parseColor("#ffca1a24"));
             levelFinishedText.setText(getString(R.string.levelFailedText));
@@ -753,8 +759,7 @@ public class Game extends GoogleAPI implements View.OnClickListener{
 
 
     /*
-    * unlockAchievement is called to unlock Google Play Game Services achievements when the player
-    * has completed certain milestones in the game.
+    * unlockAchievement is called to unlock the Google Play achievement for the level completed.
      */
     private void unlockAchievement() {
         switch(level) {
@@ -803,7 +808,7 @@ public class Game extends GoogleAPI implements View.OnClickListener{
     }
 
     /*
-    * updateSaveFile updates the game's save file to store the user's current level.
+    * updateSaveFile updates the game's save file to store the user's new current level.
      */
     public void updateSaveFile() {
         String string = String.valueOf(level);
@@ -958,12 +963,17 @@ public class Game extends GoogleAPI implements View.OnClickListener{
         vibrator.vibrate(25);
         levelProgressText.setText(drinksMade + "/" + drinksGoal);
         switch (v.getId()) {
+
+            //Takes the user back to the Level Selection screen
             case R.id.levelSelectionButton:
                 Intent i = new Intent(this, Levels.class);
                 startActivity(i);
                 this.finish();
                 break;
+
+            //Sets up the game for another level to be played
             case R.id.nextLevelButton:
+                //If the user had failed the level, current level is reset
                 if (nextLevelButton.getText() == "Retry Level") {
                     setGamePlayButtonsEnabled(true);
                     setUpLevel();
@@ -972,6 +982,8 @@ public class Game extends GoogleAPI implements View.OnClickListener{
                     levelProgress.setProgress(0);
                     drinksMade = 0;
                     incorrectDrinks = 0;
+
+                //If the user had passed the level, next level is set up
                 } else {
                     setGamePlayButtonsEnabled(true);
                     setUpLevel();
@@ -986,6 +998,8 @@ public class Game extends GoogleAPI implements View.OnClickListener{
                     levelProgress.setProgress(0);
                 }
                 break;
+
+            //First click displays the level goal, and the 2nd begins the level.
             case R.id.levelInfoBegin:
                 if (levelInfoBegin.getText() == "Begin Level") //Being level button is active
                 {
@@ -1012,13 +1026,13 @@ public class Game extends GoogleAPI implements View.OnClickListener{
                 //if drinks are the same, increase counter, update level progress, and generate new
                 //drink order
                 if (compareDrinks()) {
-                    ;
                     drinksMade++;
                     previousBeverage = customerOrder.clone();
                     // generates a new drink
+                    randomDrinkGen();
+
                     //If the milk type is the same, changes to a different type. This prevents
                     //the user from having the same drink twice.
-                    randomDrinkGen();
                     if (customerOrder[MILK_TYPE] == previousBeverage[MILK_TYPE]) {
                         if (previousBeverage[MILK_TYPE] < 2) {
                             customerOrder[MILK_TYPE]++;
@@ -1029,7 +1043,7 @@ public class Game extends GoogleAPI implements View.OnClickListener{
                     displayDrinkOrder();
 
                     updateLevelProgress();
-                } else { //drink is incorrect, inform user
+                } else { //drink is incorrect, inform user and increase incorrect drink count
                     if (incorrectDrinks < 3) {
                         incorrectDrinks++;
                     }
@@ -1050,6 +1064,8 @@ public class Game extends GoogleAPI implements View.OnClickListener{
                             }
                         }
                     };
+
+                    //Checks to see how many X's to display to the user if necessary
                     switch (incorrectDrinks) {
                         case 1:
                             handFeedbackText.setText("X");
@@ -1272,7 +1288,8 @@ public class Game extends GoogleAPI implements View.OnClickListener{
 
     /*
     * setGamePlayButtonsEnabled will enable all of the game play buttons when enabled == true, otherwise
-    * it will disable all of the game play buttons.
+    * it will disable all of the game play buttons. Prevents game buttons from being clicked
+    * before game has started or after it has finished
      */
     private void setGamePlayButtonsEnabled(boolean enabled) {
         for (int i = 0; i < gameLayout.getChildCount(); i++) {
@@ -1282,12 +1299,13 @@ public class Game extends GoogleAPI implements View.OnClickListener{
     }
 
     /*
-    * Dispalys an error message on the screen.
-    * 1 - Cup not selected
-    * 2 - Cup already selected!
-    * 3 - Milk not selected!
-    * 4 - Milk already selected!
+    * Displays an error message on the screen.
+    * 1 - Cup size not selected
+    * 2 - Cup size already selected!
+    * 3 - Milk type not selected!
+    * 4 - Milk type already selected!
     * 5 - Drink is finished, give to customer!
+    * 6- You threw the drink away!
      */
     private void displayErrorMessage(int errorType) {
         CountDownTimer c = new CountDownTimer(1000,100) {

@@ -26,7 +26,7 @@
     <string name="nonfat">Nonfat Milk</string>
     <string name="soy">Soy Milk</string>
 
-    <string name="whip">Whip Cream</string>
+    <string name="whip">Whipped Cream</string>
 
     <!-- syrup types -->
     <string name="caramel">Caramel</string>
@@ -65,7 +65,7 @@
     <!-- level 2-->
     <string name="level2title">Wonderful Whip</string>
     <string name="level2text">Let\'s prepare to compete: \n \n Learn to whip it into shape</string>
-    <string name="level2finishtext">Whip Cream training completed!</string>
+    <string name="level2finishtext">Whipped Cream training completed!</string>
 
     <!-- level 3-->
     <string name="level3title">Enticing Espresso</string>
@@ -172,14 +172,14 @@
     <!-- level 19-->
     <string name="level19title">World Championships - Day 1</string>
     <string name="level19subtitle">France</string>
-    <string name="level19drinks">1</string>
+    <string name="level19drinks">13</string>
     <string name="level19time">90</string>
     <string name="level19text">Complete this challenge to advance to day 2.</string>
     <string name="level19finishtext">Day 1 completed!</string>
     <!-- level 20-->
     <string name="level20title">World Championships - Day 2</string>
     <string name="level20subtitle">France</string>
-    <string name="level20drinks">1</string>
+    <string name="level20drinks">18</string>
     <string name="level20time">120</string>
     <string name="level20text">Compete to become the Ultimate Barista!</string>
     <string name="level20finishtext">Congratulations! You have become the Ultimate Barista!</string>

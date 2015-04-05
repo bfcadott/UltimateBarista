@@ -21,9 +21,13 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Levels extends GoogleAPI implements View.OnClickListener {
+
     //Filename for our level progress save file
     String fileName = "ultimatebarista.txt";
 
+    /*
+    * Lots of references for GUI elements
+     */
     private MediaPlayer mp;
 
     GridLayout levelGrid, page2levelGrid = null;
@@ -39,6 +43,7 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
 
     ImageView customerHand,trashCan,playerGuideImage = null;
 
+    //Initialize level and tutorialPhase
     int level,tutorialPhase = 0;
 
     //Stringbuffer for reading in save file
@@ -55,22 +60,30 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
 
         disableLevelButtons();
         enableLevelButtons();
+        //If the level is 0, then the user must go through the Tutorial
         if(level == 0) {
             levelGrid.setVisibility(View.INVISIBLE);
             tutorialLayout.setVisibility(View.VISIBLE);
         }
+        //If the level is above 13, then show the next page button.
         if(level < 13) {
             switchPageButton.setVisibility(View.INVISIBLE);
         }
     }
 
+    /*
+    * onClick handles the button clicks for the various UI elements
+     */
     @Override
     public void onClick(View v) {
-        //Listener decides what level to load based on which button throws the onClick event
-            Intent i = new Intent(this, Game.class);
-            i.putExtra("maxLevelCompleted", level);
+        Intent i = new Intent(this, Game.class);
+        i.putExtra("maxLevelCompleted", level);
+
+        //This boolean is used to determine if the game should progress to the Game activity
         startGame = true;
+
         switch (v.getId()) {
+            //Switches between levels page1 and page2.
             case R.id.switchPageButton:
                 startGame = false;
                 if(page2levelGrid.getVisibility() == View.VISIBLE) {
@@ -83,6 +96,9 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
                     switchPageButton.setText("Previous Levels");
                 }
                 break;
+
+            //This button progresses the user through the Tutorial by using the int value of tutorialPhase
+            //to determine which of the 4 screens should be displayed.
             case R.id.playTutorialButton:
                 startGame = false;
                 switch (tutorialPhase) {
@@ -129,6 +145,10 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
                         break;
                 }
                 break;
+
+            /*
+            * level buttons 1-20 all pass the level # to the Game activity
+             */
             case R.id.level1button:
                 i.putExtra("level",1);
                 break;
@@ -189,6 +209,8 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
             case R.id.level20button:
                 i.putExtra("level",20);
                 break;
+
+            //Sign out button handles the user sign out.
             case R.id.signOutButton:
                 if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
                     Games.signOut(mGoogleApiClient);
@@ -197,12 +219,17 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
                 i = new Intent(this, Main.class);
                 break;
         }
+
+        // Game activity is only launched when the startGame boolean is set
         if(startGame == true) {
             this.startActivity(i);
             this.finish();
         }
     }
 
+    /*
+    * linkUIElements pairs all of the references with the appropriate GUI element
+     */
     public void linkUIElements() {
         level1 = (ImageButton) findViewById(R.id.level1button);
         level2 = (ImageButton) findViewById(R.id.level2button);
@@ -243,6 +270,9 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
 
     }
 
+    /*
+    * setClickListeners sets the Click Listener for all of the GUI buttons
+     */
     public void setClickListeners() {
         level1.setOnClickListener(this);
         level2.setOnClickListener(this);
@@ -269,6 +299,9 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
         switchPageButton.setOnClickListener(this);
     }
 
+    /*
+    * disableLevelButtons disables all of the level buttons.
+     */
     public void disableLevelButtons() {
         level20.setEnabled(false);
         level19.setEnabled(false);
@@ -292,6 +325,11 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
         level1.setEnabled(false);
     }
 
+    /*
+    * enableLevelButtons takes in the user's current level, and sets up the levels screen appropriately.
+    * Finished levels will be green (or gold for Golden Cup levels), locked levels will be light gray,
+    * and the current level is dark gray.
+     */
     public void enableLevelButtons() {
         switch (level) {
             case 21:
@@ -403,6 +441,9 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
         }
     }
 
+    /*
+    * startMediaPlayer handles the creation of the media player and begins audio playback.
+     */
     public void startMediaPlayer() {
         mp = MediaPlayer.create(this, R.raw.levelselection);
         mp.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
@@ -414,6 +455,9 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
         });
     }
 
+    /*
+    * loadSavedInfo retrieves the user's level information from the game file.
+     */
     public void loadSavedInfo() {
         //Creates file holder to retrieve save file
         File file = new File(this.getFilesDir(), fileName);
@@ -433,6 +477,9 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
         }
     }
 
+    /*
+    * updateUI is used to display or hide the sign out button if the user is signed in/out of Google
+     */
     @Override
     protected void updateUI() {
         // Show signed in or signed out view
@@ -483,6 +530,12 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
         this.startActivity(i);
         this.finish();
     }
+
+    /*
+    * unlockAchievements is used to unlock all of the achievements for the levels the user has completed.
+    * This ensures that the user's progress is accurate on Google Play if they completed levels while
+    * signed out.
+     */
     private void unlockAchievement() {
         switch(level - 1) {
             case 20:

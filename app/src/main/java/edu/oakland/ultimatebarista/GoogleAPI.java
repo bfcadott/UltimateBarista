@@ -16,7 +16,7 @@ import com.google.android.gms.games.Games;
 import com.google.example.games.basegameutils.BaseGameUtils;
 
 /**
- * Created by brandoncadotte on 3/6/15.
+ * Code provided by Google: https://developers.google.com/games/services/android/quickstart
  */
 public abstract class GoogleAPI extends Activity implements
         GoogleApiClient.ConnectionCallbacks,
