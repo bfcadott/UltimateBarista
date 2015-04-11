@@ -54,10 +54,6 @@ public abstract class GoogleAPI extends Activity implements
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(Games.API).addScope(Games.SCOPE_GAMES) // Games
-                .addScope(Drive.SCOPE_FILE)
-                .addApi(AppStateManager.API).addScope(AppStateManager.SCOPE_APP_STATE) // AppState
-                .addApi(Drive.API)
-                .addScope(Drive.SCOPE_APPFOLDER) // SavedGames
                 .build();
     }
 

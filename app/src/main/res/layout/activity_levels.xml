@@ -48,7 +48,7 @@
             android:layout_margin="0dp"
             android:layout_row="0"
             android:layout_marginRight="10dp"
-            android:src="@drawable/coffeecupltgray"
+            android:src="@android:drawable/ic_lock_idle_lock"
             android:scaleType="fitXY" />
 
         <ImageButton
@@ -60,7 +60,7 @@
             android:layout_margin="0dp"
             android:layout_row="0"
             android:layout_marginRight="10dp"
-            android:src="@drawable/coffeecupltgray"
+            android:src="@android:drawable/ic_lock_idle_lock"
             android:scaleType="fitXY" />
 
         <ImageButton
@@ -72,7 +72,7 @@
             android:layout_margin="0dp"
             android:layout_row="0"
             android:layout_marginRight="10dp"
-            android:src="@drawable/coffeecupltgray"
+            android:src="@android:drawable/ic_lock_idle_lock"
             android:scaleType="fitXY" />
 
         <ImageButton
@@ -84,7 +84,7 @@
             android:layout_margin="0dp"
             android:layout_row="0"
             android:layout_marginRight="10dp"
-            android:src="@drawable/coffeecupltgray"
+            android:src="@android:drawable/ic_lock_idle_lock"
             android:scaleType="fitXY" />
 
         <ImageButton
@@ -96,7 +96,7 @@
             android:layout_margin="0dp"
             android:layout_row="0"
             android:layout_marginRight="10dp"
-            android:src="@drawable/coffeecupltgray"
+            android:src="@android:drawable/ic_lock_idle_lock"
             android:scaleType="fitXY" />
 
         <ImageButton
@@ -107,7 +107,7 @@
             android:enabled="false"
             android:layout_margin="0dp"
             android:layout_row="0"
-            android:src="@drawable/coffeecupltgray"
+            android:src="@android:drawable/ic_lock_idle_lock"
             android:scaleType="fitXY" />
 
         <ImageButton
@@ -120,9 +120,9 @@
             android:layout_row="1"
             android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
-            android:src="@drawable/coffeecupltgray"
-            android:scaleType="fitXY"
-            android:visibility="invisible" />
+            android:src="@android:drawable/ic_lock_idle_lock"
+            android:visibility="invisible"
+            android:scaleType="fitXY" />
 
         <ImageButton
             android:layout_width="80dp"
@@ -134,9 +134,9 @@
             android:layout_row="1"
             android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
-            android:src="@drawable/coffeecupltgray"
-            android:scaleType="fitXY"
-            android:visibility="invisible" />
+            android:src="@android:drawable/ic_lock_idle_lock"
+            android:visibility="invisible"
+            android:scaleType="fitXY" />
 
         <ImageButton
             android:layout_width="80dp"
@@ -148,7 +148,7 @@
             android:layout_row="1"
             android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
-            android:src="@drawable/coffeecupltgray"
+            android:src="@android:drawable/ic_lock_idle_lock"
             android:scaleType="fitXY" />
 
         <ImageButton
@@ -161,7 +161,7 @@
             android:layout_row="1"
             android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
-            android:src="@drawable/coffeecupltgray"
+            android:src="@android:drawable/ic_lock_idle_lock"
             android:scaleType="fitXY" />
 
         <ImageButton
@@ -173,9 +173,9 @@
             android:layout_row="1"
             android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
-            android:src="@drawable/coffeecupltgray"
-            android:scaleType="fitXY"
-            android:visibility="invisible" />
+            android:src="@android:drawable/ic_lock_idle_lock"
+            android:visibility="invisible"
+            android:scaleType="fitXY" />
 
         <ImageButton
             android:layout_width="80dp"
@@ -187,9 +187,9 @@
             android:layout_row="1"
             android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
-            android:src="@drawable/coffeecupltgray"
-            android:scaleType="fitXY"
-            android:visibility="invisible" />
+            android:src="@android:drawable/ic_lock_idle_lock"
+            android:visibility="invisible"
+            android:scaleType="fitXY" />
     </GridLayout>
 
     <GridLayout
@@ -211,7 +211,7 @@
             android:layout_margin="0dp"
             android:layout_row="0"
             android:layout_marginRight="10dp"
-            android:src="@drawable/coffeecupltgray"
+            android:src="@android:drawable/ic_lock_idle_lock"
             android:scaleType="fitXY" />
 
         <ImageButton
@@ -223,7 +223,7 @@
             android:layout_margin="0dp"
             android:layout_row="0"
             android:layout_marginRight="10dp"
-            android:src="@drawable/coffeecupltgray"
+            android:src="@android:drawable/ic_lock_idle_lock"
             android:scaleType="fitXY" />
 
         <ImageButton
@@ -235,7 +235,7 @@
             android:layout_margin="0dp"
             android:layout_row="0"
             android:layout_marginRight="10dp"
-            android:src="@drawable/coffeecupltgray"
+            android:src="@android:drawable/ic_lock_idle_lock"
             android:scaleType="fitXY" />
 
         <ImageButton
@@ -247,7 +247,7 @@
             android:layout_margin="0dp"
             android:layout_row="0"
             android:layout_marginRight="10dp"
-            android:src="@drawable/coffeecupltgray"
+            android:src="@android:drawable/ic_lock_idle_lock"
             android:scaleType="fitXY" />
 
         <ImageButton
@@ -259,7 +259,7 @@
             android:layout_margin="0dp"
             android:layout_row="0"
             android:layout_marginRight="10dp"
-            android:src="@drawable/coffeecupltgray"
+            android:src="@android:drawable/ic_lock_idle_lock"
             android:scaleType="fitXY" />
 
         <ImageButton
@@ -270,7 +270,7 @@
             android:enabled = "false"
             android:layout_margin="0dp"
             android:layout_row="0"
-            android:src="@drawable/coffeecupltgray"
+            android:src="@android:drawable/ic_lock_idle_lock"
             android:scaleType="fitXY" />
 
         <ImageButton
@@ -283,7 +283,7 @@
             android:layout_row="1"
             android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
-            android:src="@drawable/coffeecupltgray"
+            android:src="@android:drawable/ic_lock_idle_lock"
             android:scaleType="fitXY" />
 
         <ImageButton
@@ -296,7 +296,7 @@
             android:layout_row="1"
             android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
-            android:src="@drawable/coffeecupltgray"
+            android:src="@android:drawable/ic_lock_idle_lock"
             android:scaleType="fitXY" />
 
         <ImageButton
@@ -309,7 +309,7 @@
             android:layout_row="1"
             android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
-            android:src="@drawable/coffeecupltgray"
+            android:src="@android:drawable/ic_lock_idle_lock"
             android:scaleType="fitXY" />
 
         <ImageButton
@@ -322,7 +322,7 @@
             android:layout_row="1"
             android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
-            android:src="@drawable/coffeecupltgray"
+            android:src="@android:drawable/ic_lock_idle_lock"
             android:scaleType="fitXY" />
 
         <ImageButton
@@ -334,7 +334,7 @@
             android:layout_row="1"
             android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
-            android:src="@drawable/coffeecupltgray"
+            android:src="@android:drawable/ic_lock_idle_lock"
             android:scaleType="fitXY" />
 
         <ImageButton
@@ -347,7 +347,7 @@
             android:layout_row="1"
             android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
-            android:src="@drawable/coffeecupltgray"
+            android:src="@android:drawable/ic_lock_idle_lock"
             android:scaleType="fitXY" />
     </GridLayout>
 
@@ -390,7 +390,7 @@
             android:gravity="left"
             android:layout_alignParentBottom="true"
             android:paddingLeft="10dp"
-            android:text="When the drink is done, click on the customer hand.\n\n If you make a mistake, click the trash to start over." />
+            android:text="When the drink is done, click on the customer hand.\n\nIf you make a mistake, click the trash to start over." />
 
         <ImageView
             android:layout_width="80dp"

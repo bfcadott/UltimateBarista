@@ -44,7 +44,7 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
     ImageView customerHand,trashCan,playerGuideImage = null;
 
     //Initialize level and tutorialPhase
-    int level,tutorialPhase = 0;
+    protected int level,tutorialPhase = 0;
 
     //Stringbuffer for reading in save file
     final StringBuffer storedString = new StringBuffer();
@@ -104,7 +104,7 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
                 switch (tutorialPhase) {
                     case 0:
                         levelsScreenLayout.setBackgroundResource(R.drawable.tutorialbg);
-                        gameIntroText.setText("To create the customer's beverage, press the buttons corresponding to their order in the blackboard. \n \n On the next screen we will show you information about all of the buttons.");
+                        gameIntroText.setText("Create drinks by pressing the buttons corresponding to the order in the blackboard. \n \n The next screen will show what each button is.");
                         playTutorialButton.setText("Continue");
                         tutorialPhase++;
                         break;
@@ -114,8 +114,7 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
                         tutorialPhase++;
                         break;
                     case 2:
-                        gameIntroText.setText("First, select a cup, then milk, then add the rest. \n \n  Lastly, if required, add whipped cream! \n \n" +
-                                "After adding whipped cream you are unable to modify the drink.");
+                        gameIntroText.setText("Drinks must be made in a logical order:\n\n Cup first, then milk, and then other ingredients.\n\nAfter adding whipped cream, you can't add anything else to the drink.");
                         playerGuideImage.setVisibility(View.INVISIBLE);
                         gameIntroText.setVisibility(View.VISIBLE);
                         tutorialPhase++;
@@ -133,8 +132,7 @@ public class Levels extends GoogleAPI implements View.OnClickListener {
                         trashCan.setVisibility(View.INVISIBLE);
                         customerHand.setVisibility(View.INVISIBLE);
                         gameIntroText.setVisibility(View.VISIBLE);
-                        gameIntroText.setText("An \"X\" will appear if you give the customer an incorrect drink. \n\n" +
-                                "If you give customers 3 incorrect drinks, or run out of time, you fail the level!");
+                        gameIntroText.setText("If you give customers 3 incorrect drinks, or run out of time, you fail the level!");
                         playTutorialButton.setText("Play Tutorial Level");
                         tutorialPhase++;
                         break;

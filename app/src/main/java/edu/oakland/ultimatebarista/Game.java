@@ -34,7 +34,7 @@ public class Game extends GoogleAPI implements View.OnClickListener{
     private MediaPlayer mp, mpAlert = null;
 
     //ImageButtons for the various game buttons
-    private ImageButton handButton,trashButton,smallButton,medButton,largeButton,wholeButton,
+    protected ImageButton handButton,trashButton,smallButton,medButton,largeButton,wholeButton,
             nonfatButton,soyButton,espButton,dcfButton,steamButton,caramelButton,
             hazelnutButton,vanillaButton,toffeeButton,peppermintButton,chocolateButton,
             whipCreamButton = null;
@@ -60,11 +60,11 @@ public class Game extends GoogleAPI implements View.OnClickListener{
     private RelativeLayout levelCompletionLayout,levelInfoLayout,gameLayout, errorBox = null;
 
     //Number of drinks made by user
-    private int drinksMade = 0;
+    protected int drinksMade = 0;
     private int incorrectDrinks = 0;
 
     //current level, highest level user has completed
-    private int level = 0;
+    protected int level = 0;
     private int maxLevelCompleted = 0;
 
 
@@ -72,8 +72,8 @@ public class Game extends GoogleAPI implements View.OnClickListener{
     private String titleText = null;
     private String levelText = null;
     private String subtitleText = null;
-    private long timeLimit = 0;
-    private int drinksGoal = 0;
+    protected long timeLimit = 0;
+    protected int drinksGoal = 0;
 
     //CountDownTimer is used to track level time limits
     CountDownTimer countDownTimer = null;
@@ -107,10 +107,10 @@ public class Game extends GoogleAPI implements View.OnClickListener{
     *       REG_ESP is y: where y is the amount of shots added
     *       WHP_CRM is 0: none, 1: added
      */
-    private int[] customerOrder = new int[12];
-    private int[] userBeverage = {-1,0,-1,0,0,0,0,0,0,0,0,0};
+    protected int[] customerOrder = new int[12];
+    protected int[] userBeverage = {-1,0,-1,0,0,0,0,0,0,0,0,0};
     protected final int[] emptyArray = {-1,0,-1,0,0,0,0,0,0,0,0,0};
-    private int[] previousBeverage = new int[12];
+    protected int[] previousBeverage = new int[12];
 
     private String fileName = "ultimatebarista.txt", finishedText = null;
 
@@ -194,7 +194,7 @@ public class Game extends GoogleAPI implements View.OnClickListener{
     * information for the current level. Also sets the audio file and level background.
     * Level information can be viewed in strings.xml
      */
-    private void setUpLevel() {
+    protected void setUpLevel() {
         setGamePlayButtonsEnabled(false);
         switch(level) {
             case 20:
@@ -245,7 +245,7 @@ public class Game extends GoogleAPI implements View.OnClickListener{
                 drinksGoal = Integer.valueOf(getString(R.string.level16drinks));
                 timeLimit = Long.valueOf(getString(R.string.level16time)) * 1000;
                 finishedText = getString(R.string.level16finishtext);
-                mediaFile = R.raw.dolcevita;
+                mediaFile = R.raw.vino;
                 break;
             case 15:
                 gameLayout.setBackgroundResource(R.drawable.bgitaly);
@@ -420,14 +420,16 @@ public class Game extends GoogleAPI implements View.OnClickListener{
             @Override
             public void onTick(long millisUntilFinished) {
                 levelTimeRemaining.setText(String.valueOf(millisUntilFinished / 1000));
-                if(millisUntilFinished <= 3500 && !songPlaying) {
+                if(millisUntilFinished <= 3000 && !songPlaying) {
                     mpAlert = MediaPlayer.create(getBaseContext(), R.raw.alarm);
                     mpAlert.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                         @Override
                         public void onPrepared(MediaPlayer mp) {
                             mpAlert.start();
+                            mpAlert.setLooping(false);
                         }
                     });
+
                     songPlaying = true;
                 }
             }
